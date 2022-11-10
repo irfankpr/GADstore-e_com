@@ -2,13 +2,12 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
-import razorpay
 from products.models import products, categories
 from orders.models import orders
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
-from profiles.models import cart, address
+from profiles.models import cart, address,userprofiles,walletTrans
 from orders.models import Coupons
 
 
@@ -103,6 +102,17 @@ def order_up(request):
             o.delivered_date = datetime.datetime.now()
         if stt == "Cancelled":
             products.obects.filter(id=o.product_id).update(available_stock=F('available_stock') + o.quantity)
+            if o.payment != "COD":
+                usr = userprofiles.objects.get(id=request.user.id)
+                usr.wallet = usr.wallet + o.Total
+                walletTrans(user=request.user, quantity=o.Total,
+                            desc="Refunded for cancel of : " + o.product.Product_name).save()
+        if stt == "Refunded":
+            usr = userprofiles.objects.get(id=request.user.id)
+            usr.wallet = usr.wallet + o.Total
+            walletTrans(user=request.user, quantity=o.Total,
+                        desc="Refunded for return of : " + o.product.Product_name).save()
+
         o.status = stt
         o.save()
         return JsonResponse({'ordered': True})
@@ -111,8 +121,15 @@ def order_up(request):
 @login_required(login_url='/')
 def cancel_order(request, id):
     o = orders.objects.get(id=id)
-    o.status = "Cancelled"
-    o.save()
+    if o.payment != "COD":
+        o.status= "Cancelled"
+        o.save()
+        usr = userprofiles.objects.get(id=request.user.id)
+        usr.wallet = usr.wallet + o.Total
+        walletTrans(user=request.user,quantity=o.Total,desc="Refunded for cancel of : "+o.product.Product_name).save()
+    else:
+        o.status = "Cancelled"
+        o.save()
     return redirect('my-orders')
 
 
