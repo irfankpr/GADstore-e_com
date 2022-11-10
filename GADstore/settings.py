@@ -85,7 +85,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'GADstore',
-        'USER': 'GADSTORE',
+        'USER': 'gadstore',
         'PASSWORD': 'GAD123',
         'HOST': 'localhost',
     }
