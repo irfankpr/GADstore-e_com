@@ -1,0 +1,459 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>MultiShop - Online Shop Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <link href="{% static 'gadstore.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+    {% include 'Components/topbar.html' %}
+    {% include 'Components/navbar.html' %}
+  <!-- Checkout Start -->
+    <div class="container-fluid ">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 ">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Select
+                        your Address</span></h5>
+                <div class="bg-secondary p-30 mb-5  container">
+                    <div class="row col-12 ">
+                        {% if address %}
+                        {% for a in address %}
+                        <div style="background: #FFD333;"
+                            class="col-5 border border-warning rounded p-2 m-1 d-flex m-0 row  text-center rounded position-relative ">
+                            <input type="radio" name="address" value="{{a.id}}" class="col-1  "
+                                style="accent-color: rgb(143, 140, 62);">
+                            <h6 class='col-10  h5 text-center text-info'>Address {{forloop.counter}}</h6>
+                            <p class="col-11 h6">{{a.full_name}}</p>
+                            <p class="col-11 h6">{{ a.phone }}</p>
+                            <p class="col-11 h6">{{a.postal_PIN}}</p>
+                            <p class="col-11 h6">{{a.address}}</p>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <h3 class="text-danger">You have no saved addresses</h3>
+                        {% endif %}
+                    </div>
+                        <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-outline-info h4 bolder rounded" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add New address</button>
+                            <!-- add address modal start-->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">New Address</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body p-5">
+                                      <form action="{% url 'newaddr'  %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                          <input type="text" class="form-control border border-warning " id="recipient-name" name="name" placeholder="Full name">
+                                        </div>
+                                        <div class="form-group">
+                                          <input type="text" class="form-control border border-warning my-4" id="recipient-name"  name="Phone" placeholder="Phone">
+                                        </div>
+                                        <input type="hidden" value="chkout" name="chkout">
+                                       
+                                          <input type="text" class="form-control border border-warning my-4" id="recipient-name" name="pin" placeholder="Post PIN">
+                                          <textarea placeholder="Address" name="addressarea" cols="45" rows="6" class="form-control border border-warning  my-4" id="message-text"></textarea>
+                                          <button type="submit" class="btn btn-info mx-auto">Add Address</button>
+                                      </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                      
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+
+                               <!-- add address modal end-->
+                </div>
+
+            </div>
+            <div class="col-lg-4">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order
+                        Summary</span></h5>
+                       
+                            <div class="input-group">
+                                <input oninput="coup()" type="text"  class="form-control border-1 border-dark p-4" id="ccode" placeholder="Coupon Code" list="Coupons">
+                                <div class="input-group-append">
+                                    <button onclick="APLYcoupon()" id="coupbtn" disabled class="btn btn-primarybtn btn-warning btn-outline-dark">Validate Coupon</button>
+                                </div>
+                                <p id="aplyed" class="text-success h6 m-0 p-0 col-12 text-center text-monospace "  style="display:none;">Coupon applied</p>
+                            </div>
+                        
+                <div class="bg-secondary p-2 mt-3">
+                    <div class="border-bottom border-warning">
+                        <h6 class="mb-4 h4">Products</h6>
+                        <hr class="col-12 border-warning">
+
+                        {% for i in items %}
+                        <div class="d-flex justify-content-between">
+                            <p class="text-dark h6" style="width: 300px;">{{i.product_id.Product_name}}<i
+                                    class="h6 mx-2 p-0 txt-dark"> ×
+                                    {{i.count}}</i></p>
+                            <p class="text-success bolder h6">₹ <span id="{{forloop.counter}}"> {{i.total}}</span> /-
+                            </p>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="pt-2">
+                        <div id="coupondiv" class="row justify-content-between mt-2"  style="display:none;" >
+                           
+                            <h5 class="text-success" >You Saved : </h5>
+                            <h5 class="text-success h5" id="saved"></h5>
+                            
+                        </div>
+                        <div class="d-flex row justify-content-between mt-2">
+                            <h5 >Total : </h5>
+                            <h5 id="total" class="text-info"> ₹ {{ttl}} /-</h5>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="my-5">
+                    <form action="">
+                        <h5 class="section-title position-relative text-uppercase mb-3"><span
+                                class="bg-secondary pr-3">Payment</span></h5>
+
+
+                        <div class="bg-secondary p-30 text-dark h6">
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input value="paypal" type="radio" class="custom-control-input"
+                                        onclick="pmd('#ppl')" name="payment" id="paypal">
+                                    <label class="custom-control-label" for="paypal">Paypal</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input value="razorpay" type="radio" class="custom-control-input"
+                                        onclick="pmd('#razorpay')" name="payment" id="directcheck">
+                                    <label class="custom-control-label" for="directcheck">Razor Pay</label>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <div class="custom-control custom-radio">
+                                    <input value="COD" type="radio" class="custom-control-input" onclick="pmd('#cod')"
+                                        name="payment" id="banktransfer">
+                                    <label class="custom-control-label " for="banktransfer">Cash on delivery</label>
+                                </div>
+                            </div>
+                            {% if items %}
+                            <button type="button" disabled id="placebtn"
+                                class="btn btn-block btn-primary font-weight-bold py-3" onclick="return add_coup()" data-toggle="modal">Place
+                                Order</button>
+                                {% endif %}
+
+                            <!-- Modal for cod -->
+                            <div class="modal fade" id="cod" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">proceed to payment</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body h6">
+                                            Are you sure to continue with <span class="h5  mx-3 text-info">COD</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="button" onclick="placeorder()"
+                                                class="btn btn-primary">Continue</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Modal for razorpay -->
+                            <div class="modal fade" id="razorpay" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">proceed to payment</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body h6">
+                                            Are you sure to continue with <span
+                                                class="h5  mx-3 text-info">Razorpay</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button id="rzp-button1" class="btn btn-warning ro">Pay</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Modal  for paypal -->
+                            <div class="modal fade" id="ppl" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">roceed to payment</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to continue with <span class="h5  mx-3 text-info">PayPal</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- all payment modals ends -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout End -->
+
+
+   {% include 'Components/footer.html' %}
+    <!-- data list for coupons -->
+    <datalist id="Coupons">
+        {% for c in coupons %}
+        <option >{{c.Coupon_code}}</option>
+        {% endfor %}
+        
+    </datalist>
+
+    <!-- data list ends -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function pmd(m) {
+            v = $("input[type='radio'][name='payment']:checked").val();
+            document.getElementById('placebtn').removeAttribute('disabled')
+            document.getElementById('placebtn').setAttribute('data-target', m)
+        }
+
+
+        function placeorder() {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'place-order' %}",
+                    data: {
+                        coupon :  $("#ccode").val(),
+                        paym: $("input[type='radio'][name='payment']:checked").val(),
+                        add_id: $("input[type='radio'][name='address']:checked").val(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        dataType: "json",
+                    },
+                    success: (response) => {
+                        if (response.Placed == true) {
+                            swal("Order placed", "Order will be deliveried soon", "success").then(function () { window.location = " {% url 'my-orders' %} " })
+    
+                        } else if (response.Placed == false) {
+                            swal("Address missing", "Add delivery address", "error");
+                        }else if (response.minimum) {
+                            swal("Invalid Coupon", "Coupon needs minimum puechase of : "+minimum, "error");
+                        }else if (response.invalidCoupon) {
+                            swal("Invalid Coupon", "Check applied coupon", "error");
+                        }
+    
+                    }
+                });
+                return false; 
+        }
+    </script>
+      <!-- payment cdn scripts -->
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      <script>
+        var options = {
+            "key": "rzp_test_JE819fRVM9Npbt", // Enter the Key ID generated from the Dashboard
+            "amount": "{{ttl}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Acme Corp",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response){
+                console.log(
+                    {
+                    razorpay_payment_id : response.razorpay_payment_id,
+                    razorpay_order_id : response.razorpay_order_id,
+                    razorpay_signature : response.razorpay_signature,
+                    }
+                    )
+                    $.ajax( {
+                        type: "POST",
+                        url: "{% url 'place-order' %}",
+                        data: {
+                            coupon :  $("#ccode").val(),
+                            paym: $("input[type='radio'][name='payment']:checked").val(),
+                            add_id: $("input[type='radio'][name='address']:checked").val(),
+                            payment_id : response.razorpay_payment_id,
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            dataType: "json",
+                        },
+                        success: (response) => {
+                            if (response.Placed) {
+                                swal("Order placed", "will be deliveried soon", "success").then(function () { window.location="{% url 'my-orders' %}" })
+                            }else if (response.invalidCoupon) {
+                                swal("Invalid Coupon", "Check applied coupon", "error");
+                            }else if (response.minimum) {
+                                swal("Invalid Coupon", "Coupon needs minimum puechase of : "+minimum, "error");
+                            } else {
+                                swal("Payment failed", "Try again.").then( function(){window.location.reload()} )
+                                
+                            }
+                        }
+                    
+                    
+                    })
+                        
+            },
+            "prefill": {
+                "name": '{{user.first_name}}',
+                "email": '{{user.email}}',
+                "contact": '{{user.phone}}',
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response){
+                console.log(
+                    {
+                        error_code : response.error.code,
+                        error_description : response.error.description,
+                        error_source : response.error.source,
+                        error_step : response.error.step,
+                        error_reason : response.error.reason,
+                        error_metadata_order_id : response.error.metadata.order_id,
+                        error_metadata_payment_id: response.error.metadata.payment_id,
+                    }
+                )
+                swal("Payment failed", "Order pending", "error").then(function () { window.location.reload() })
+        });
+        document.getElementById('rzp-button1').onclick = function(e){
+                options["amount"]='7634'
+                rzp1.open();
+                e.preventDefault();
+        }
+        </script>
+        
+      
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+   
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <script>
+        function coup(){
+            L = document.getElementById('ccode').value.length
+            if(L > 0){
+                document.getElementById('coupbtn').removeAttribute('disabled')
+            } else{
+                document.getElementById('coupbtn').setAttribute("disabled", true);
+            }
+            
+        }
+
+        function add_coup(){
+            if (! document.querySelector( 'input[name="address"]:checked'))
+            {
+                swal("Address is not delected", "Select an delivery address.").then( function(){window.location.reload()} )
+                e.preventDefault();
+                return false
+            }
+            
+            
+        }
+
+       function APLYcoupon(){
+        $.ajax({
+            url: "{% url 'apply-coupon' %}",
+            data: {
+                code :document.getElementById('ccode').value,
+              },
+              success: (response) => {
+                if (response.offer) {
+                    swal("Coupon applied", response.offer, "success");  
+                    document.getElementById('coupondiv').style.display="flex";
+                    document.getElementById('aplyed').style.display="block";
+                    document.getElementById('saved').innerHTML ="₹  "+ response.Tdis+ " /-";
+                    document.getElementById('total').innerHTML= "₹  "+ response.ttl+ " /-";
+                    return true;
+                   
+                } else if (response.invalid){
+                    document.getElementById('aplyed').style.display="none";
+                    swal("Invalid coupon code",'Pleace try again', "error").then( function(){window.location.reload()} )
+                    return false
+                    
+                } else if (response.limit){
+                    document.getElementById('aplyed').style.display="none";
+                    swal("Coupon not applied",response.limit, "error").then( function(){window.location.reload()} )
+                    return false
+                }
+            }
+        })
+        
+        };
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>MultiShop - Online Shop Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <link href="{% static 'gadstore.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+         {% include 'Components/topbar.html' %}
+        {% include 'Components/navbar.html' %}
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid row m-0 p-0 col-12 bg-light">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                    <span class="breadcrumb-item active">Checkout</span>
+                </nav>
+            </div>
+        </div>
+        <div class="col-lg-4 col-6 text-right float-right">
+            <p class="m-0">Customer Service</p>
+            <h5 class="m-0">+012 345 6789</h5>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid col-12 row py-0 px-3 m-0 ">
+        <div class="row col-4 ml-3 mr-3">
+            <div class="col-12 container p-0 m-0 row text-center ">
+                <div class="bg-light col-12 p-0 m-0">
+                    <div class="container text-center col-12 px-3 p-0 m-0 border border-warning ">
+							<img
+								src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+								class="rounded-circle img-fluid m-0 p-0"
+								style="width: 150px"/>
+					
+						<h3 class="">{{request.user.first_name}} &nbsp;{{request.user.last_name}}</h3>
+						<p class="text-muted h6">
+							{{request.user.email}} <span class="mx-3">|</span>
+							<i>{{request.user.phone}}</i>
+						</p>
+						<div class="d-flex justify-content-center mt-5">
+							<span class="material-symbols-outlined text-warning h1 p-0 ">
+                                monetization_on
+                            </span>&nbsp;
+                            <span class="text-dark h1 text-middle ">{{request.user.wallet}}</span>
+							
+						</div>
+						<div class="d-flex justify-content-between text-center  my-5">
+                            <div>
+                                <p class="mb-2 h5">8471</p>
+								<p class="text-muted mb-0">Wallets Balance</p>
+							</div>
+							<div class="px-3">
+                                <p class="mb-2 h5">8512</p>
+								<p class="text-muted mb-0">Income amounts</p>
+							</div>
+							<div>
+                                <p class="mb-2 h5">4751</p>
+								<p class="text-muted mb-0">Total Transactions</p>
+							</div>
+						</div>
+                        <a class="btn btn-info my-4"  href="{% url 'password' %}" >Change password</a>
+					</div>
+                   
+                </div>
+                
+            </div>
+
+        </div>
+
+
+        <div class="row col-7 position-relative container p-0 m-0 justify-content-center">
+            <div class="col-12">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3 h4">your
+                        address</span></h5>
+                <div class="bg-light col-12 mt-5  text-center">
+                    <div class="row text-center container-fluid col-12 justify-content-center p-0 m-0 ">
+                        {% for a in address %}
+                        <div class="col-6 col-lg-4 border border-warning px-4 py-3 d-flex m-0 row bg-light m-2">
+                            <h6 class='col-10 h5 text-center text-info'>Address {{forloop.counter}}</h6> <a
+                                href="{% url 'dlt_add' a.id %}" class="btn btn-outline-danger px-2 py-1 ">X</a>
+                            <input class="border-0 h5 col-12 my-1 mx-0 p-0" type="text" value="{{a.full_name}}"
+                                readonly>
+                            <input class="border-0 h5 col-12 my-1 mx-0 p-0" type="text" value="{{ a.phone }}" readonly>
+                            <input class="border-0 h5 col-12 my-1 mx-0 p-0" type="text" value="{{a.postal_PIN}}"
+                                readonly>
+                            <textarea class="border-0 h5 col-12 my-1 mx-0 p-0" name="" cols="10" rows="5"
+                                readonly>{{a.address}}</textarea>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <hr class="border border-5 col-12">
+                  
+                    <button type="button" class="btn btn-outline-info h4 bolder rounded" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add address</button>
+                            <!-- add address modal start-->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">New Address</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body p-5">
+                                      <form action="{% url 'newaddr'  %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                          <input type="text" class="form-control border border-warning " id="recipient-name" name="name" placeholder="Full name">
+                                        </div>
+                                        <div class="form-group">
+                                          <input type="text" class="form-control border border-warning my-4" id="recipient-name"  name="Phone" placeholder="Phone">
+                                        </div>
+                                       
+                                          <input type="text" class="form-control border border-warning my-4" id="recipient-name" name="pin" placeholder="Post PIN">
+                                          <textarea placeholder="Address" name="addressarea" cols="45" rows="6" class="form-control border border-warning  my-4" id="message-text"></textarea>
+                                          <button type="submit" class="btn btn-info mx-auto">Add Address</button>
+                                      </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                      
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                               <!-- add address modal end-->
+                </div>
+
+            <div class="position-absolute  col-12 col-lg-8 container-fluid row border py-3 bg-info  justify-content-around text-center"
+                style="display: none !important; z-index: 100;" id='add'>
+                <div class="col-12 container row">
+                   
+
+                    
+                    <hr class="col-12 ">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Checkout End -->
+
+
+   {% include 'Components/footer.html' %}
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <script>
+        function show() {
+            document.getElementById('add').style.display = "block"
+        }
+        function hide() {
+            document.getElementById('add').style.display = "none "
+        }
+    </script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

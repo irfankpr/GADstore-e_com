@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>MultiShop - Online Shop Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <link href="{% static 'gadstore.css' %}" rel="stylesheet">
+    <link href="{% static 'gadstore.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  
+
+    {% include 'Components/topbar.html' %}
+   {% include 'Components/navbar.html' %}
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid col-12 row py-0 px-3 m-0 ">
+        <div class="row col-5 ml-3 ">
+
+            <h5 class="section-title  text-uppercase mb-3 text-center col"><span
+                    class="bg-secondary pr-3 h4  text-info">GADstore Wallet</span></h5>
+
+            <section class="col-12 container p-0 m-0" style="background-color: #eee;">
+
+                <div class="row d-flex justify-content-center align-items-center ">
+
+                    <div class="card col-8" style="border-radius: 15px;">
+                        <div class="card-body text-center">
+                            <div class="mt-3 mb-4">
+                                <h1 class="material-symbols-outlined text-warning h1">
+                                    account_balance_wallet
+                                </h1>
+                            </div>
+                            <h4 class="mb-2">{{request.user.first_name}}&nbsp;&nbsp;{{request.user.last_name}}</h4>
+                            <p class="text-muted mb-4">{{request.user.email}}<span class="mx-2">|</span>
+                                <a>{{request.user.phone}}</a></p>
+                            <div class="text-center p-1 text-middle ">
+                                <div class="col-12 d-flex justify-content-center  p-0 m-0">
+
+                                    <span class="material-symbols-outlined text-warning h1 p-0 ">
+                                        monetization_on
+                                    </span>&nbsp;
+                                    <span class="text-dark h1 text-middle ">{{request.user.wallet}}</span>
+
+                                </div>
+
+                                <hr>
+                                <div class="d-flex justify-content-between d-flex  mb-2">
+                                    <div class="">
+
+                                        <p class="m-1 h5">{{request.user.people}}</p>
+                                        <p class="text-muted ">References</p>
+                                    </div>
+
+                                    <div>
+                                        <p class="mb-2 h5">{{trans|length}}</p>
+                                        <p class="text-muted mb-0">Total Transactions</p>
+                                    </div>
+                                </div>
+                                <p class="col-12 my-3 text-center h6">earn more by reffering :</p>
+                                <p class="col-12 my-3 text-center h6">Ref_id :&nbsp;<span class="text-info">{{request.user.ref_id}}</span></p>
+                                <p class="col-12 my-3 text-mute ">earn 50 Gadcoin for each referals</p>
+                            </div>
+                        </div>
+
+                    </div>
+            </section>
+        </div>
+
+
+        <div class="row col-6 position-relative container p-0 m-0 justify-content-center">
+            <div class="col-12">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3 h4">your
+                        Transactions</span></h5>
+                <div class=" col-12 mt-5 mx-0 p-0  text-center overflow-auto  " style="height: 550px;">
+
+                    <table class="table table-light table-borderless table-hover align-middle text-center m-0 col-12">
+                        <thead class="thead-dark align-middle">
+                            <tr>
+                                <th class="col-1">No.</th>
+                                <th>Desc</th>
+                                <th>Date</th>
+                                <th class="d-flex m-0 px-0 justify-content-center">Quantity&nbsp;<span class="material-symbols-outlined text-center  text-warning  p-0 ">
+                                    monetization_on
+                                </span></th>
+                                <th>Dr/Cr</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                            {% if trans %}
+                            {% for t in trans %}
+                            <tr>
+                                <td class="align-middle">{{forloop.counter}}</td>
+                                <td class="align-middle h6">{{t.desc}}</td>
+                                <td class="align-middle h6">{{t.date.date}}</td>
+                                <td class="align-middle h5 font-weight-bolder ">{{t.quantity}}</td>
+                                <td class="align-middle h5 font-weight-bolder text-info"> {{t.CrDr}} </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                           
+                            <tr><th colspan="5"><h2 class="text-center text-info">No transactions</h2></th></tr>
+                        
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="position-absolute  col-12 col-lg-8 container-fluid row border py-3 bg-info  justify-content-around text-center"
+            style="display: none !important; z-index: 100;" id='add'>
+            <div class="col-12 container row">
+                <h4 class=" text-center col-10 m-0 p-0  ">Add new address</h4><button onclick="hide()"
+                    class="col-1 btn btn-danger m-0 py-1 px-2 ">X</button>
+                <hr class="col-12  ">
+            </div>
+            <form action="{% url 'newaddr'  %}" method="POST">
+                <input class="rounded border-0 col-8 my-2 py-2" type="text" name="name" placeholder="Full name">
+                {% csrf_token %}
+                <input class="rounded border-0 col-8 my-2 py-2" type="text" name="Phone" placeholder="Phone">
+                <input class="rounded border-0 col-8 my-2 py-2" type="text" name="pin" placeholder="Post PIN">
+                <textarea class="rounded border-0 col-8 my-2 py-2" name="address" id="" cols="45" rows="7"
+                    placeholder="Address"></textarea>
+                <button class="rounded border-0 col-5 mt-4 mb-2 py-2" type="submit">Add address</button>
+            </form>
+
+        </div>
+    </div>
+
+    </div>
+
+    <!-- Checkout End -->
+
+
+ {% include 'Components/footer.html' %}
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

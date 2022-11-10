@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <title>Mega Able bootstrap admin template by codedthemes </title>
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description"
+        content="Mega Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
+    <meta name="keywords"
+        content="flat ui, admin Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href=" {% static 'images/y-blogo.svg' %}" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/bootstrap/css/bootstrap.min.css' %}">
+    <!-- waves.css -->
+    <link rel="stylesheet" href=" {% static 'admin/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/icon/themify-icons/themify-icons.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/icon/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/jquery.mCustomScrollbar.css' %}">
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+
+                        <a href="index.html">
+                            <img class="img-fluid" width="175px" src=" {% static 'images/y-blogo.svg' %}" />
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <span class="material-symbols-outlined m-0 p-0 cursor-pointer">
+                                        account_circle
+                                    </span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification p-2">
+
+                                    <li class="waves-effect waves-light  mb-3">
+                                        <a href="user-profile.html">
+                                            <i class="ti-user mx-3 mb-4"></i> Profile
+                                        </a>
+                                    </li>
+
+                                    <li class="waves-effect waves-light mb-3">
+                                        <a href="{% url 'admin-logout'  %}">
+                                            <i class="ti-layout-sidebar-left mx-3 mb-4"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu ">
+
+                            <div class="p-15 p-b-0">
+                                <form class="form-material">
+                                    <div class="form-group form-primary">
+                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search
+                                            Friend</label>
+                                    </div>
+                                </form>
+                            </div>
+                            {% comment %} <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Layout</div> {% endcomment %}
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="{% url 'adminhome' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'category' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Categories</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                
+                                <li class="active">
+                                    <a href="#" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Products</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'users' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Users</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                            <!-- <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Forms &amp; Tables</div>
+                            
+
+                            <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Chart &amp; Maps</div>
+                         
+
+                            <div class="pcoded-navigation-label" data-i18n="nav.category.other">Other</div> -->
+
+                        </div>
+                    </nav>
+                    <div class="pcoded-content d-flex row justify-content-center">
+                        <div class="col-8 container-fluid row mb-5 mx-0  ">
+                            {% for msg in messages %}
+                                        <h4 class="col-12 p-0 my-2 text-info text-center font-weight-bold"> {{msg}}
+                                        </h4>
+                                        {% endfor %}
+                                        
+                            <!-- Basic Form Inputs card start -->
+                            <div class="card col-12 container-fluid ,-0 p-0 justify-content-center text-center border border-primary mt-3">
+                                <div class="card-header">
+                                    <h3>Product details</h3>
+                                    <h5 class=" text-center h5 text-secondary" id="dess">Update and Add offers to products</h5>
+                                </div>
+                                
+                                <div class="card-block">
+                                    {% if prd.Offer %}
+                              <div class=" text-danger border">
+                                <h3>Current Offer</h3>
+                                <p class="h6 text-dangr">Product offer by  {{ prd.Disrate }}%, dicount ₹  {{prd.Dis}}</p>
+                                <a href="/admin/dlt-offer?id={{prd.id}}&off=prd" class="mx-4 btn text-light font-weight-bolder btn-danger ">Remove Offer</a>
+                               </div>
+                               {% elif prd.category.offer %}
+                               <div class=" text-danger border">
+                                <h3>Current Offer</h3>
+                                <p class="h6 text-dangr">Product offer by  {{ prd.Disrate }}%, dicount ₹  {{prd.Dis}}</p>
+                                <a href="{% url 'Offers' %}" class="h6 text-muted">Goto to Offer tab to alter this offer</a>
+                               </div>
+                              {% endif %}
+                                    <div class="col-12 d-flex justify-content-between mx-0 my-5 p-0">
+                                        <button type="button" id='offerbtn' class="btn btn-danger h4 bolder rounded" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add New offer</button>
+                            <!-- add offer modal start-->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title text-center text-dark"  id="exampleModalLabel">{{prd.Product_name}}</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body p-5">
+                                      <form action="{% url 'add-product-offer' %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                          <input type="hidden" name="product" value="{{prd.id}}">
+                                        </div>
+                                        <div class="form-group">
+                                          <input type="number" class="form-control border border-warning my-4" id="recipient-name"  name="Offer" placeholder="Offer rate in percentage">
+                                        </div>
+                                          <button type="submit" class="btn btn-info mx-auto">Add OFFER</button>
+                                      </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                      
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                               <!-- add offer modal end-->
+                                        
+                                        <input type="button" id="editbtn" value="Update Product" class="btn  btn-info" onclick="edit()">
+                                    </div>
+                                  
+                                    <form action="{% url 'product-up' %}" method="POST" enctype='multipart/form-data'>
+                                        {% csrf_token %}
+                                        <img src="{{ prd.thumbnail.url }}" height="220px" width="220px" class="m-5" style="object-fit: scale-down;" >
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label h6 ">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" value="{{prd.id}}" name="pid" hidden>
+                                                <input type="text" name="pname" value="{{ prd.Product_name }}" class="form-control" readonly id="inp1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row text-danger">
+                                            <label class="col-sm-2 col-form-label  h6">MRP ₹ :</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="mrp" value="{{ prd.MRP }}" class="form-control text-danger" readonly id="inp2">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row text-danger">
+                                            <label class="col-sm-2 col-form-label  h6 text-success">Selling price ₹ :</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="price" value="{{ prd.price }}" class="form-control text-danger text-success" readonly id="inp3">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label class="col-sm-2 col-form-label  h6 ">Stock</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="stock" value="{{ prd.available_stock }}" class="form-control h2 " readonly id="inp4">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label class="col-sm-2 col-form-label  h6 ">Category : </label>
+                                            <div class="col-sm-3">
+                                                {% for c in cat %}
+                                                {% if c.id == p.category_id %}
+                                                <input type="text"  value="{{c.category_name }}" class="form-control  h4" readonly >
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-5 " id="cats" style="display: none;" >
+                                            <label class="float-left text-left ">Change category</label>
+                                            <select name="cat" class="form-control border border-secondary mb-5 mt-1" id="sl" disabled >
+                                                {% for c in cat %}
+                                                <option value="{{ c.id }}">{{ c.category_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group form-default mb-5">
+                                            <label class="float-label h6">Product Details (highlights)</label>
+                                            <textarea class="form-control" required=""  name="hilights"  cols="10" rows="5"  readonly id="inp5">{{ prd.products_dyl }}</textarea>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        <div class="form-group form-default">
+                                            <label class="float-label h6">Description (Detailed)</label>
+                                            <textarea class="form-control" required="" name ="desc" cols="10" rows="10" readonly id="inp6">{{ prd.products_desc }}</textarea>
+                                            <span class="form-bar"></span>
+                                        </div>
+                                        
+                                        <div class="form-group row justify-content-cemter mx-4 my-5"  id="thumb"  style="display: none;">
+                                            <label class="col-sm-e col-form-label">Update Thumnail</label>
+                                            <div class="col-10">
+                                                <input type="file" name="thumbnail" class="form-control" disabled id="img">
+                                            </div>
+                                        </div>
+                                        
+                                       <!-- .................................. -->
+                                        
+                                        
+                                       
+                                       <div class="col-12 text-center d-flex mb-5 justify-content-center" >
+                                        <button class="sub-title btn btn-primary mt-5" id="subb" type="submit" style="display: none;"  onclick="return confirm( 'Confirm to submit changes' )" >submit changes</button>
+                                    </div>
+                                    </form>
+                             
+                                    <div class="row">
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script>
+                                function edit(){
+                                    Swal.fire('Edit mode enabeled','Now you can edit the product')
+                                    document.getElementById('inp1').removeAttribute('readonly');
+                                    document.getElementById('inp2').removeAttribute('readonly');
+                                    document.getElementById('inp3').removeAttribute('readonly');
+                                    document.getElementById('inp4').removeAttribute('readonly');
+                                    document.getElementById('inp5').removeAttribute('readonly');
+                                    document.getElementById('inp6').removeAttribute('readonly');
+                                    document.getElementById('sl').removeAttribute('disabled');
+                                    document.getElementById('img').removeAttribute('disabled');
+                                    document.getElementById('cats').style.display='block';
+                                    document.getElementById('subb').style.display='block';
+                                    document.getElementById('thumb').style.display='block';
+                                    document.getElementById('editbtn').style.display='none';
+                                    document.getElementById('offerbtn').style.display='none';
+                                    document.getElementById('dess').style.display='none';
+                                    
+                                }
+                        </script>
+
+
+                    <!-- Required Jquery -->
+                    <script type="text/javascript" src=" {% static 'admin/js/jquery/jquery.min.js' %}"></script>
+                    <script type="text/javascript" src=" {% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>
+                    <script type="text/javascript" src=" {% static 'admin/js/popper.js/popper.min.js' %}"></script>
+                    <script type="text/javascript"
+                        src=" {% static 'admin/js/bootstrap/js/bootstrap.min.js ' %}"></script>
+                    <!-- waves js -->
+                    <script src=" {% static 'admin/pages/waves/js/waves.min.js' %}"></script>
+                    <!-- jquery slimscroll js -->
+                    <script type="text/javascript"
+                        src=" {% static 'admin/js/jquery-slimscroll/jquery.slimscroll.js' %} "></script>
+                    <!-- modernizr js -->
+                    <script type="text/javascript" src=" {% static 'admin/js/SmoothScroll.js' %}"></script>
+                    <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
+                    <script src=" {% static 'admin/js/pcoded.min.js' %}"></script>
+                    <script src=" {% static 'admin/js/vertical-layout.min.js' %} "></script>
+                    <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+                    <!-- Custom js -->
+                    <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
+</body>
+
+</html>

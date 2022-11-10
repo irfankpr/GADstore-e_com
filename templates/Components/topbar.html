@@ -1,0 +1,46 @@
+{% block topbar %}
+<!-- Topbar Start -->
+{% load static %}
+ <div class="container-fluid">
+       
+           
+    <div class="row container-fluid justify-content-between col-12 bg-light py-3 px-xl-5 d-none d-lg-flex">
+        <div class="col-lg-4">
+            <a href="" class="text-decoration-none">
+                <img src="{% static 'images/b-ylogo.svg' %}" class="col-7 m-0" alt="">
+            </a>
+        </div>
+        <div class="col-lg-6 col-6 text-left">
+            <form action="shop">
+                <div class="input-group border border-dark">
+                    <input name="key" type="search" class="form-control h6" value="{{key}}" placeholder="Search for products">
+                    <div class="input-group-append bg-warning">
+                        <button type="submit" class="input-group-text bg-transparent  text-dark">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-1 col-6 text-right ">
+            <div class="btn-group mx-2">
+                {% if request.user.is_authenticated %}
+                <button type="button" class="btn btn-sm btn-light dropdown-toggle p-0 m-0" data-toggle="dropdown"><i class="fas fa-2x fa-user-circle "></i></button>
+                {% else %}
+                <a class="dropdown-item mt-4 text-dark bg-warning my-auto font-weight-bold" href="log" type="button">Login / Signup</a>
+                {% endif %}
+                <div class="dropdown-menu dropdown-menu-right bg-dark rounded px-5 py-3">
+                    <a class="dropdown-item  text-warning" type="button" href="{% url 'my-profile' %}">Profile</a>
+                    <a class="dropdown-item mt-4 text-warning" type="button" href="{% url 'cartv' %}">Cart</a>
+                    <a href="{% url 'my-orders' %}" class="dropdown-item mt-4 text-warning" type="button">My orders</a>
+                    <a class="dropdown-item mt-4 text-warning" type="button">Fav list</a>
+                    
+                    <a class="dropdown-item mt-4 text-dark bg-warning" href="usr-logout" type="button">Log out</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+{% endblock topbar %}

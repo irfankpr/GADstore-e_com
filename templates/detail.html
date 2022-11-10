@@ -1,0 +1,372 @@
+{% load static %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>MultiShop - Online Shop Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/fa .ico' %}" rel="icon">
+  <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'gadstore.css' %}" rel="stylesheet">
+
+    <!-- zoomer -->
+    <link rel="stylesheet" href="{% static 'jquery.exzoom.css' %}">
+</head>
+
+<body>
+
+    {% include 'Components/topbar.html' %}
+    {% include 'Components/navbar.html' %}
+
+
+    <!-- Shop Detail Start -->
+    {% for p in product %}
+    <div class="container-fluid p-0">
+        <div class="row px-xl-5 justify-content-center">
+            <div class="col-lg-5 mb-5 ml-lg-5">
+                <div id="product-carousel" class="carousel text-warning slide ml-5" data-ride="carousel">
+                    <div class="carousel-inner" >
+                        <div class="carousel-item active" onmouseenter="zoom('#myimage')">
+                            <img class=" w-100" src="{{ p.thumbnail.url }}" id="myimage" alt="Image"  style="object-fit: fill;" >
+                        </div>
+                            {% for i in images %}
+                        <div class="carousel-item" onmouseenter="zoom('#myimage{{forloop.counter}}')">
+                            <img class="w-100 " src="{{i.image.url}}" alt="Image" id="myimage{{forloop.counter}}"  style="object-fit: fill;" >
+                        </div> 
+                        {% endfor %}
+                        
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-12 ml-lg-5  h-auto mb-30">
+                <div class="h-100 bg-light p-30 ml-lg-5 px-5">
+                    <h3>{{ p.Product_name }}</h3>
+                    <div class="d-flex mb-3">
+                        <div class="text-primary mr-2">
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star-half-alt"></small>
+                            <small class="far fa-star"></small>
+                        </div>
+                        <small class="pt-1">(99 Reviews)</small>
+                    </div>
+                    <h3 class="font-weight-semi-bold mb-4 text-danger col float-left"><del>₹ {{ p.MRP }} /-</del></h3>
+                    {% if p.Offer %} 
+                    <h3 class="font-weight-semi-bold mb-4 text-success col">₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h3>
+                {% elif p.category.offer %}
+                <h3 class="font-weight-semi-bold mb-4 text-success col">₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h3>
+                {% else %}
+                <h3 class="font-weight-semi-bold mb-4 text-success col" >₹ {{p.price}} /-</h3>
+                {% endif %}
+                    <p class="mb-4 h6">{{ p.products_dyl }}</p>
+
+
+                    <div class="d-flex align-items-center mb-4 pt-2">
+
+                        <a class="btn btn-primary px-3" onclick="addcart({{p.id}}) "><i
+                                class="fa fa-shopping-cart mr-1"></i> Add To
+                            Cart</a>
+                    </div>
+                    <div class="d-flex pt-2">
+                        <strong class="text-dark mr-2">Share on:</strong>
+                        <div class="d-inline-flex">
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row px-xl-5 container p-0 m-0">
+            <div class="col-12">
+                <div class="bg-light p-30">
+                    <div class="nav nav-tabs mb-4">
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab"
+                            href="#tab-pane-1">Description</a>
+                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Information</a>
+                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-pane-1">
+                            <h4 class="mb-3">Product Description</h4>
+                            <p>{{ p.products_desc }}.</p>
+
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-2">
+                            <h4 class="mb-3">Additional Information</h4>
+                            <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
+                                invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod
+                                consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum
+                                diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam
+                                sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor
+                                aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam
+                                kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.
+                            </p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item px-0">
+                                            Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item px-0">
+                                            Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">1 review for "Product Name"</h4>
+                                    <div class="media mb-4">
+                                        <img src="{% static 'img/user.jpg' %}" alt="Image" class="img-fluid mr-3 mt-1"
+                                            style="width: 45px;">
+                                        <div class="media-body">
+                                            <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                                            <div class="text-primary mb-2">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam
+                                                ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod
+                                                ipsum.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">Leave a review</h4>
+                                    <small>Your email address will not be published. Required fields are marked
+                                        *</small>
+                                    <div class="d-flex my-3">
+                                        <p class="mb-0 mr-2">Your Rating * :</p>
+                                        <div class="text-primary">
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="message">Your Review *</label>
+                                            <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">Your Name *</label>
+                                            <input type="text" class="form-control" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Your Email *</label>
+                                            <input type="email" class="form-control" id="email">
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- Shop Detail End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid py-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Similar
+                items</span></h2>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel related-carousel">
+                    {% for p in Like %}
+                    <div class="product-item bg-light" onclick="window.location = '{% url 'detail' p.id %}'">
+                        <div class="product-img position-relative overflow-hidden">
+                            {% if p.Offer %}<a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{p.Disrate}}% OFF</a>
+                        {% elif p.category.offer %}
+                        <a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{ p.category.offer_rate|floatformat:"0"}} % OFF</a>
+                        {% endif %}
+                            <img class="img-fluid w-100" src="{{ p.thumbnail.url }}" alt="">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" onclick="addtocart(p.id)"><i
+                                        class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square py-4 px-4" href="">BUY NOW</i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="">{{p.Product_name}}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                {% if p.Offer %} 
+                            <h5 class="text-success" >₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h5>
+                        {% elif p.category.offer %}
+                        <h5 class="text-success" >₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h5>
+                        {% else %}
+                        <h5 class="text-success" >₹ {{p.price}} /-</h5>
+                        {% endif %}
+                                <h6 class="text-muted ml-2 text-danger"><del>{{p.MRP}}</del></h6>
+                                
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Products End -->
+
+
+    {% include 'Components/footer.html' %}
+    <!-- JavaScript Libraries CDN -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+       <!-- zoomer -->
+       <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+       <script src="{% static 'zoomsl.min.js' %}"></script>
+           <script>
+              function zoom(id){
+               $(id).imagezoomsl({zoomrange:[1,1]});
+              }
+           </script>
+
+
+
+    <!-- JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+    
+
+    <script>
+
+        function addcart(pid) {
+
+            $.ajax({
+                url: "{% url 'add-cart' %}",
+                data: {
+                    proid: pid,
+                },
+                success: (response) => {
+                    if (response.added) {
+                        c = parseInt (document.getElementById("cct").innerHTML)
+                        document.getElementById('cct').innerHTML=  c+1,
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.success('Product added to cart');
+                    }  else {
+                        alertify.set('notifier','position', 'top-right');
+                        alertify.success('Already exists in the cart');
+                    }
+                }
+            })
+        }
+    </script>
+
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!-- local js libraries -->
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+ 
+</body>
+
+</html>

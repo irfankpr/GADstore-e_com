@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>MultiShop - Online Shop Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+ <!-- Google Web Fonts -->
+ <link rel="preconnect" href="https://fonts.gstatic.com">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <link href="{% static 'gadstore.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    {% include 'Components/topbar.html' %}
+   
+    <!-- Cart Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5 justify-content-center">
+            <div class="col-lg-11 table-responsive mb-5">
+                <table class="table table-light table-borderless table-hover text-center mb-0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>No.</th>
+                            <th>Products</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Quantity</th>
+                            <th>Date</th>
+                            <th>Payment</th>
+                            <th></th>
+                
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        {% for o in orders %}
+                        <tr>
+                            <th rowspan="2" class="align-middle " style="width:50px">{{forloop.counter}}</th>
+                            <td  rowspan="2" class="align-middle p-0"><img src="{{o.product.thumbnail.url }}" alt="" style="width: 125px; object-fit: scale-down;"></td>
+                            <td class=" align-middle h5 col-3">{{o.product.Product_name}}</td>
+                            <td class=" align-middle text-success h5">₹&nbsp; {{o.Total}} /-</td>
+                            <td class=" align-middle h5">{{o.quantity}}</td>
+                            <td class=" align-middle h5">{{o.date.date}}</td>
+                            <td rowspan="2" class=" align-middle h5">{{o.payment}} <br>{% if  o.status == 'Delivered' %} <a class="btn btn-secondary" target="_blank" href="{% url 'invoice' o.id %}"><span class="material-symbols-outlined">
+                                description
+                                </span></a> {% endif %}</td>
+                             <td rowspan="2" class="align-middle h5 font-weight-bolder text-info p-0 m-0" >
+                                {% if o.status == 'Delivered' %} 
+                                <a data-toggle="modal" data-target="#return{{forloop.counter}}" class="btn btn-outline-info rounded h5">Return</a>
+                                <!-- Modal  return-->
+<div class="modal fade" id="return{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Request Return</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body h6">
+         {{o.product.Product_name}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a type="button" class="btn btn-danger" href="{% url 'return-order' o.id %}" >Return</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+                                {% else %}
+                                {% if  o.status == 'Placed' or  o.status == 'Shipped' and  o.status != 'Out for delivery' %}
+                                <a class="btn btn-outline-danger rounded h5 " data-toggle="modal" data-target="#cancel{{forloop.counter}}">Cancel</a>
+                                <!-- Modal -->
+<div class="modal fade" id="cancel{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Request Cancel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            {{o.product.Product_name}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a  href="{% url 'cancel-order' o.id %}" type="button" class="btn btn-danger">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+                                {% endif %}
+                                {% endif %}
+                            </td>
+                            </tr>
+                            <tr>
+                                
+                            <td colspan="4" class="align-middle h5 font-weight-bolder p-0 m-0"><i class="rounded d-flex justify-content-center  h5 {% if o.status == 'Cancelled' or o.status == 'Return Rejected'  %}bg-danger text-light {% elif o.status == 'Delivered' or o.status == 'Refunded' %} bg-success text-light{% else %} bg-info {% endif %} " >{{o.status}}</i></td>
+                           <td><hr></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+         
+        </div>
+    </div>
+    <!-- Cart End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <img src="{% static 'images/b-ylogo.svg' %}" class="col-8 mt-0 mb-4" alt="">
+                <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor.
+                    Rebum tempor no vero est magna amet no</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop
+                                Detail</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping
+                                Cart</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                            <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop
+                                Detail</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping
+                                Cart</a>
+                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                            <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">Newsletter</h5>
+                        <p>Duo stet tempor ipsum sit amet magna ipsum tempor est</p>
+                        <form action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Your Email Address" >
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary">Subscrib</button>
+                                </div>
+                            </div>
+                        </form>
+                        <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
+                        <div class="d-flex">
+                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Footer End -->
+  
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

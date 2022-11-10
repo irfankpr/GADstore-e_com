@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <title>Mega Able bootstrap admin template by codedthemes </title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description"
+        content="Mega Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
+    <meta name="keywords"
+        content="flat ui, admin Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href=" {% static 'images/y-blogo.svg' %}" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/bootstrap/css/bootstrap.min.css' %}">
+    <!-- waves.css -->
+    <link rel="stylesheet" href=" {% static 'admin/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/icon/themify-icons/themify-icons.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/icon/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/jquery.mCustomScrollbar.css' %}">
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                       
+                        <a href="index.html">
+                            <img class="img-fluid"width="175px" src=" {% static 'images/y-blogo.svg' %}"  />
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                        <span class="material-symbols-outlined m-0 p-0 cursor-pointer">
+                                            account_circle
+                                            </span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification p-2">
+                                   
+                                    <li class="waves-effect waves-light  mb-">
+                                        <a href="user-profile.html">
+                                            <i class="ti-user mx-3 mb-4"></i> Profile
+                                        </a>
+                                    </li>
+                                   
+                                    <li class="waves-effect waves-light mb-">
+                                        <a href="{% url 'admin-logout'  %}">
+                                            <i class="ti-layout-sidebar-left mx-3 mb-4"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+
+                            <div class="p-15 p-b-0">
+                                <form class="form-material">
+                                    <div class="form-group form-primary">
+                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search
+                                            Friend</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Layout</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="{% url 'adminhome' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'category' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Categories</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="#" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Products</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'users' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Users</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'allorders' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Orders</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'Coupons' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Coupons</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'Offers' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Offers</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                            <!-- <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Forms &amp; Tables</div>
+                            
+
+                            <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Chart &amp; Maps</div>
+                         
+
+                            <div class="pcoded-navigation-label" data-i18n="nav.category.other">Other</div> -->
+                           
+                        </div>
+                    </nav>
+                    <div class="pcoded-content d-flex row">
+                        <div class="col-8 container-fluid row m-0">
+                            </h5>
+                            <!-- Hover table card start -->
+                            <div class="card col-12">
+                                <div class="card-header">
+                                    <h3>Available Categories</h3>
+                                    <span>Edit cartagories here</span>
+                                    <div class="card-header-right">
+                                        <ul class="list-unstyled card-option">
+                                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                                            <li><i class="fa fa-minus minimize-card"></i></li>
+                                            <li><i class="fa fa-refresh reload-card"></i></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mobile-search waves-effect waves-light ">
+                                    <div class="header-search col-7">
+                                        <div class="main-search morphsearch-search">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Search products">
+                                                <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% for msg in messages %}
+                                    <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}} </h4>
+                                    {% endfor %}
+                                </div>
+                                
+                                <div class="card-block table-border-style">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                    
+                                                    <th>Name</th>
+
+                                                    <th>image</th>
+                                                    
+                                                    <th>Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for c in cat %}
+                                                <tr>
+                                                    <th scope="row">{{forloop.counter}}</th>
+                                                   
+                                                    <th> <a href=" {% url 'catedit' c.id %} ">{{ c.category_name }}</a> </th>
+                                                    <td> <img src="{{ c.category_image.url}}" height="50px" width="80px"
+                                                            alt="" srcset=""> </td>
+                                                    
+                                                    <td><a  class=" bg-danger text-white p-3 border-white" data-toggle="modal" data-target="#delete{{forloop.counter}}"  >DELETE</a></td>
+                                                     <!--block Modal  start-->
+<div class="modal fade" id="delete{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content border-secondary">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm deletion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body h5">
+          Delete category : {{ c.category_name }}
+          <h6 class="text-danger mt-4" >" All products under this category will be deleted "</h6>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="{% url 'delete-cat' c.id %}" type="button" class="btn btn-outline-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+                                                        <!--block Modal  start-->
+                                                </tr>
+                                                {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Hover table card end -->
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Add new categories</h3>
+                                    <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+                                </div>
+                               
+                                <div class="card-block">
+                                    <form class="form-material text-center" method="POST" action="addcat" enctype='multipart/form-data'>
+                                        {% csrf_token %}
+                                        <div class="form-group form-default">
+                                            <input type="text" name="catname" class="form-control" required="">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Category name</label>
+                                        </div>
+                                        <div class="form-group form-default">
+                                            <input type="text" name="Description" class="form-control" required="">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Description</label>
+                                        </div>
+                                        <div class="form-group form-default d-flex m-0 p-0 row">
+                                            <h6 class="form-bar m-0 p-0 col-4">Add image :</h6>
+                                            <input type="file" name="catimage" class="col-7"
+                                                placeholder="Add image" required="">
+                                        </div>
+                                        <button type="submit" class="col-8 rounded py-3 my-4 btn-primary  border-0">ADD
+                                            NEW CATEGORY</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card col-12">
+                                <div class="card-header">
+                                    <h3>Add new Sub-category</h3>
+                                    <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+                                </div>
+                                
+                                <div class="card-block">
+                                    <form class="form-material text-center" method="POST" action="{% url 'add-subcat' %}" enctype='multipart/form-data'>
+                                        {% csrf_token %}
+                                        <div class="form-group row">
+                                            <label class="col-sm-10 col-form-label">Selecct parent Category</label>
+                                            <div class="col-sm-10">
+                                                <select name="cat" class="form-control border border-primary" >
+                                                    <option ></option>
+                                                    {% for c in cat %}
+                                                    <option value="{{ c.id }}">{{ c.category_name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-default mt-3">
+                                            <input type="text" name="subcat" class="form-control" required="">
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Sub-category name</label>
+                                        </div>
+                                        <button type="submit" class="col-8 rounded py-3 my-4 btn-dark border-0" >Add Sub-category</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+           
+            <!-- Required Jquery -->
+            <script type="text/javascript" src=" {% static 'admin/js/jquery/jquery.min.js' %}"></script>
+            <script type="text/javascript" src=" {% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>
+            <script type="text/javascript" src=" {% static 'admin/js/popper.js/popper.min.js' %}"></script>
+            <script type="text/javascript" src=" {% static 'admin/js/bootstrap/js/bootstrap.min.js ' %}"></script>
+            <!-- waves js -->
+            <script src=" {% static 'admin/pages/waves/js/waves.min.js' %}"></script>
+            <!-- jquery slimscroll js -->
+            <script type="text/javascript"
+                src=" {% static 'admin/js/jquery-slimscroll/jquery.slimscroll.js' %} "></script>
+            <!-- modernizr js -->
+            <script type="text/javascript" src=" {% static 'admin/js/SmoothScroll.js' %}"></script>
+            <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
+            <script src=" {% static 'admin/js/pcoded.min.js' %}"></script>
+            <script src=" {% static 'admin/js/vertical-layout.min.js' %} "></script>
+            <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+            <!-- Custom js -->
+            <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
+
+</body>
+
+</html>

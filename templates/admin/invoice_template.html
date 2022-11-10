@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Title</title>
+       <!-- Font Awesome -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css"
+rel="stylesheet"
+/>
+    </head>
+    <body>
+        <div class="col-12 container row">
+        <div class='details bg-dark text-light col-6'>
+          <h1 class="text-center">GAdstore</h1>
+          Date:{{today}} <br/>
+          Invoice NO :#1000{{order.id}} <br/>
+            <hr class='hrItem' />
+        </div>
+        
+      </div>
+
+        <div class="col-12 container-fluid row p-0 m-0">
+            <table class="table" style="border-collapse: separate;
+            border-spacing: 10 100em;">
+                <thead class="table-dark">
+                    
+                  <tr class="py-2">
+                    <th colspan="2">Invoice NO :#1000{{order.id}}</th>
+                  </tr class="py-2">
+                </thead>
+                <tbody>
+                 <tr class="py-2">
+                  <th>Product</th>
+                  <td>{{order.product.product_name}}</td>
+                 </tr class="py-2">
+                 <tr class="py-2">
+                  <th>MRP : Rs {{order.product.MRP}} /-</th>
+                  <td>Price : Rs {{order.product.price}} /-</td>
+                 </tr class="py-2">
+                 <tr class="py-2">
+                  <th>Quantity : Rs {{order.quantity}} /-</th>
+                  <td>Total : Rs {{order.Total}} /-</td>
+                 </tr class="py-2">
+
+                 <tr class="py-2">
+                  <th>Offer applied</th>
+                  <td>{{order.Offer_applied}}</td>
+                 </tr class="py-2">
+                 <tr class="py-2">
+                  <th>Coupon applied</th>
+                  <td>{{order.coupon_applied}}</td>
+                 </tr class="py-2">
+                 <tr class="py-2">
+                  <th>Address:</th>
+                  <td >{{order.address}}</td>
+                 </tr class="py-2">
+                 <tr class="py-2">
+                  <th>Order date:</th>
+                  <td >{{order.date}}</td>
+                 </tr class="py-2">
+                 <tr class="py-2">
+                  <th>Delivered date:</th>
+                  <td >{{order.delivered_date}}</td>
+                 </tr class="py-2">
+            
+                 <tr class="py-2">
+                  <th>Payment method :</th>
+                  <td>{{order.payment}}</td>
+                 </tr class="py-2">
+                 <tr class="py-2">
+                  <th>Payment ID :</th>
+                  <td>{{order.payment_id}}</td>
+                 </tr class="py-2">
+                 <tr class="py-2">
+                  <th colspan="2"><hr class='hrItem' /></th>
+                 </tr class="py-2">
+                  <tr class="py-2">
+                    <td class="text center" colspan="2">Cash payed and vaerified by GADstore.pvt ltd</td>
+                  </tr class="py-2">
+                 
+                </tbody>
+              </table>
+    
+        </div>
+    </div>
+    </body>
+</html>

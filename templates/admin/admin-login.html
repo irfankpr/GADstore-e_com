@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Mega Able bootstrap admin template by codedthemes </title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <!-- Meta -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="description" content="Mega Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
+      <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+      <meta name="author" content="codedthemes" />
+      <!-- Favicon icon -->
+
+      <link rel="icon" href=" {% static 'images/favicon.ico" type="image/x-icon' %}">
+      <!-- Google font-->     
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+      <!-- Required Fremwork -->
+      <link rel="stylesheet" type="text/css" href=" {% static 'css/bootstrap/css/bootstrap.min.css' %}">
+      <!-- waves.css -->
+      <link rel="stylesheet" href=" {% static 'pages/waves/css/waves.min.css" type="text/css" media="all' %}">
+      <!-- themify-icons line icon -->
+      <link rel="stylesheet" type="text/css" href=" {% static 'icon/themify-icons/themify-icons.css' %}">
+      <!-- ico font -->
+      <link rel="stylesheet" type="text/css" href=" {% static 'icon/icofont/css/icofont.css' %}">
+      <!-- Font Awesome -->
+      <link rel="stylesheet" type="text/css" href=" {% static 'icon/font-awesome/css/font-awesome.min.css' %}">
+      <!-- Style.css -->
+      <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %}">
+  </head>
+
+  
+  <!-- Pre-loader end -->
+
+    <section class="login-block">
+        <!-- Container-fluid starts -->
+        <div class="container justify-content-center mt-5 py-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-9 col-lg-6">
+                    <!-- Authentication card start -->
+                    
+                        <form class="md-float-material form-material" method="POST" action="login">
+                            {% csrf_token %}
+                            <div class="text-center">
+                                <img src="{% static 'images/b-ylogo.svg' %}" class="col-8 mt-0 mb-4" alt="">
+                            </div>
+                            <div class=" container-fluid row m-0 p-0 bg-warning justify-content-center text-center">
+                                <h3 class="text-center col mt-5"> ADMIN LOG IN</h3>
+                                <input type="text"Placeholder="e-mail" class="col-10 py-1 border-warning rounded my-5" name="phone">
+                                <input type="Password"Placeholder="Password" class="col-10 py-1 border-warning rounded my-3" name="Password">
+                                <button type="submit" class="my-5 btn border-3 btn-outline-dark  col-5">LOG IN</button>
+                                {% for msg in messages %}
+                                <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}} </h4>
+                                {% endfor %}
+                            </div>
+
+                        </form>
+                        <!-- end of form -->
+                </div>
+                <!-- end of col-sm-12 -->
+            </div>
+            <!-- end of row -->
+        </div>
+        <!-- end of container-fluid -->
+    </section>
+   
+<!-- Warning Section Ends -->
+<!-- Required Jquery -->
+    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>     <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>     <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>     <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
+<!-- waves js -->
+<script src="assets/pages/waves/js/waves.min.js"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js "></script>
+<!-- modernizr js -->
+    <script type="text/javascript" src="assets/js/SmoothScroll.js"></script>     <script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+<!-- i18next.min.js -->
+<script type="text/javascript" src="bower_components/i18next/js/i18next.min.js"></script>
+<script type="text/javascript" src="bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+<script type="text/javascript" src="bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
+<script type="text/javascript" src="assets/js/common-pages.js"></script>
+</body>
+
+</html>
