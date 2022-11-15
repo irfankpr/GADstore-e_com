@@ -115,14 +115,14 @@
 
     function verify(){
         var Otp = document.getElementById('inp1').value
-        var p = document.getElementById('phone').value
+        var phn = document.getElementById('phone').value
         $.ajax({
             url: "verify-otp",
             type: "POST",
             data: {
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 otp:Otp,
-                phone:p,
+                phone:phn,
               },
               success: (response) => {
                 if (response.invalid) {
