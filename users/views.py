@@ -134,7 +134,8 @@ def login(request):
 def loginotp(request):
     if request.method == "GET" and request.GET['phone']:
         phone = request.GET['phone']
-        otpgen.send_otp(phone)
+        OTP=otpgen.send_otp(phone)
+        request.session[phone] = OTP
         messages.error(request, 'OTP sent to ' + phone)
         return redirect('/otp')
 

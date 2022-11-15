@@ -12,7 +12,7 @@ import profiles.models
 
 # Create your views here.
 class otpgen():
-    Otp = 0
+
     phone = 0
 
     def send_otp(phone):
@@ -22,7 +22,7 @@ class otpgen():
         print(phone)
         twilio_number = '+19035679739'
         otp = random.randint(1000, 9999)
-        otpgen.Otp = str(otp)
+
         otpgen.phone = phone
         msg = 'GADstore account verification otp is ' + str(otp)
         client = Client(account_ssid, auth_token)
@@ -32,7 +32,7 @@ class otpgen():
             to=target_number,
         )
         print(message.body)
-        return True
+        return otp
 
 
 @never_cache
@@ -41,12 +41,12 @@ def otp(request):
 
 
 def loginotp(request):
-    obj = otpgen()
     if request.method == "POST":
         Rotp = request.POST['otp']
-        Gotp = obj.Otp
+        ph = request.POST['phone']
+        Gotp = request.session[ph]
         if Rotp == Gotp:
-            user = userprofiles.objects.get(phone=obj.phone)
+            user = userprofiles.objects.get(phone=ph)
             login(request, user)
             return JsonResponse({'valid': True})
         else:
