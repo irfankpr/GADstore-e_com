@@ -15,7 +15,7 @@ class otpgen():
 
     phone = 0
 
-    def send_otp(phone):
+    def send_otp(self,phone):
         account_ssid = 'ACe6367b4e0523f007dac124700c291ac2'
         auth_token = 'ACe6367b4e0523f007dac124700c291ac2'
         target_number = '+91' + phone
@@ -32,6 +32,7 @@ class otpgen():
             to=target_number,
         )
         print(message.body)
+        self.session[phone] = otp
         return otp
 
 
