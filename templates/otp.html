@@ -101,6 +101,7 @@
               success: (response) => {
                 if (response.sent) {
                     window.location.reload()
+                    document.getElementById('alrt1').innerHTML="OTP resended"
 
                 } else {
                     document.getElementById('alrt1').innerHTML="Something went wrong please try again !"
