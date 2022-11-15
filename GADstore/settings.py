@@ -149,3 +149,5 @@ RAZOR_PAY_KEY_ID = 'rzp_test_PhZWg0KKgRh6je'
 KEY_SECRETE = '75NGiMTB9h3M6AtKP0Iybc4v'
 
 
+CSRF_TRUSTED_ORIGINS = ['https://gadstore.ga']
+
