@@ -59,5 +59,5 @@ def loginotp(request):
 
 def reotp(request):
     phone = request.GET.get('phone')
-    otpgen.send_otp(phone)
+    otpgen.send_otp(request,phone)
     return JsonResponse({'sent': True})
