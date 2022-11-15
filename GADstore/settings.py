@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-v5$%8=sr!j#44*32q)+rgqq4cqt$x*gb4w+5t2-!v_z0(85^(e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.gadstore.ga','52.199.44.196','localhost']
+ALLOWED_HOSTS = ['.gadstore.ga','52.199.44.196','localhost','*']
 
 
 # Application definition
@@ -90,7 +90,6 @@ DATABASES = {
         'HOST': 'localhost',
     }
 }
-
 
 
 # Password validation
