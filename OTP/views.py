@@ -44,8 +44,8 @@ def otp(request):
 def loginotp(request):
     if request.method == "POST":
         Rotp = request.POST['otp']
-        ph = request.POST['phone']
-        Gotp = request.session[ph]
+        ph = str(request.POST['phone'])
+        Gotp = str(request.session[ph])
         if Rotp == Gotp:
             user = userprofiles.objects.get(phone=ph)
             login(request, user)

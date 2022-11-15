@@ -125,11 +125,11 @@
                 phone:phn,
               },
               success: (response) => {
-                if (response.invalid) {
+                if (response.valid) {
+                    window.location.replace('home')
+                } else if(response.invalid){
                     document.getElementById('alrt1').innerHTML="Invalid OTP"
-                    document.getElementById('alrt2').innerHTML=""
-                } else if(response.valid){
-                        window.location.replace('home')
+                    document.getElementById('alrt2').innerHTML=""    
                 }
             }
         })
