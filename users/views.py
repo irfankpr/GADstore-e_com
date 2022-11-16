@@ -136,12 +136,15 @@ def loginotp(request):
         phone = request.GET['phone']
         otpgen.send_otp(request,phone)
         messages.error(request, 'OTP sent to ' + phone)
-        return redirect('/otp')
-
+        return render(request, 'otp.html', {'phone': phone})
+    else:
+        messages.error(request, 'enter phone number')
+        return redirect('log')
 
 def usr_logout(request):
     logout(request)
     return redirect('/')
+
 
 
 @never_cache

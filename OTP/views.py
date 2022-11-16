@@ -22,8 +22,6 @@ class otpgen():
         print(phone)
         twilio_number = '+19035679739'
         otp = random.randint(1000, 9999)
-
-        otpgen.phone = phone
         msg = 'GADstore account verification otp is ' + str(otp)
         client = Client(account_ssid, auth_token)
         message = client.messages.create(
@@ -33,12 +31,10 @@ class otpgen():
         )
         print(message.body)
         self.session[phone] = otp
-        return otp
+        return True
 
 
-@never_cache
-def otp(request):
-    return render(request, 'otp.html', {'phone': otpgen.phone})
+
 
 
 def loginotp(request):
