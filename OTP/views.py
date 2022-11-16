@@ -45,6 +45,7 @@ def loginotp(request):
         if Rotp == Gotp:
             user = userprofiles.objects.get(phone=ph)
             login(request, user)
+            del request.session[ph]
             return JsonResponse({'valid': True})
         else:
             return JsonResponse({'invalid': True})
