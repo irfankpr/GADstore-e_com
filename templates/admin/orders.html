@@ -327,26 +327,42 @@
                     </div>
                 </div>
             </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js" integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script>
                 function statusup(sl) {
+                    swal({
+                        title: "Update order status ?",
+                        
+                        icon: "info",
+                        buttons: true,
+                        dangerMode: true,
+                      })
+                      .then((willDelete) => {
+                        if (willDelete) {
+
+                            $.ajax({
+                                type: "POST",
+                                url: "{% url 'order-up' %}",
+                                data: {
+                                    status :  $(sl).children("option:selected").text(),
+                                    order:$(sl).children("option:selected").val(),
+                                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                                    dataType: "json",
+                                },
+                                success: (response) => {
+                                    if (response.ordered) {
+                                        window.location.reload()
+                                    } 
+                                    
+                                }
+                            });
+                          
+                        } else {
+                            window.location.reload()
+                          }
+                      });
         
-                    $.ajax({
-                        type: "POST",
-                        url: "{% url 'order-up' %}",
-                        data: {
-                            status :  $(sl).children("option:selected").text(),
-                            order:$(sl).children("option:selected").val(),
-                            csrfmiddlewaretoken: '{{ csrf_token }}',
-                            dataType: "json",
-                        },
-                        success: (response) => {
-                            if (response.ordered) {
-                                st=$(sl).children("option:selected").text(),
-                                swal("Order status updated", st, "success").then( function(){window.location.reload()} )
-                            } 
-                            
-                        }
-                    });
+                    
                     return false; 
                    
                     

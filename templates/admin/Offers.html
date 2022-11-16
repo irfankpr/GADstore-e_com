@@ -273,33 +273,14 @@
                                         <p class="h6 font-weight-bolder my-4">Discount by {{o.offer_rate}} % for all products in the category {{o.category_name}}</b>.</p>
                                         <div class="form-group form-default col-12  ">
                                             <div class="btn-group col-12  d-flex justify-content-between" data-toggle="buttons">
-
-                                                <label class="btn btn-outline-primary ">
-                                                    <input type="radio" name="type" id="option2" value="FLAT"
-                                                        autocomplete="off">Active
-                                                </label>
-
-                                                <label class="btn btn-outline-danger ">
-                                                    <input type="radio" name="type" id="option3" value="UPTO"
-                                                        autocomplete="off">Inactive
-                                                </label>
+                                                    <a href="">Delete offer</a>
                                             </div>
                                         </div>
                                         </div>
                                     </div>
                                         {% endfor %}
                                         
-
-
-                                    </div>
-
-
-
-
-
-
-
-
+                                  </div>
 
                                 </div>
                             </div>
@@ -311,6 +292,7 @@
                                 <div class="card-header">
                                     <h3>Add new Offer</h3>
                                     <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+
                                 </div>
 
                                 <div class="card-block">
@@ -350,6 +332,7 @@
                                     NEW OFFER</button>
                                 </form>
                             </div>
+                            <a href="{{ url 'adminproducts' }}">ADD PRODUCT OFFERRS- goto product page</a>
                         </div>
 
                     </div>

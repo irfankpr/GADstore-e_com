@@ -12,13 +12,13 @@
                     {% for c in cat %}
                     <div class="nav-item dropdown dropright border-0 btn h6 p-0 m-0 btn-outline-warning">
                         <div class="nav-item dropdown justify-content-between align-middle">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{c.category_name}}<span class="material-symbols-outlined">
+                            <a href="#" class="nav-link dropdown-toggle h6" data-toggle="dropdown">{{c.category_name}}<span class="material-symbols-outlined">
                                 arrow_drop_down
                                 </span></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                 {% for s in subcat %}
                                 {% if s.parent_cat_id == c.id %}
-                                <a href="shop?key={{s.slug}}" class="dropdown-item ">{{s.sub_cat_name}}</a>
+                                <a href="shop?key={{s.slug}}" class="dropdown-item h6">{{s.sub_cat_name}}</a>
                                 {% endif %}
                                 {% endfor %}
                             </div>
