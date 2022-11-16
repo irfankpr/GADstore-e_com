@@ -272,8 +272,8 @@
                                             <h5 class="p-0 my-4 col text-primary text-center h5">{{o.offer_tittle}}</h5>
                                         <p class="h6 font-weight-bolder my-4">Discount by {{o.offer_rate}} % for all products in the category {{o.category_name}}</b>.</p>
                                         <div class="form-group form-default col-12  ">
-                                            <div class="btn-group col-12  d-flex justify-content-between" data-toggle="buttons">
-                                                    <a href="">Delete offer</a>
+                                            <div class=" col-12  d-flex ">
+                                                    <a href="/admin/dlt-offer?id={{o.id}}&off=cat" class="btn mx-auto btn-danger">Delete offer</a>
                                             </div>
                                         </div>
                                         </div>
@@ -332,7 +332,7 @@
                                     NEW OFFER</button>
                                 </form>
                             </div>
-                            <a href="{{ url 'adminproducts' }}">ADD PRODUCT OFFERRS- goto product page</a>
+                            <a href="{% url 'adminproducts' %}">ADD PRODUCT OFFERRS- goto product page</a>
                         </div>
 
                     </div>
