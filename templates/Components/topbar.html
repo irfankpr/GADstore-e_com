@@ -27,7 +27,7 @@
                 {% if request.user.is_authenticated %}
                 <button type="button" class="btn btn-sm btn-light dropdown-toggle p-0 m-0" data-toggle="dropdown"><i class="fas fa-2x fa-user-circle "></i></button>
                 {% else %}
-                <a class="dropdown-item mt-4 text-dark bg-warning my-auto font-weight-bold" href="log" type="button">Login / Signup</a>
+                <a class="dropdown-item mt-4 text-dark bg-warning my-auto font-weight-bold" href="{% url 'log' %}" type="button">Login / Signup</a>
                 {% endif %}
                 <div class="dropdown-menu dropdown-menu-right bg-dark rounded px-5 py-3">
                     <a class="dropdown-item  text-warning" type="button" href="{% url 'my-profile' %}">Profile</a>

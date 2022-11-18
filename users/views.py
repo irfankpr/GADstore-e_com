@@ -342,6 +342,8 @@ def gust_addcart(request):
     if 'gust_cart' in request.COOKIES:
         c = request.COOKIES['gust_cart']
         c = literal_eval(c)
+        if p in c.keys():
+            a = JsonResponse({'exist': True})
         c[p] = 1
         print(c)
         a.set_cookie('gust_cart', c)

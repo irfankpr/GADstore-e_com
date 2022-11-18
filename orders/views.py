@@ -12,8 +12,10 @@ from orders.models import Coupons
 
 
 # Create your views here.
-@login_required(login_url='log')
+@never_cache
 def chkout(request):
+    if not request.user.is_authenticated:
+        return  redirect('log')
     items = cart.objects.filter(user_id_id=request.user.id)
     total = 0
     add = address.objects.filter(user_id=request.user.id)

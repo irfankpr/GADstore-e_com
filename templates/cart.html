@@ -130,7 +130,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <a href="{% url 'cart-dlt' c.id %}" type="button" class="btn btn-outline-danger">Remove</a>
+          <a onclick="cart_dlt('{% url 'cart-dlt' c.id %}')" type="button" class="btn btn-outline-danger">Remove</a>
         </div>
       </div>
     </div>
@@ -190,7 +190,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <a href="{% url 'cart-dlt' p.id %}" type="button" class="btn btn-outline-danger">Remove</a>
+          <a onclick="cart_dlt('{% url 'cart-dlt' p.id %}')" type="button" class="btn btn-outline-danger">Remove</a>
         </div>
       </div>
     </div>
@@ -363,7 +363,14 @@
             
         }
 
-       
+        function cart_dlt(url){
+            $.ajax({
+                url: url,
+                  success: (response) => {
+                    location.reload()
+                }
+            })
+           }
        
     </script>
 

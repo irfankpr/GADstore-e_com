@@ -65,7 +65,7 @@ def addsubcat(request):
         return redirect('category')
 
 
-@login_required(login_url='log')
+
 @never_cache
 def add_cart(request):
     id = request.GET['proid']
@@ -88,7 +88,7 @@ def add_cart(request):
 
 def cart_dlt(request, id):
     if request.method == 'GET':
-        a = redirect('cartv')
+        a = JsonResponse({"success":True})
 
         if request.user.is_authenticated:
             cart.objects.get(id=id).delete()
