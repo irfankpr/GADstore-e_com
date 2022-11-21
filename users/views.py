@@ -301,7 +301,11 @@ def landing(request):
 @login_required(login_url='/')
 def myorders(request):
     o = orders.objects.filter(user_id=request.user.id).order_by('-date')
-    return render(request, 'my-orders.html', {'orders': o, })
+    paging = Paginator(o, 10)
+    page = request.GET.get('page')
+    paged = paging.get_page(page)
+    prd_count = o.count()
+    return render(request, 'my-orders.html', {'orders': paged,'prd_count': prd_count, })
 
 
 @never_cache
