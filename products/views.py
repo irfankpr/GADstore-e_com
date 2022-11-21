@@ -1,5 +1,5 @@
 from ast import literal_eval
-
+import os
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
@@ -40,6 +40,7 @@ def deletecat(request, catid):
     cat = categories.objects.get(id=id)
     name = cat.category_name
     categories.objects.filter(id=id).delete()
+    os.remove('media/' + str(cat.category_image))
     sub_categories.objects.filter(parent_cat_id=id).delete()
     messages.error(request, 'Category  ' + name + ' and corresponding sub-categories deleted !')
     return redirect('category')

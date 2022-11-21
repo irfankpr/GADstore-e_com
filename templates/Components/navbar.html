@@ -44,9 +44,13 @@
                         <a href="{% url 'cartv' %}" class="nav-item nav-link">Cart</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
-                            <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                <a href="{% url 'cartv' %}" class="dropdown-item">Shopping Cart</a>
-                                <a href="checkout.html" class="dropdown-item">Checkout</a>
+                            <div class="dropdown-menu bg-primary rounded-0 border-0 m-0 ">
+                                {% if request.user.is_authenticated %}
+                                <a href="{% url 'my-profile' %}" class="dropdown-item font-weight-bold">Profile</a>
+                                <a href="{% url 'my-wallet' %}" class="dropdown-item font-weight-bold">Wallet</a>
+                                {% endif %}
+                                <a href="{% url 'cartv' %}" class="dropdown-item font-weight-bold">Shopping Cart</a>
+                                <a href="checkout.html" class="dropdown-item font-weight-bold">Checkout</a>
                             </div>
                         </div>
                         <a href="#Contact" class="nav-item nav-link">Connect us</a>

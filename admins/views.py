@@ -2,6 +2,7 @@ import datetime
 import xlwt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Count, Q, Sum, F, Max
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -14,6 +15,7 @@ from orders.models import orders, Coupons
 from profiles.models import userprofiles, cart
 from products.models import categories, products, sub_categories, prodtct_image
 from django.views.generic import View
+import os
 from admins.utils import render_to_pdf  # created in step 4
 
 
@@ -124,6 +126,10 @@ def deleteproduct(request, id):
     if request.method == 'GET':
         pr = products.objects.get(id=id)
         name = pr.Product_name
+        os.remove('media/'+str(pr.thumbnail))
+        images=prodtct_image.objects.filter(prodtct_name=pr)
+        for i in images:
+            os.remove('media/' + str(i.image))
         pr.delete()
         cart.objects.filter(product_id=id).delete()
         messages.error(request, 'Product ' + name + ' deleted.', extra_tags='dlt')
@@ -187,15 +193,22 @@ def adm_products(request):
 
         cat = categories.objects.all()
         if 'key' in request.GET:
-            q = Q()
             q = Q(Product_name__icontains=request.GET.get('key')) | Q(
                 category__category_name__icontains=request.GET.get('key'))
             product = products.objects.filter(q)
-            p = render(request, 'admin/products.html', {'product': product, 'cat': cat, 'key': request.GET.get('key')})
+            paging = Paginator(product, 12)
+            page = request.GET.get('page')
+            paged = paging.get_page(page)
+            prd_count = product.count()
+            p = render(request, 'admin/products.html', {'product': product, 'cat': cat, 'key': request.GET.get('key'),'products': paged, 'prd_count': prd_count,})
             return p
         else:
             product = products.objects.filter()
-            p = render(request, 'admin/products.html', {'product': product, 'cat': cat})
+            paging = Paginator(product, 12)
+            page = request.GET.get('page')
+            paged = paging.get_page(page)
+            prd_count = product.count()
+            p = render(request,  'admin/products.html', {'product': product, 'cat': cat, 'products': paged, 'prd_count': prd_count,})
             return p
 
 
@@ -203,7 +216,11 @@ def adm_products(request):
 @never_cache
 def users(request):
     usr = userprofiles.objects.exclude(is_admin=True).order_by('id')
-    return render(request, 'admin/users.html', {'user': usr})
+    paging = Paginator(usr, 5)
+    page = request.GET.get('page')
+    paged = paging.get_page(page)
+    prd_count = usr.count()
+    return render(request, 'admin/users.html', {'user': paged,'count': prd_count})
 
 
 @login_required(login_url='admin')
@@ -253,7 +270,11 @@ def sub_up(request):
 @never_cache
 def order(request):
     ord = orders.objects.all().order_by('-date')
-    return render(request, 'admin/orders.html', {'orders': ord})
+    paging = Paginator(ord, 12)
+    page = request.GET.get('page')
+    paged = paging.get_page(page)
+    prd_count = ord.count()
+    return render(request, 'admin/orders.html', {'orders': paged,'count': prd_count,})
 
 
 @login_required(login_url='/')

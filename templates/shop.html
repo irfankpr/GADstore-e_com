@@ -44,42 +44,47 @@
                 <!-- Price Start -->
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter
                         by price</span></h5>
-                <div class="bg-light p-4 mb-30">
+                <div class="bg-light mb-30">
                     <form>
                         <div
                             class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="price-all">
+                            <input type="radio" name="filter" class="custom-control-input" checked id="price-all">
                             <label class="custom-control-label" for="price-all">All Price</label>
-                            <span class="badge border font-weight-normal">1000</span>
+                          
                         </div>
                         <div
                             class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-1">
-                            <label class="custom-control-label" for="price-1">$0 - $100</label>
-                            <span class="badge border font-weight-normal">150</span>
+                            <input type="radio" name="filter" class="custom-control-input" id="price-1">
+                            <label class="custom-control-label" for="price-1">₹0 - ₹1000</label>
+                            
                         </div>
                         <div
                             class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">$100 - $200</label>
-                            <span class="badge border font-weight-normal">295</span>
+                            <input type="radio" name="filter" class="custom-control-input" id="price-2">
+                            <label class="custom-control-label" for="price-2">₹1000 - ₹10000</label>
+                           
                         </div>
                         <div
                             class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-3">
-                            <label class="custom-control-label" for="price-3">$200 - $300</label>
-                            <span class="badge border font-weight-normal">246</span>
+                            <input type="radio" name="filter" class="custom-control-input" id="price-3">
+                            <label class="custom-control-label" for="price-3">₹10000 - ₹20000</label>
+                            
                         </div>
                         <div
                             class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-4">
-                            <label class="custom-control-label" for="price-4">$300 - $400</label>
-                            <span class="badge border font-weight-normal">145</span>
+                            <input type="radio" name="filter" class="custom-control-input" id="price-4">
+                            <label class="custom-control-label" for="price-4">₹20000 - ₹50000</label>
+                            
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">$400 - $500</label>
-                            <span class="badge border font-weight-normal">168</span>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" name="filter" class="custom-control-input" id="price-5">
+                            <label class="custom-control-label" for="price-5">₹50000 - ₹1000000</label>
+                            
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" name="filter" class="custom-control-input" id="price-5">
+                            <label class="custom-control-label" for="price-5">₹1000000 <span class="h6">+</span> </label>
+                            
                         </div>
                     </form>
                 </div>
@@ -181,27 +186,15 @@
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-evenly mb-4">
-                            <div>
-                                <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
-                                <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
-                            </div>
+                           
                             <div class="ml-2">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Sorting</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
+                                <div class="btn-group ">
+                                    <button type="button" class="btn btn-sm btn-outline-warning col-12 px-4 dropdown-toggle text-dark font-weight-bolder"
+                                        data-toggle="dropdown">Sort search</button>
+                                    <div class="dropdown-menu dropdown-menu-right ">
                                         <a class="dropdown-item" href="#">Latest</a>
                                         <a class="dropdown-item" href="#">Popularity</a>
                                         <a class="dropdown-item" href="#">Best Rating</a>
-                                    </div>
-                                </div>
-                                <div class="btn-group ml-2">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Showing</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">10</a>
-                                        <a class="dropdown-item" href="#">20</a>
-                                        <a class="dropdown-item" href="#">30</a>
                                     </div>
                                 </div>
                             </div>
@@ -225,12 +218,12 @@
                             </div>
                             <div class="text-center py-4">
                                 <span class="h6 d-inline-block text-truncate col">{{ p.Product_name }}</span>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <span class="text-muted ml-2 h6 mx-2">MRP : ₹ {{ p.MRP }} /-</span>
+                                <div class="d-flex align-items-center justify-content-around mt-2">
+                                    <span class="text-muted font-weight-bolder" style="font-size: small;">MRP: ₹ {{ p.MRP |floatformat:"0"}}/-</span>
                                     {% if p.Offer or category.offer %} 
-                                    <h4 class="text-success mx-2" >₹ {{p.MRP|sub:p.Dis |floatformat:"0"}} /-</h4>
+                                    <h5 class="text-success " >₹ {{p.MRP|sub:p.Dis |floatformat:"0"}}/-</h5>
                                 {% else %}
-                                <h5 class="text-success mx-2" >₹ {{p.price}} /-</h5>
+                                <h5 class="text-success " >₹ {{p.price |floatformat:"0"}}/-</h5>
                                 {% endif %}
                                     
                             
