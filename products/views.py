@@ -107,27 +107,27 @@ def cart_count(request):
     if request.method == 'GET':
         c = request.GET['count']
         id = request.GET['cart']
-        cart.objects.filter(id=id).update(count=F('count') + c)
-        item = cart.objects.get(id=id)
-        pr = products.objects.get(id=item.product_id_id)
-        if c == "1":
-            if pr.Offer:
-                cart.objects.filter(id=id).update(total=F('total') + int(pr.MRP - pr.Dis))
-            elif pr.category.offer:
-                cart.objects.filter(id=id).update(total=F('total') + int(pr.MRP - pr.Dis))
-            else:
-                cart.objects.filter(id=id).update(total=F('total') + pr.price)
+        if not request.user.is_authenticated:
+            ck = literal_eval(request.COOKIES['gust_cart'])
+            ck[id]=ck[id] + int(c)
+            p=products.objects.get(id=id)
+            total=int( (p.price - p.Dis) * ck[id] )
+            res= JsonResponse({'total': total})
+            res.set_cookie('gust_cart',ck)
+            return res
         else:
-            if pr.Offer:
-                cart.objects.filter(id=id).update(total=F('total') - int(pr.MRP - pr.Dis))
-            elif pr.category.offer:
-                cart.objects.filter(id=id).update(total=F('total') - int(pr.MRP - pr.Dis))
+            cart.objects.filter(id=id).update(count=F('count') + c)
+            item = cart.objects.get(id=id)
+            pr = products.objects.get(id=item.product_id_id)
+            if c == "1":
+                cart.objects.filter(id=id).update(total=F('total') + int(pr.MRP - pr.Dis))
             else:
-                cart.objects.filter(id=id).update(total=F('total') - pr.price)
+                cart.objects.filter(id=id).update(total=F('total') - int(pr.MRP - pr.Dis))
 
-        if cart.objects.filter(count=0):
-            cart.objects.filter(count=0).delete()
-            return JsonResponse({'removeProduct': True})
-        else:
-            it = cart.objects.get(id=id)
-            return JsonResponse({'total': it.total})
+
+            if cart.objects.filter(count=0):
+                cart.objects.filter(count=0).delete()
+                return JsonResponse({'removeProduct': True})
+            else:
+                it = cart.objects.get(id=id)
+                return JsonResponse({'total': it.total})

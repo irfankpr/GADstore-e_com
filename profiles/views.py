@@ -27,14 +27,12 @@ def newaddress(request):
         pin = request.POST['pin']
         add = request.POST['addressarea']
         obj = address()
-        print(id, name, Phone, pin, add)
         obj.user_id = id
         obj.full_name = name
         obj.phone = Phone
         obj.postal_PIN = pin
         obj.address = add
         obj.save()
-        print(request.META.get('HTTP_REFERER'))
         return redirect(request.META.get('HTTP_REFERER'))
 
 

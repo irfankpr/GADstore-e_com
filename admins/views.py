@@ -31,8 +31,8 @@ def login(request):
             Phone = request.POST['phone']
             password = request.POST['Password']
             print(Phone, password)
-            usr = authenticate(request, phone=Phone, password=password, is_staff=True, is_admin=True)
-            if usr is not None:
+            usr = authenticate(request, phone=Phone, password=password,is_staff=True, is_admin=True)
+            if usr is not None and usr.is_admin == True:
                 auth.login(request, usr)
                 res = redirect('adminhome')
                 user = userprofiles.objects.get(phone=Phone)
@@ -335,6 +335,7 @@ def dlt_offer(request):
             cat.offer_rate = 0
             cat.offer_tittle = None
             cat.maxlimit = 0
+            products.objects.filter(category=cat).update(Dis=0)
             cat.save()
         return redirect(request.META.get('HTTP_REFERER'))
 

@@ -107,11 +107,13 @@ def order_up(request):
             if o.payment != "COD":
                 usr = userprofiles.objects.get(id=request.user.id)
                 usr.wallet = usr.wallet + o.Total
+                usr.save()
                 walletTrans(user=request.user, quantity=o.Total,
                             desc="Refunded for cancel of : " + o.product.Product_name).save()
         if stt == "Refunded":
             usr = userprofiles.objects.get(id=request.user.id)
             usr.wallet = usr.wallet + o.Total
+            usr.save()
             walletTrans(user=request.user, quantity=o.Total,
                         desc="Refunded for return of : " + o.product.Product_name).save()
 
@@ -128,6 +130,7 @@ def cancel_order(request, id):
         o.save()
         usr = userprofiles.objects.get(id=request.user.id)
         usr.wallet = usr.wallet + o.Total
+        usr.save()
         walletTrans(user=request.user,quantity=o.Total,desc="Refunded for cancel of : "+o.product.Product_name).save()
     else:
         o.status = "Cancelled"

@@ -68,21 +68,16 @@
             <div class="col-lg-5 col-12 ml-lg-5  h-auto mb-30">
                 <div class="h-100 bg-light p-30 ml-lg-5 px-5">
                     <h3>{{ p.Product_name }}</h3>
-                    <div class="d-flex mb-3">
-                        <div class="text-primary mr-2">
-                            <small class="fas fa-star"></small>
-                            <small class="fas fa-star"></small>
-                            <small class="fas fa-star"></small>
-                            <small class="fas fa-star-half-alt"></small>
-                            <small class="far fa-star"></small>
-                        </div>
-                        <small class="pt-1">(99 Reviews)</small>
+                    <div class="col-12 my-3">
+                        {% if p.Offer %}<a class="h3 btn btn-danger rounded font-weight-bolder">{{p.Disrate}}% OFF On this product</a>
+                        {% elif p.category.offer %}
+                        <a class="h3 btn btn-danger rounded font-weight-bolder ">{{ p.category.offer_rate|floatformat:"0"}} % OFF on all {{p.category.category_name}}</a>
+                        {% endif %}
                     </div>
-                    <h3 class="font-weight-semi-bold mb-4 text-danger col float-left"><del>₹ {{ p.MRP }} /-</del></h3>
-                    {% if p.Offer %} 
+                    <h5 class="font-weight-semi-bold mb-4 text-muted col float-left">MRP : ₹ {{ p.MRP }} /-</h5>
+                    {% if p.Offer or  p.category.offer %} 
+                  
                     <h3 class="font-weight-semi-bold mb-4 text-success col">₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h3>
-                {% elif p.category.offer %}
-                <h3 class="font-weight-semi-bold mb-4 text-success col">₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h3>
                 {% else %}
                 <h3 class="font-weight-semi-bold mb-4 text-success col" >₹ {{p.price}} /-</h3>
                 {% endif %}
@@ -256,24 +251,20 @@
                         {% endif %}
                             <img class="img-fluid w-100" src="{{ p.thumbnail.url }}" alt="">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" onclick="addtocart(p.id)"><i
-                                        class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                <a class="btn btn-outline-dark btn-square py-4 px-4" href="">BUY NOW</i></a>
+                                <a class="btn btn-outline-dark col-10">Have a look on similer product &nbsp;{{p.Product_name}}</i></a>
                             </div>
                         </div>
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="">{{p.Product_name}}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                {% if p.Offer %} 
-                            <h5 class="text-success" >₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h5>
-                        {% elif p.category.offer %}
-                        <h5 class="text-success" >₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h5>
-                        {% else %}
-                        <h5 class="text-success" >₹ {{p.price}} /-</h5>
-                        {% endif %}
-                                <h6 class="text-muted ml-2 text-danger"><del>{{p.MRP}}</del></h6>
+                                <span class="text-muted ml-2 h6 mx-2">MRP : ₹ {{ p.MRP }} /-</span>
+                                {% if p.Offer or category.offer %} 
+                                <h4 class="text-success mx-2" >₹ {{p.MRP|sub:p.Dis |floatformat:"0"}} /-</h4>
+                            {% else %}
+                            <h5 class="text-success mx-2" >₹ {{p.price}} /-</h5>
+                            {% endif %}
                                 
+                        
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
                                 <small class="fa fa-star text-primary mr-1"></small>
@@ -337,11 +328,11 @@
                 },
                 success: (response) => {
                     if (response.added) {
-                        c = parseInt (document.getElementById("cct").innerHTML)
-                        document.getElementById('cct').innerHTML=  c+1,
+                        c = parseInt (document.getElementById("cartcount").innerHTML)
+                        document.getElementById('cartcount').innerHTML=c+1,
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.success('Product added to cart');
-                    }  else {
+                    }else {
                         alertify.set('notifier','position', 'top-right');
                         alertify.success('Already exists in the cart');
                     }

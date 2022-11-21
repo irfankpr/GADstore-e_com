@@ -152,7 +152,7 @@
                             <td class="align-middle">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus" id="mmi" onclick="changeQuantity('{{c.id}}','c{{forloop.counter}}',-1,'pt{{forloop.counter}}','sc{{forloop.counter}}','st{{forloop.counter}}' )">
+                                        <button class="btn btn-sm btn-primary btn-minus" id="mmi" onclick="changeQuantity('{{p.id}}','c{{forloop.counter}}',-1,'pt{{forloop.counter}}','sc{{forloop.counter}}','st{{forloop.counter}}' )">
                                             <i class="fa fa-minus"></i>
                                         </button>
                                     </div>
@@ -162,7 +162,7 @@
                                         {{ v.0 }}
                                         </span>
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus" onclick="changeQuantity('{{c.id}}','c{{forloop.counter}}',1,'pt{{forloop.counter}}','sc{{forloop.counter}}','st{{forloop.counter}}' )">
+                                        <button class="btn btn-sm btn-primary btn-plus" onclick="changeQuantity('{{p.id}}','c{{forloop.counter}}',1,'pt{{forloop.counter}}','sc{{forloop.counter}}','st{{forloop.counter}}' )">
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>

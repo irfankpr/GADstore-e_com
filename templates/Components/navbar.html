@@ -18,7 +18,7 @@
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                 {% for s in subcat %}
                                 {% if s.parent_cat_id == c.id %}
-                                <a href="shop?key={{s.slug}}" class="dropdown-item h6">{{s.sub_cat_name}}</a>
+                                <a href="shop?key={{s.sub_cat_name}}" class="dropdown-item h6">{{s.sub_cat_name}}</a>
                                 {% endif %}
                                 {% endfor %}
                             </div>
@@ -41,7 +41,7 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
                         <a href="{% url 'shop' %}" class="nav-item nav-link">Shop</a>
-                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                        <a href="{% url 'cartv' %}" class="nav-item nav-link">Cart</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
@@ -49,7 +49,7 @@
                                 <a href="checkout.html" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
-                        <a href="#Contact" class="nav-item nav-link">Contact</a>
+                        <a href="#Contact" class="nav-item nav-link">Connect us</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                        {% if request.user.is_authenticated %}

@@ -174,9 +174,9 @@
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4" onclick="window.location = '{% url 'detail' p.id %}'">
                     <div class="product-img  position-relative overflow-hidden">
-                        {% if p.Offer %}<a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{p.Disrate}}% OFF</a>
+                        {% if p.Offer %}<a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h5">{{p.Disrate}}% OFF</a>
                         {% elif p.category.offer %}
-                        <a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{ p.category.offer_rate|floatformat:"0"}} % OFF</a>
+                        <a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h5">{{ p.category.offer_rate|floatformat:"0"}} % OFF</a>
                         {% endif %}
                         <img class="img-fluid w-100" src="{{ p.thumbnail.url}}" alt="">
                         <div class="product-action">
@@ -188,13 +188,11 @@
                     <div class="text-center py-4">
                         <span class="h6 d-inline-block text-truncate col">{{ p.Product_name }}</span>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h6 class="text-muted ml-2"><del class="text-danger mx-2">₹ {{ p.MRP }} /-</del></h6>
-                            {% if p.Offer %} 
-                            <h5 class="text-success mx-2" >₹ {{p.MRP|sub:p.Dis |floatformat:"0"}} /-</h5>
-                        {% elif p.category.offer %}
-                        <h5 class="text-success mx-2" >₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h5>
+                            <span class="text-muted ml-2 h6 mx-2">MRP : ₹ {{ p.MRP }} /-</span>
+                            {% if p.Offer or category.offer %} 
+                            <h5 class="text-success mx-2 font-weight-bolder" >₹ {{p.MRP|sub:p.Dis |floatformat:"0"}} /-</h5>
                         {% else %}
-                        <h5 class="text-success mx-2" >₹ {{p.price}} /-</h5>
+                        <h5 class="text-success mx-2 font-weight-bolder" >₹ {{p.price}} /-</h5>
                         {% endif %}
                             
                     
@@ -253,9 +251,9 @@
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4" onclick="window.location = '{% url 'detail' p.id %}'">
                     <div class="product-img  position-relative overflow-hidden">
-                        {% if p.Offer %}<a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{p.Disrate}}% OFF</a>
+                        {% if p.Offer %}<a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h5">{{p.Disrate}}% OFF</a>
                         {% elif p.category.offer %}
-                        <a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{ p.category.offer_rate|floatformat:"0"}} % OFF</a>
+                        <a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h5">{{ p.category.offer_rate|floatformat:"0"}} % OFF</a>
                         {% endif %}
                         <img class="img-fluid w-100" src="{{ p.thumbnail.url}}" alt="">
                         <div class="product-action">
@@ -267,13 +265,11 @@
                     <div class="text-center py-4">
                         <span class="h6 d-inline-block text-truncate col">{{ p.Product_name }}</span>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h6 class="text-muted ml-2"><del class="text-danger mx-2">₹ {{ p.MRP }} /-</del></h6>
-                            {% if p.Offer %} 
-                            <h5 class="text-success mx-2" >₹ {{p.MRP|sub:p.Dis |floatformat:"0"}} /-</h5>
-                        {% elif p.category.offer %}
-                        <h5 class="text-success mx-2" >₹ {{p.MRP|sub:p.Dis|floatformat:"0"}} /-</h5>
+                            <span class="text-muted ml-2 h6 mx-2">MRP : ₹ {{ p.MRP }} /-</span>
+                            {% if p.Offer or category.offer %} 
+                            <h5 class="text-success mx-2 font-weight-bolder" >₹ {{p.MRP|sub:p.Dis |floatformat:"0"}} /-</h5>
                         {% else %}
-                        <h5 class="text-success mx-2" >₹ {{p.price}} /-</h5>
+                        <h5 class="text-success mx-2 font-weight-bolder" >₹ {{p.price}} /-</h5>
                         {% endif %}
                             
                     
