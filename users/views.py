@@ -175,12 +175,11 @@ def home(request):
             count = 0
         new = products.objects.all().order_by('-added_date')[:12]
         cat = categories.objects.all().annotate(cat_count=Count('category_name')).order_by('category_name')
-        rndm = list(products.objects.all())
-        sug = random.sample(rndm, 8)
+        rndm = products.objects.all().order_by('?')[:8]
         for c in cat:
             c.prds = products.objects.filter(category=c.id).count()
         subcat = sub_categories.objects.all().annotate(subcat_count=Count('sub_cat_name')).order_by('sub_cat_name')
-        return render(request, 'index.html', {'cat': cat, 'new': new, 'subcat': subcat, 'count': count, "sug":sug})
+        return render(request, 'index.html', {'cat': cat, 'new': new, 'subcat': subcat, 'count': count, "sug":rndm})
     else:
         messages.error(request, 'Something went wrong, please try again')
         return redirect('/log')
@@ -292,9 +291,8 @@ def landing(request):
     new = products.objects.all().order_by('-added_date')[:12]
     cat = categories.objects.all().annotate(cat_count=Count('category_name')).order_by('category_name')
     subcat = sub_categories.objects.all().annotate(subcat_count=Count('sub_cat_name')).order_by('sub_cat_name')
-    rndm = list(products.objects.all())
-    sug = random.sample(rndm, 8)
-    return render(request, 'gadstore.html', {'cat': cat, 'new': new, 'subcat': subcat, 'count': count, "sug":sug})
+    rndm = products.objects.all().order_by('?')[:8]
+    return render(request, 'gadstore.html', {'cat': cat, 'new': new, 'subcat': subcat, 'count': count, "sug":rndm})
 
 
 @never_cache
