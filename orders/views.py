@@ -176,3 +176,9 @@ def applycoupon(request):
 
     except:
         pass
+
+@never_cache
+def order_select(request):
+    id = request.GET["ord"]
+    ord=orders.objects.get(id=id)
+    return render(request,'Components/order_select.html',{'o':ord})

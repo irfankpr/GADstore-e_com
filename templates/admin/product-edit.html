@@ -351,7 +351,7 @@
                                         <div class="form-group row justify-content-cemter mx-4 my-5"  id="thumb"  style="display: none;">
                                             <label class="col-sm-e col-form-label">Update Thumnail</label>
                                             <div class="col-10">
-                                                <input type="file" name="thumbnail" class="form-control" disabled id="img">
+                                                <input type="file" name="thumbnail" accept="image/x-png,image/jpg,image/jpeg" class="form-control" disabled id="img" oninput="is_image()">
                                             </div>
                                         </div>
                                         
@@ -416,6 +416,24 @@
                     <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
                     <!-- Custom js -->
                     <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
+                                <!-- swal -->
+            <!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+                    <script>
+                        function is_image(){
+                            var img = document.getElementById('img')
+                            if(!(/\.(jpe?g|tiff?|png)$/i).test(img.value)){
+                                
+                                alertify.set('notifier','position', 'top-right');
+                                alertify.error('<h3>Invalid file type</h3> <br> <h5>Use : jpg, jpeg or png </h5>');
+                                img.value="";
+                            }
+                
+                        }
+                    </script>
 </body>
 
 </html>

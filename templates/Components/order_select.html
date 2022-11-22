@@ -1,0 +1,20 @@
+<option value="{{o.id}}" selected >{{o.status}}</option>
+{% if o.status == 'Placed' %}
+<option value="{{o.id}}" >Cancelled</option> 
+<option value="{{o.id}}" >Shipped</option> 
+{% elif o.status == 'Shipped' %}
+<option value="{{o.id}}" >Out for delivery</option> 
+{% elif o.status == 'Out for delivery' %}
+<option value="{{o.id}}" >Delivered</option> 
+{% elif o.status == 'Returned' %}
+<option value="{{o.id}}" >Return confirmed</option> 
+<option value="{{o.id}}" >Return Rejected</option> 
+{% elif o.status == 'Return Rejected' %}
+<option value="{{o.id}}" >Return confirmed</option> 
+{% elif o.status == 'Return confirmed' %}
+<option value="{{o.id}}" >Picking up Today</option> 
+{% elif o.status == 'Picking up Today' %}
+<option value="{{o.id}}" >Refund initiated</option> 
+{% elif o.status == 'Refund initiated' %}
+<option value="{{o.id}}" >Refunded</option> 
+{% endif %}

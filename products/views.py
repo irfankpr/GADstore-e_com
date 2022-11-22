@@ -40,7 +40,10 @@ def deletecat(request, catid):
     cat = categories.objects.get(id=id)
     name = cat.category_name
     categories.objects.filter(id=id).delete()
-    os.remove('media/' + str(cat.category_image))
+    try:
+        os.remove('media/' + str(cat.category_image))
+    except:
+        pass
     sub_categories.objects.filter(parent_cat_id=id).delete()
     messages.error(request, 'Category  ' + name + ' and corresponding sub-categories deleted !')
     return redirect('category')

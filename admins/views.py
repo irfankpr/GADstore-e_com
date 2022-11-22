@@ -126,10 +126,16 @@ def deleteproduct(request, id):
     if request.method == 'GET':
         pr = products.objects.get(id=id)
         name = pr.Product_name
-        os.remove('media/'+str(pr.thumbnail))
+        try:
+            os.remove('media/'+str(pr.thumbnail))
+        except:
+            pass
         images=prodtct_image.objects.filter(prodtct_name=pr)
-        for i in images:
-            os.remove('media/' + str(i.image))
+        try :
+            for i in images:
+                os.remove('media/' + str(i.image))
+        except:
+            pass
         pr.delete()
         cart.objects.filter(product_id=id).delete()
         messages.error(request, 'Product ' + name + ' deleted.', extra_tags='dlt')
@@ -238,7 +244,7 @@ def block_users(request, bid):
     return redirect(users)
 
 
-@login_required(login_url='admin')
+
 @never_cache
 def cat_edit(request, cid):
     cat = categories.objects.filter(id=cid)
@@ -270,7 +276,7 @@ def sub_up(request):
 @never_cache
 def order(request):
     ord = orders.objects.all().order_by('-date')
-    paging = Paginator(ord, 12)
+    paging = Paginator(ord, 10)
     page = request.GET.get('page')
     paged = paging.get_page(page)
     prd_count = ord.count()

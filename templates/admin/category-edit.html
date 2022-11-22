@@ -245,8 +245,8 @@
                                 </div>
                                 <div class="card-block">
                                     <div class="col-12 d-flex mx-0 my-5 p-0">
-                                        <h3 class="sub-title col-10">You can aslo edit Ctegoru details here.</h3>
-                                        <input type="button" value="Edit Product" class="btn btn-outline-primary" onclick="edit()">
+                                        <h3 class="sub-title col-10">You can aslo edit category details here.</h3>
+                                        <input type="button" value="Edit Category" class="btn btn-outline-primary" onclick="edit()">
                                     </div>
                                     {% for c in cat %}
                                     <form action="{% url 'cat-up' %}" method="POST" enctype='multipart/form-data'>
@@ -269,7 +269,7 @@
     
                                             <label class="col-sm-e col-form-label">Update Category image</label>
                                             <div class="col-10">
-                                                <input type="file" name="catimg" class="form-control" >
+                                                <input type="file" id="ccaatt" name="catimg" accept="image/x-png,image/jpg,image/jpeg" oninput="is_image()" class="form-control" >
                                             </div>
                                         </div>
                                         
@@ -379,6 +379,24 @@
                     <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
                     <!-- Custom js -->
                     <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
+                     <!-- swal -->
+            <!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+                    <script>
+                        function is_image(){
+                            var img = document.getElementById('ccaatt')
+                            if(!(/\.(jpe?g|tiff?|png)$/i).test(img.value)){
+                                
+                                alertify.set('notifier','position', 'top-right');
+                                alertify.error('<h3>Invalid file type</h3> <br> <h5>Use : jpg, jpeg or png </h5>');
+                                img.value="";
+                            }
+                
+                        }
+                    </script>
 </body>
 
 </html>

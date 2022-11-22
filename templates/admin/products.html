@@ -311,14 +311,14 @@
                 </div>
                 <div class="form-group form-default d-flex mx-0 my-5 px-0 py-3 row">
                     <h6 class="form-bar m-0 p-0 col-4">Add Thumnail images :</h6>
-                    <input type="file" name="thumb" class="col-7"
-                        placeholder="Add image" required="">
+                    <input type="file" id="thumb" name="thumb" class="col-7"
+                        placeholder="Add image" required="" oninput="is_image_thum()" accept="image/x-png,image/jpg,image/jpeg">
                 </div>
                 <div class="form-group form-default d-flex mx-0 my-5 px-0 py-3 row">
                     <div class="col d-flex">
                         <h6 class="form-bar m-0 p-0 col-4">Add more images :</h6>
-                    <input type="file" name="pimages" class="col-7"
-                        placeholder="Add image"  multiple title="Add multiple images">
+                    <input type="file" id ="pimages" name="pimages" class="col-7" oninput="is_image_mul()"
+                        placeholder="Add image"  multiple title="Add multiple images" accept="image/x-png,image/jpg,image/jpeg">
                         
                     </div>
                     
@@ -467,6 +467,43 @@
             <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
             <!-- Custom js -->
             <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
+            <!-- swal -->
+            <!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+            <script>
+                function is_image_thum(){
+                    var img = document.getElementById('thumb')
+                    if(!(/\.(jpe?g|tiff?|png)$/i).test(img.value)){
+                        
+                        alertify.set('notifier','position', 'top-right');
+                        alertify.error('<h3>Invalid file type</h3> <br> <h5>Use : jpg, jpeg or png </h5>');
+                        img.value="";
+                    }
+        
+                }
+
+                function is_image_mul(){
+                    var mul = document.getElementById('pimages')
+                    for (var i=0; i<mul.files.length; i++) {
+                        if(!(/\.(jpe?g|tiff?|png)$/i).test(mul.files[i].name)){
+                        
+                        alertify.set('notifier','position', 'top-right');
+                        alertify.error('<h3>Invalid file type</h3> <br> <h5>Use : jpg, jpeg or png </h5>');
+                        mul.value="";
+                    }
+                    }
+                   
+
+                }
+            </script>
+            <style>
+                .alertify-notifier .ajs-message.ajs-error{
+                    color: rgb(255, 255, 255);
+                }
+            </style>
 </body>
 
 </html>

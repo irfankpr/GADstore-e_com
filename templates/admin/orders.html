@@ -293,6 +293,7 @@
                                                         <select name="status" id="status{{forloop.counter}}" class="border-0 h6 col" onchange="statusup('#status{{forloop.counter}}')" style="opacity: 1;" >
                                                             <option value="{{o.id}}" selected >{{o.status}}</option>
                                                            {% if o.status == 'Placed' %}
+                                                           <option value="{{o.id}}" >Cancelled</option> 
                                                            <option value="{{o.id}}" >Shipped</option> 
                                                            {% elif o.status == 'Shipped' %}
                                                            <option value="{{o.id}}" >Out for delivery</option> 
@@ -325,7 +326,7 @@
                                         {% if orders.has_other_pages %}
                                         <ul class="pagination justify-content-center">
                                             {% if orders.has_previous %}
-                                            <li class="page-item rounded h6 p-0 "><a class="page-link text-dark" href="?page={{ products.previous_page_number }}&key={{key}}">Previous</span></a>
+                                            <li class="page-item rounded h6 p-0 "><a class="page-link text-dark" href="?page={{ orders.previous_page_number }}&key={{key}}">Previous</span></a>
                                                 {% else %}
                                                 <li class="page-item rounded h6 p-0 "><a class="page-link text-dark" disabled >Previous</span></a>
                                                 {% endif %}
@@ -353,48 +354,7 @@
                     </div>
                 </div>
             </div>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js" integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            <script>
-                function statusup(sl) {
-                    swal({
-                        title: "Update order status ?",
-                        
-                        icon: "info",
-                        buttons: true,
-                        dangerMode: true,
-                      })
-                      .then((willDelete) => {
-                        if (willDelete) {
-
-                            $.ajax({
-                                type: "POST",
-                                url: "{% url 'order-up' %}",
-                                data: {
-                                    status :  $(sl).children("option:selected").text(),
-                                    order:$(sl).children("option:selected").val(),
-                                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                                    dataType: "json",
-                                },
-                                success: (response) => {
-                                    if (response.ordered) {
-                                        window.location.reload()
-                                    } 
-                                    
-                                }
-                            });
-                          
-                        } else {
-                            window.location.reload()
-                          }
-                      });
-        
-                    
-                    return false; 
-                   
-                    
-                }
-               
-            </script>
+           
 
             <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
              <!-- Required Jquery -->
@@ -415,6 +375,54 @@
              <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
              <!-- Custom js -->
              <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
+             <!-- ................................ -->
+             <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js" integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+             <script>
+                 function statusup(sl) {
+                     swal({
+                         title: "Update order status ?",
+                         
+                         icon: "info",
+                         buttons: true,
+                         dangerMode: true,
+                       })
+                       .then((willDelete) => {
+                         if (willDelete) {
+ 
+                             $.ajax({
+                                 type: "POST",
+                                 url: "{% url 'order-up' %}",
+                                 data: {
+                                     status :  $(sl).children("option:selected").text(),
+                                     order:$(sl).children("option:selected").val(),
+                                     csrfmiddlewaretoken: '{{ csrf_token }}',
+                                     dataType: "json",
+                                 },
+                                 success: (response) => {
+                                     if (response.ordered) {
+                                        ord=$(sl).children("option:selected").val(),
+                                        url="{% url 'order_select' %}"+"?ord="+ord
+                                        $(sl).load(url);
+                                        
+                                     } 
+                                     
+                                 }
+                             });
+                           
+                         } else {
+                            ord=$(sl).children("option:selected").val(),
+                            url="{% url 'order_select' %}"+"?ord="+ord
+                            $(sl).load(url);
+                           }
+                       });
+         
+                     
+                     return false; 
+                    
+                     
+                 }
+                
+             </script>
 </body>
 
 </html>

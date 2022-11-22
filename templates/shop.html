@@ -77,6 +77,7 @@
                             
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            
                             <input type="radio" name="filter" class="custom-control-input" id="price-5">
                             <label class="custom-control-label" for="price-5">₹50000 - ₹1000000</label>
                             
@@ -189,13 +190,12 @@
                            
                             <div class="ml-2">
                                 <div class="btn-group ">
-                                    <button type="button" class="btn btn-sm btn-outline-warning col-12 px-4 dropdown-toggle text-dark font-weight-bolder"
-                                        data-toggle="dropdown">Sort search</button>
-                                    <div class="dropdown-menu dropdown-menu-right ">
-                                        <a class="dropdown-item" href="#">Latest</a>
-                                        <a class="dropdown-item" href="#">Popularity</a>
-                                        <a class="dropdown-item" href="#">Best Rating</a>
-                                    </div>
+                                    <select class="form-select form-select-sm outline-warning h6 px-3 border-0 " aria-label=".form-select-sm example">
+                                        <option class="my-2" selected>Sort by price</option>
+                                        <option class="my-2" value="">Low to high</option>
+                                        <option class="my-2" value="2">High to low</option>
+                                        
+                                      </select>
                                 </div>
                             </div>
                         </div>
