@@ -72,14 +72,34 @@ def addsubcat(request):
 
 @never_cache
 def add_cart(request):
-    id = request.GET['proid']
+    if not request.user.is_authenticated:
+        p = request.GET['proid']
+        a = JsonResponse({'added': True})
+        prd = products.objects.get(id=p)
+        if prd.available_stock < 1:
+            return JsonResponse({'out': True})
+        if 'gust_cart' in request.COOKIES:
+            c = request.COOKIES['gust_cart']
+            c = literal_eval(c)
+            if p in c.keys():
+                a = JsonResponse({'exist': True})
+            c[p] = 1
+            print(c)
+            a.set_cookie('gust_cart', c)
+        else:
 
+            t = (prd.price - prd.Dis)
+            a.set_cookie('gust_cart', {p: 1})
+        return a
+    id = request.GET['proid']
+    pr = products.objects.get(id=id)
+    if pr.available_stock < 1:
+        return JsonResponse({'out': True})
     if cart.objects.filter(user_id_id=request.user.id, product_id_id=id).exists():
         return JsonResponse({'added': False})
     obj = cart()
     obj.user_id = userprofiles.objects.get(id=request.user.id)
     obj.product_id = products.objects.get(id=id)
-    pr = products.objects.get(id=id)
     if pr.Offer:
         obj.total = pr.MRP - pr.Dis
     elif pr.category.offer:
@@ -113,15 +133,19 @@ def cart_count(request):
         id = request.GET['cart']
         if not request.user.is_authenticated:
             ck = literal_eval(request.COOKIES['gust_cart'])
+            p = products.objects.get(id=id)
+            if ck[id] == p.available_stock and c=="1":
+                return JsonResponse({'limit': True})
             ck[id]=ck[id] + int(c)
-            p=products.objects.get(id=id)
             total=int( (p.price - p.Dis) * ck[id] )
             res= JsonResponse({'total': total})
             res.set_cookie('gust_cart',ck)
             return res
         else:
-            cart.objects.filter(id=id).update(count=F('count') + c)
             item = cart.objects.get(id=id)
+            if item.count == item.product_id.available_stock and c=="1":
+                return JsonResponse({'limit': True})
+            cart.objects.filter(id=id).update(count=F('count') + c)
             pr = products.objects.get(id=item.product_id_id)
             if c == "1":
                 cart.objects.filter(id=id).update(total=F('total') + int(pr.MRP - pr.Dis))

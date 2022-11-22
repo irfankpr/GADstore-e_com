@@ -21,5 +21,4 @@ urlpatterns = [
     path('cshop', views.cshop, name='cshop'),
     path('my-wallet', views.wallet, name='my-wallet'),
     path('my-wallet/<int:id>', views.Generateinvoice, name='invoice'),
-    path('gust-addcart', views.gust_addcart, name='gust-addcart'),
 ]

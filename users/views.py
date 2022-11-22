@@ -338,19 +338,4 @@ def Generateinvoice(request, id):
     return HttpResponse(pdf, content_type='application/pdf')
 
 
-def gust_addcart(request):
-    p = request.GET['proid']
-    a = JsonResponse({'added': True})
-    if 'gust_cart' in request.COOKIES:
-        c = request.COOKIES['gust_cart']
-        c = literal_eval(c)
-        if p in c.keys():
-            a = JsonResponse({'exist': True})
-        c[p] = 1
-        print(c)
-        a.set_cookie('gust_cart', c)
-    else:
-        prd = products.objects.get(id=p)
-        t = (prd.price - prd.Dis)
-        a.set_cookie('gust_cart', {p: 1})
-    return a
+

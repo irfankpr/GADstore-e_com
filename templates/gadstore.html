@@ -327,6 +327,10 @@
                         document.getElementById('cartcount').innerHTML=c+1,
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.success('Product added to cart');
+                    }else if (response.out){
+                        alertify.set('notifier','position', 'top-right');
+                        alertify.error('Out of stock');
+
                     } else {
                         alertify.set('notifier','position', 'top-right');
                         alertify.success('Already existed in cart');

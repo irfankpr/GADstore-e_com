@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from products.models import products, categories
@@ -21,6 +22,9 @@ def chkout(request):
     add = address.objects.filter(user_id=request.user.id)
     coup = Coupons.objects.all()
     for i in items:
+        if i.product_id.available_stock > i.count:
+            messages.error(request, 'Out of stock for product   -  '+i.product_id.Product_name+" only "+str(i.product_id.available_stock)+ "  left")
+            return redirect('cartv')
         total = total + i.total
     return render(request, 'checkout.html', {'items': items, 'ttl': total, 'address': add, 'coupons': coup})
 
