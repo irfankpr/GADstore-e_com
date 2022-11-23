@@ -134,7 +134,7 @@ def cart_count(request):
         if not request.user.is_authenticated:
             ck = literal_eval(request.COOKIES['gust_cart'])
             p = products.objects.get(id=id)
-            if ck[id] == p.available_stock and c=="1":
+            if ck[id] >= p.available_stock and c=="1":
                 return JsonResponse({'limit': True})
             ck[id]=ck[id] + int(c)
             total=int( (p.price - p.Dis) * ck[id] )
@@ -143,7 +143,7 @@ def cart_count(request):
             return res
         else:
             item = cart.objects.get(id=id)
-            if item.count == item.product_id.available_stock and c=="1":
+            if item.count >= item.product_id.available_stock and c=="1":
                 return JsonResponse({'limit': True})
             cart.objects.filter(id=id).update(count=F('count') + c)
             pr = products.objects.get(id=item.product_id_id)

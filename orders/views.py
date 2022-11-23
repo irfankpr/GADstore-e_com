@@ -22,7 +22,7 @@ def chkout(request):
     add = address.objects.filter(user_id=request.user.id)
     coup = Coupons.objects.all()
     for i in items:
-        if i.product_id.available_stock > i.count:
+        if i.product_id.available_stock < i.count:
             messages.error(request, 'Out of stock for product   -  '+i.product_id.Product_name+" only "+str(i.product_id.available_stock)+ "  left")
             return redirect('cartv')
         total = total + i.total

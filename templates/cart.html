@@ -92,20 +92,20 @@
                             <td class="align-middle"><input class="h1 form-control bg-light form-control-sm bg-secondary border-0 text-center text-success"
                                     id='p{{forloop.counter}}' type="text" readonly value="₹ {% if c.product_id.Offer %}{{c.product_id.MRP|sub:c.product_id.Dis|floatformat:"0"}}{% elif c.product_id.category.offer %}{{c.product_id.MRP|sub:c.product_id.Dis|floatformat:"0"}}{% else %}{{c.product_id.price}}{% endif %}"> </td>
                             <td class="align-middle">
-                                {% if p.available_stock > 0 %}
+                                {% if c.product_id.available_stock < c.count %}
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus" id="mmi" onclick="changeQuantity('{{p.id}}','c{{forloop.counter}}',-1,'pt{{forloop.counter}}','sc{{forloop.counter}}','st{{forloop.counter}}' )">
+                                        <button class="btn btn-sm btn-primary btn-minus" id="mmi" onclick="changeQuantity('{{c.id}}','c{{forloop.counter}}',-1,'pt{{forloop.counter}}','sc{{forloop.counter}}','st{{forloop.counter}}' )">
                                             <i class="fa fa-minus"></i>
                                         </button>
                                     </div>
                                     <span 
                                         class="form-control form-control-sm bg-light border-0 text-center"
                                         id="c{{forloop.counter}}" readonly >
-                                        {{ v.0 }}
+                                        {{ c.count }}
                                         </span>
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus" onclick="changeQuantity('{{p.id}}','c{{forloop.counter}}',1,'pt{{forloop.counter}}','sc{{forloop.counter}}','st{{forloop.counter}}' )">
+                                        <button class="btn btn-sm btn-primary btn-plus" onclick="changeQuantity('{{c.id}}','c{{forloop.counter}}',1,'pt{{forloop.counter}}','sc{{forloop.counter}}','st{{forloop.counter}}' )">
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
@@ -114,7 +114,7 @@
                             </td>
                             <td class="align-middle"><input id="pt{{forloop.counter}}" 
                                     class="h4 form-control form-control-sm bg-light border-0 text-info  text-center" 
-                                    type="text" readonly value="₹ {{v.1}} /-" > 
+                                    type="text" readonly value="₹ {{c.total}} /-" > 
                                 </td>
                                 {% else %}
                                 
