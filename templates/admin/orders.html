@@ -20,21 +20,21 @@
         content="flat ui, admin Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="codedthemes" />
     <!-- Favicon icon -->
-    <link rel="icon" href=" {% static 'images/y-blogo.svg' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/y-blogo.svg' %}" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/bootstrap/css/bootstrap.min.css' %}">
     <!-- waves.css -->
-    <link rel="stylesheet" href=" {% static 'admin/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'admin/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
     <!-- themify-icons line icon -->
-    <link rel="stylesheet" type="text/css" href=" {% static 'admin/icon/themify-icons/themify-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/icon/themify-icons/themify-icons.css' %}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href=" {% static 'admin/icon/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/icon/font-awesome/css/font-awesome.min.css' %}">
     <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/style.css' %}">
-    <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/jquery.mCustomScrollbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/jquery.mCustomScrollbar.css' %}">
 </head>
 
 <body>
@@ -218,7 +218,13 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                
+                                <li class="">
+                                    <a href="{% url 'report' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Sales report</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
                             </ul>
                             <!-- <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Forms &amp; Tables</div>
                             
@@ -358,10 +364,10 @@
 
             <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
              <!-- Required Jquery -->
-             <script type="text/javascript" src=" {% static 'admin/js/jquery/jquery.min.js' %}"></script>
-             <script type="text/javascript" src=" {% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>
-             <script type="text/javascript" src=" {% static 'admin/js/popper.js/popper.min.js' %}"></script>
-             <script type="text/javascript" src=" {% static 'admin/js/bootstrap/js/bootstrap.min.js' %}"></script>
+             <script type="text/javascript" src="{% static 'admin/js/jquery/jquery.min.js' %}"></script>
+             <script type="text/javascript" src="{% static 'admin/js/jquery-ui/jquery-ui.min.js' %}"></script>
+             <script type="text/javascript" src="{% static 'admin/js/popper.js/popper.min.js' %}"></script>
+             <script type="text/javascript" src="{% static 'admin/js/bootstrap/js/bootstrap.min.js' %}"></script>
              <!-- waves js -->
              <script src=" {% static 'admin/pages/waves/js/waves.min.js' %}"></script>
              <!-- jquery slimscroll js -->
@@ -369,10 +375,10 @@
                  src=" {% static 'admin/js/jquery-slimscroll/jquery.slimscroll.js' %} "></script>
              <!-- modernizr js -->
              <script type="text/javascript" src=" {% static 'admin/js/SmoothScroll.js' %}"></script>
-             <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
-             <script src=" {% static 'admin/js/pcoded.min.js' %}"></script>
-             <script src=" {% static 'admin/js/vertical-layout.min.js' %} "></script>
-             <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+             <script src="{% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
+             <script src="{% static 'admin/js/pcoded.min.js' %}"></script>
+             <script src="{% static 'admin/js/vertical-layout.min.js' %}"></script>
+             <script src="{% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
              <!-- Custom js -->
              <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
              <!-- ................................ -->

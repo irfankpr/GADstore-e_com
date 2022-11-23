@@ -235,6 +235,13 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
+                                <li class="">
+                                    <a href="{% url 'report' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Sales report</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
                                 
                             </ul>
                            
@@ -643,47 +650,7 @@ new Chart("myChart", {
         </div>
     </div>
     </div>
-    <!-- Warning Section Starts -->
-  <!-- <script>
-    function exel(){
-            var fdate = new Date($('#fDate').val());
-            var fday = fdate.getDate();
-            var fmonth = fdate.getMonth() + 1;
-            var fyear = fdate.getFullYear();
-            fday = ([fyear,fmonth,fday].join('-'));
-            alert(fday)
-
-            var tdate = new Date($('#tooDate').val());
-            var tday = fdate.getDate();
-            var tmonth = fdate.getMonth() + 1;
-            var tyear = fdate.getFullYear();
-            tday = ([tyear,tmonth,tday].join('-'));
-            alert(tday)
-
-            $.ajax({
-                url: "{% url 'down-exel' %}",
-                data: {
-                    Fdate: fday,
-                    Tdate: tday,
-                  },
-                  success: (response) => {
-                    if (response.removeProduct) {
-                        alert("Product Removed from cart")
-                        location.reload()
-                    } else {
-                        document.getElementById(proId).innerHTML = quantity + count
-                        c =  parseInt(document.getElementById(proId).innerHTML)
-                        document.getElementById(pt).value ="₹ "+ response.total
-                        document.getElementById(sc).innerHTML=document.getElementById(proId).innerHTML
-                        document.getElementById(st).innerHTML= document.getElementById(pt).value
-                       
-                        
-                    }
-                }
-            })
-        
-    }
-  </script> -->
+   
     <!-- Required Jquery -->
     <script type="text/javascript" src="{% static 'admin/js/jquery/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>

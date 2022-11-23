@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Count, Q, Sum, F, Max
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.utils.text import slugify
@@ -467,3 +467,43 @@ def GeneratePdf(request):
         response['Content-Disposition'] = content
         return response
     return HttpResponse(pdf, content_type='application/pdf')
+
+
+@never_cache
+def report(request):
+    if request.user.is_admin:
+        if 'type' in request.GET:
+            type=request.GET['type']
+            From = request.GET['fDate']
+            to = request.GET['tDate']
+            data = orders.objects.filter(date__range=(From, to)).values('date__date__'+type).annotate(
+                rev=Sum('Total'),
+                orders=Count('id'),
+                sold=Count('id', Q(status="Delivered")),
+                cancel=Count('id', Q(status="Cancelled")),
+                returnd=Count('id', Q(status="Refunded")),
+            ).order_by('date__date__'+type)
+
+
+            return render(request,"admin/report.html",{"data":data, "chk":type, "frm":From, "to":to})
+        else:
+            data = orders.objects.all().values('date__date__month').annotate(
+                rev=Sum('Total'),
+                orders=Count('id'),
+                sold=Count('id', Q(status="Delivered")),
+                cancel=Count('id', Q(status="Cancelled")),
+                returnd=Count('id', Q(status="Refunded")),
+            ).order_by('date__date__month')[:12]
+            return render(request,"admin/report.html",{"data":data})
+
+    else:
+        return redirect("/")
+
+
+
+def down_report(request):
+    type = request.GET["type"]
+    f =request.GET["from"]
+    t = request.GET["to"]
+    print(type)
+    return JsonResponse({'Placed': True})

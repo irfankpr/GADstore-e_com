@@ -29,5 +29,7 @@ urlpatterns = [
     path('admin/add-product-offer', views.addPoffers, name="add-product-offer"),
     path('admin/dlt-offer', views.dlt_offer, name="dlt-offer"),
     path('admin/down-exel', views.download, name="down-exel"),
+    path('admin/report', views.report, name="report"),
+    path('admin/down-rep', views.down_report, name="down-rep"),
 
 ]
