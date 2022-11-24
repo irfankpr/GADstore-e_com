@@ -87,3 +87,378 @@
       
   </ul>
 </li>
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>GadKart admin</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'assets/admins/img/favicon.ico' %}" rel="icon">
+    
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'assets/admins/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/admins/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css ' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'assets/admins/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'assets/admins/css/style.css' %}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/zh-TW.min.js" integrity="sha512-whWyZS4LtoXu4LzFJbHIgL9Cr7Sf2+KyeEAGumtXN+8U234v1R89monfd9PLYnC0TNBArmPnkFOVo8ShuMpZaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   
+    
+</head>
+
+<body>
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Spinner Start -->
+        
+        <!-- Spinner End -->
+
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-secondary navbar-dark">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Admin Panel</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    
+                    <div class="ms-3">
+                        <h6 class="mb-0">{{name}}</h6>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                <!-- <img src="{% static 'assets/admins/img/testimonial-2.jpg' %}" alt=""> -->
+                <div class="navbar-nav w-100">
+                    <a href="{% url 'dashboard' %}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Dashboard</a>
+
+                    <a href="{% url 'adminhome' %}" class="nav-item nav-link "><i class="fa fa-user-alt me-2"></i>Users</a>
+                    <a href="{% url 'adminproduct' %}" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Product</a>
+                    <a href="{% url 'categories' %}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Category</a>
+                    <a href="{% url 'subcategories' %}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Subcategory</a>                    
+                    <a href="{% url 'orderdetails' %}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Order Details</a>
+                    <a href="{% url 'salesReport' %}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Sales Report</a>
+                    <a href="{% url 'adminoffers' %}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Coupons</a>
+                    <a href="{% url 'adminoffersReal' %}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Offers</a>      
+                    
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+
+                <div class="navbar-nav align-items-center ms-auto">
+        
+                    
+                    <div class="nav-item dropdown">
+                        <a href="{% url 'logout' %}" class="nav-link " data-bs-toggle="dropdown">
+                            <span class="d-none d-lg-inline-flex">Logout</span>
+                        </a>
+                        
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4"> 
+                    <div class="col-sm-12 col-xl-6 mx-auto">
+                        <form action="{% url 'addthisproduct' %}" method="POST"  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Add Product</h6>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" required
+                                    placeholder="" name="productname">
+                                <label for="floatingInput">Product Name</label>
+                            </div>
+                            <div class="form-floating mb-3 row">
+                                <div class="col-6">
+                                <input type="number" class="form-control" id="pricee"
+                                    placeholder="Price" oninput='pricecheck()' required name="productprice">
+                                    
+                                <label for="pricee"></label>
+                                
+                                </div>
+                                
+                                <div class="col-6">
+                                    <input type="number" class="form-control" id="stock" required
+                                        placeholder="Available Stock" oninput='stockcheck()' name="stock">
+                                    <label for="stock"></label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a description here"
+                                     style="height: 150px;" name="productdescription"></textarea>
+                                <label for="floatingTextarea">Description</label>
+                            </div>
+                            <br>
+                            <div class="form-floating mb-3">
+                                <select id="select1" name="categoryselected" class="form-select mb-3" >
+                                    <option disabled selected="true" >Select Category</option>
+                                    {% for category in categories %}
+                                    <option  value={{category.id}} >{{category.category_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <!-- yeah here -->
+                            <div class="form-floating mb-3" id="subcat">
+
+                                <select id="select22" name="subcategoryselected" class="form-select mb-3" >
+                                    <option selected="True" >Select Subcategory</option>
+                                    
+                                </select>
+
+                            </div>
+
+
+                            <!-- here comes the crop div -->
+
+                            <div id="" class="" data-cropzee="cropzee-input"></div>
+                            
+                            <div style="display:flex">
+                                <div id="screen1" class="imggmi image-container" style="height: 150px; width: auto"></div> <br>
+                              </div>
+                              <button type="button" class=" btn btn-outline-info " hidden id="crop-1">Crop</button>
+                            
+                              <div class="mb-3">
+                                <label for="floatingTextarea">Upload Thumbnail Image</label>
+                                <input id="imgFile" oninput="viewImage1()" class="form-control bg-dark" type="file" name="productimage" >
+                                <img src="" id="image1" alt="" class="imggmi" style="height:100px">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="floatingTextarea">Upload Images</label>
+                                <input id="imgFiles" oninput="multi()" class="form-control bg-dark"  type="file" multiple name="productimages" >
+                            </div>
+                         
+                            <button type="submit" id="add" class="btn btn-primary">Add</button>
+                        </div>
+                        {% for message in messages %}
+                            <h3 class="text-center text-danger pt-2">{{message}}</h3>
+                        {% endfor %}
+                        </form>
+                    </div>
+                    
+
+            <!-- Footer Start -->
+            
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a  class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">  {% endcomment %}
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="{% static 'cropzee.js' %}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.css"  />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.js"></script>
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+  
+        const imagebox1 = document.getElementById('screen1')
+        const crop_btn1 = document.getElementById('crop-1')
+        const input1 = document.getElementById('imgFile')
+      
+      
+        function viewImage1(event) {
+           
+          var fileInput1 = document.getElementById('imgFile');
+          var filePath1 = fileInput1.value;
+          var allowedExtensions = /(\.jpg)$/i;
+          if (!allowedExtensions.exec(filePath1)) {
+            fileInput1.value = '';
+            swal("There is a problem!", "Please choose image file.");
+            return false;
+          } else {
+            document.getElementById('image1').src = URL.createObjectURL(event.target.files[0])
+            
+          }
+        }
+      
+        input1.addEventListener('change', () => {
+          const img_data1 = input1.files[0]
+          const url1 = URL.createObjectURL(img_data1)
+          imagebox1.innerHTML = `<img src="${url1}" id="img1" style="width:100%;">`
+          const img1 = document.getElementById('img1')
+          document.getElementById('screen1').style.display = 'block'
+      
+          document.getElementById('crop-1').style.display = 'block'
+          document.getElementById('image1').style.display = 'block'
+            
+          crop_btn1.removeAttribute("hidden")
+              
+
+          const cropper1 = new Cropper(img1, {
+            autoCropArea: 1,
+            viewMode: 1,
+            scalable: false,
+            zoomable: false,
+            movable: false,
+            minCropBoxWidth: 50,
+            minCropBoxHeight: 50,
+           
+          })
+      
+          crop_btn1.addEventListener('click', () => {
+            
+            
+            cropper1.getCroppedCanvas().toBlob((blob) => {
+              let fileInputElement1 = document.getElementById('imgFile');
+              let file1 = new File([blob], img_data1.name, { type: "image/*", lastModified: new Date().getTime() });
+              let container1 = new DataTransfer();
+              container1.items.add(file1);
+              fileInputElement1.files = container1.files;
+              document.getElementById('image1').src = URL.createObjectURL(fileInputElement1.files[0])
+              document.getElementById('screen1').style.display = 'none'
+              document.getElementById('crop-1').style.display = 'none'
+              
+            })
+          })
+      
+        })
+      
+        function pricecheck(){
+            nregx= /^[1-9]\d*$/
+            if(!nregx.test(document.getElementById('pricee').value))
+            {
+                document.getElementById('pricee').style.borderColor="red";  
+                document.getElementById('add').setAttribute("disabled",'')
+            }
+            else{
+                document.getElementById('pricee').style.borderColor="";
+                document.getElementById('add').removeAttribute("disabled")
+            }
+        }
+        function stockcheck(){
+            nregx= /^[1-9]\d*$/
+            if(!nregx.test(document.getElementById('stock').value))
+            {
+                document.getElementById('stock').style.borderColor="red";
+                document.getElementById('add').setAttribute("disabled",'')
+            }
+            else{
+                document.getElementById('stock').style.borderColor='';
+
+                document.getElementById('add').removeAttribute("disabled")
+            }
+        }
+
+        function viewImage1() {
+           
+          var fileInput1 = document.getElementById('imgFile');
+          var filePath1 = fileInput1.value;
+          var allowedExtensions = /(\.(jpg|png|jpeg))$/i;
+          if (!allowedExtensions.exec(filePath1)) {
+            fileInput1.value = '';
+            swal("Not an Image", "Please choose image file.");
+            return false;
+          } 
+        }
+        function multi(){
+
+            var selection = document.getElementById('imgFiles');
+            for (var i=0; i<selection.files.length; i++) 
+            {
+                var ext = selection.files[i].name.substr(-3);
+                if(ext!== "png" && ext!== "jpg" && ext!== "jpeg")  
+                {
+                    selection.value=''
+                    swal("Problem!", "Please choose an image file.");
+                    return false;
+                }
+            } 
+        }
+      </script>
+    
+    
+    
+     <!-- <script>
+        $(document).ready(function()
+        { 
+        var $select1=$("#select1"),
+            $select2=$("#select2"),
+            $select21=$("#select21"),
+            $options=$select2.find('option');
+            $select1.on('change',function()
+            {
+                $select2.html($options.filter('[value="'+this.value+'"]'));
+                
+            }).trigger('change');
+        });
+        function subfun(){
+            
+        sub=document.getElementById('select21').innerHTML;
+        console.log(sub);
+        document.getElementById('select21').setAttribute('value',sub);
+        }
+    </script> --> 
+    <script>
+        $(document).ready(function(){
+            $('#select1').change(function(){
+                var catid=$('#select1').val()
+                console.log(catid)
+                $('#subcat').load("subcataddproduct/"+catid)
+            })
+        })
+    </script>
+
+    
+
+</body>
+
+</html>

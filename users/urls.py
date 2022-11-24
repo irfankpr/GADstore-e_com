@@ -21,4 +21,5 @@ urlpatterns = [
     path('cshop', views.cshop, name='cshop'),
     path('my-wallet', views.wallet, name='my-wallet'),
     path('my-wallet/<int:id>', views.Generateinvoice, name='invoice'),
+    path('fil-sort', views.fil_sort, name='fil-sort')
 ]

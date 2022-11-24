@@ -338,4 +338,25 @@ def Generateinvoice(request, id):
     return HttpResponse(pdf, content_type='application/pdf')
 
 
+def fil_sort(request):
+    key = request.GET["key"]
+    frm = request.GET["from"]
+    to = request.GET['to']
+    sort = request.GET['sort']
+    q = Q()
+    q &= Q(Product_name__icontains=key) | Q(products_dyl__icontains=key) | Q(products_desc__icontains=key)
+    if sort == "HL":
+        prds = products.objects.filter(q).order_by('-price')
+    elif sort == "LH":
+        prds = products.objects.filter(q).order_by('price')
+    else:
+        prds = products.objects.filter(q).order_by('-price')
 
+    if frm == "~" and to == "~":
+        prds=prds
+    elif frm != "~" and to == "~":
+        prds = prds.filter(price__gte=int(frm))
+    elif frm != "~" and to != "~":
+        prds = prds.filter(price__gte=int(frm), price__lte=int(to))
+
+    return render(request,"Components/filter.html",{"products":prds})

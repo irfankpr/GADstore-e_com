@@ -294,13 +294,13 @@
                                             <tbody>
                                                 {% for c in cat %}
                                                 <tr>
-                                                    <th scope="row">{{forloop.counter}}</th>
+                                                    <th class="align-middle" scope="row">{{forloop.counter}}</th>
                                                    
-                                                    <th> <a href=" {% url 'catedit' c.id %} ">{{ c.category_name }}</a> </th>
-                                                    <td> <img src="{{ c.category_image.url}}" height="50px" width="80px"
+                                                    <th class="align-middle"> <a href=" {% url 'catedit' c.id %} ">{{ c.category_name }}</a> </th>
+                                                    <td class="align-middle"> <img src="{{ c.category_image.url}}" height="100px" width="80px"
                                                             alt="" srcset=""> </td>
                                                     
-                                                    <td><a  class=" bg-danger text-white p-3 border-white" data-toggle="modal" data-target="#delete{{forloop.counter}}"  >DELETE</a></td>
+                                                    <td class="align-middle"><a  class=" bg-danger text-white p-3 border-white" data-toggle="modal" data-target="#delete{{forloop.counter}}"  >DELETE</a></td>
                                                      <!--block Modal  start-->
 <div class="modal fade" id="delete{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -353,6 +353,7 @@
                                             <span class="form-bar"></span>
                                             <label class="float-label">Description</label>
                                         </div>
+                                       
                                         <div class="form-group form-default d-flex m-0 p-0 row">
                                             <h6 class="form-bar m-0 p-0 col-4">Add image :</h6>
                                             <input type="file" name="catimage" id="catimage" class="col-7" oninput="is_image()"
@@ -400,10 +401,10 @@
 
            
             <!-- Required Jquery -->
-            <script type="text/javascript" src=" {% static 'admin/js/jquery/jquery.min.js' %}"></script>
-            <script type="text/javascript" src=" {% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>
-            <script type="text/javascript" src=" {% static 'admin/js/popper.js/popper.min.js' %}"></script>
-            <script type="text/javascript" src=" {% static 'admin/js/bootstrap/js/bootstrap.min.js ' %}"></script>
+            <script type="text/javascript" src="{% static 'admin/js/jquery/jquery.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>
+            <script type="text/javascript" src="{% static 'admin/js/popper.js/popper.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'admin/js/bootstrap/js/bootstrap.min.js ' %}"></script>
             <!-- waves js -->
             <script src=" {% static 'admin/pages/waves/js/waves.min.js' %}"></script>
             <!-- jquery slimscroll js -->
@@ -411,12 +412,13 @@
                 src=" {% static 'admin/js/jquery-slimscroll/jquery.slimscroll.js' %} "></script>
             <!-- modernizr js -->
             <script type="text/javascript" src=" {% static 'admin/js/SmoothScroll.js' %}"></script>
-            <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
-            <script src=" {% static 'admin/js/pcoded.min.js' %}"></script>
-            <script src=" {% static 'admin/js/vertical-layout.min.js' %} "></script>
-            <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+            <script src="{% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
+            <script src="{% static 'admin/js/pcoded.min.js' %}"></script>
+            <script src="{% static 'admin/js/vertical-layout.min.js' %} "></script>
+            <script src="{% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
             <!-- Custom js -->
-            <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
+            <script type="text/javascript" src="{% static 'admin/js/script.js' %}"></script>
+            <script src="./crop.js"></script>
                         <!-- swal -->
             <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
@@ -432,8 +434,13 @@
                         alertify.error('<h4>Invalid file type</h4> <br> <h5>Use : jpg, jpeg or png </h5>');
                         img.value="";
                     }
+
+                    
         
                 }
+
+
+                
             </script>
             <style>
                 .alertify-notifier .ajs-message.ajs-error{
