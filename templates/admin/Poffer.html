@@ -23,7 +23,8 @@
     <link rel="icon" href=" {% static 'images/y-blogo.svg' %}" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/bootstrap/css/bootstrap.min.css' %}">
     <!-- waves.css -->
@@ -101,9 +102,9 @@
                         <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
                             <i class="ti-menu"></i>
                         </a>
-                       
+
                         <a href="index.html">
-                            <img class="img-fluid"width="175px" src=" {% static 'images/y-blogo.svg' %}"  />
+                            <img class="img-fluid" width="175px" src=" {% static 'images/y-blogo.svg' %}" />
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
@@ -116,7 +117,7 @@
                                 <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
                                 </div>
                             </li>
-                            
+
                             <li>
                                 <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
                                     <i class="ti-fullscreen"></i>
@@ -126,19 +127,19 @@
                         <ul class="nav-right">
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
-                                        <span class="material-symbols-outlined m-0 p-0 cursor-pointer">
-                                            account_circle
-                                            </span>
+                                    <span class="material-symbols-outlined m-0 p-0 cursor-pointer">
+                                        account_circle
+                                    </span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification p-2">
-                                   
+
                                     <li class="waves-effect waves-light  mb-">
                                         <a href="user-profile.html">
                                             <i class="ti-user mx-3 mb-4"></i> Profile
                                         </a>
                                     </li>
-                                   
+
                                     <li class="waves-effect waves-light mb-">
                                         <a href="{% url 'admin-logout'  %}">
                                             <i class="ti-layout-sidebar-left mx-3 mb-4"></i> Logout
@@ -195,14 +196,13 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="active">
+                                <li class="">
                                     <a href="{% url 'Coupons' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Coupons</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                               
                                 <li class="">
                                     <a href="{% url 'report' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
@@ -210,27 +210,28 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu">
+                                <li class="pcoded-hasmenu active pcoded-trigger">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Offers</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Components</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="{% url 'cat-Offers' %}" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.dash.main">Category</span>
+                                          <a href="{% url 'cat-Offers' %}" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Category</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                        <li class=" ">
-                                            <a href="{% url 'prd-Offers' %}" class="waves-effect waves-dark">
+                                        <li class="active">
+                                          <a href="{% url 'prd-Offers' %}" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Product</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
+                                        
                                     </ul>
                                   </li>
                                 
@@ -242,143 +243,79 @@
                          
 
                             <div class="pcoded-navigation-label" data-i18n="nav.category.other">Other</div> -->
-                           
+
                         </div>
                     </nav>
                     <div class="pcoded-content d-flex row">
-                        <div class="col-8 container-fluid row m-0">
+                        <div class="col-12 container-fluid row m-0">
                             </h5>
                             <!-- Hover table card start -->
-                            <div class="card col-12">
+                            <div class="card col-12 ">
                                 <div class="card-header">
-                                    <h3>Available Coupons</h3>
+                                    <h3>Available Offers</h3>
                                     <span>Create an remove here</span>
                                     <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                                            <li><i class="fa fa-window-maximize full-card"></i></li>
-                                            <li><i class="fa fa-minus minimize-card"></i></li>
-                                            <li><i class="fa fa-refresh reload-card"></i></li>
-
-                                        </ul>
+                                        <a class="btn btn-info" href="{% url 'adminproducts' %}">Add new product Offer</a>
                                     </div>
                                 </div>
                                 <div class="mobile-search waves-effect waves-light ">
-                                    <div class="header-search col-7">
-                                        <div class="main-search morphsearch-search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search products">
-                                                <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
-                                            </div>
-                                        </div>
                                     </div>
                                     {% for msg in messages %}
                                     <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}} </h4>
                                     {% endfor %}
                                 </div>
-                                
-                                <div class="card-block table-border-style">
-                                    <div class="table-responsive">
-                                        <table class=" table table-light ">
-                                            <thead>
-                                                <tr class=" btn-dark">
-                                                    <th class="bolder text-light">No.</th>                               
-                                                    <th class="bolder text-light">CODE</th>
-                                                    <th class="bolder text-light">RATE</th>
-                                                    <th class="bolder text-light">MIN PURCHASE</th>
-                                                    <th class="bolder text-light">MAX LIMIT</th>
-                                                    <th class="bolder text-light">Delete</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="">
-                                                {% for c in coupons %}
-                                              <tr> 
-                                                <td rowspan="2" class="h5 align-middle">{{forloop.counter}}</td>
-                                                <td class="h5">{{c.Coupon_code}}</td>
-                                                <td class="h5 text-danger">{{c.discount_rate}} %</td>
-                                                <td class="h6 ">₹ {{c.minimum}}</td>
-                                                  <td class="h6 ">₹ {{c.maxlimit}}</td>
-                                                  <td><a href="{% url 'delete-coupon' c.id %}" class="btn btn-outline-danger p-2">X</a></td>  
-                                              </tr>
-                                              <tr class="" style="border-bottom: solid grey 3px ;">
-                                                <td class="h6 text-danger" colspan="5"><span class="h6 text-dark">DESC :  </span>
-                                                    {{c.discount_rate}}% &nbsp; discount on minimum purchase of &nbsp; ₹ {{c.minimum}}&nbsp; upto &nbsp; ₹ {{c.maxlimit}}
-                                                </td>
-                                              </tr>
-                                             
-                                                {% endfor %}
-
-                                            </tbody>
-                                        </table>
+                                <div class="col-12 border">
+                                   
+                                    <div class="col-12 p-0 m-0 container row justify-content-between">
+                                        {% for o in  offers %}
+                                        <div class="col-4">
+                                        <div class="col-12 border border-secondary">
+                                            <h5 class="p-0 my-4 col btn-danger rounded text-center h5">{{o.Disrate}} %  OFF on {{o.Product_name}}</h5>
+                                       <img class="col-12" src="{{o.thumbnail.url}}" alt="" height="120px" style="object-fit: scale-down;">
+                                        <div class="form-group form-default col-12  ">
+                                            <div class=" col-12 pb-0 pt-2  d-flex ">
+                                                    <a href="/admin/dlt-offer?id={{o.id}}&off=prd" class="btn mx-auto btn-danger">Delete offer</a>
+                                            </div>
+                                        </div>
+                                        </div>
                                     </div>
+                                        {% endfor %}
+                                        
+                                  </div>
+
                                 </div>
                             </div>
+
                             <!-- Hover table card end -->
                         </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3>Add new Coupons</h3>
-                                    <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
-                                </div>
-                               
-                                <div class="card-block">
-                                    <form class="form-material orm-check-label text-center" method="POST" action="{% url 'addcoupon' %}" enctype='multipart/form-data'>
-                                        {% csrf_token %}
-                                        <div class="form-group form-default">
-                                            <input type="text" name="code" class="form-control" required="">
-                                            <span class="form-bar"></span>
-                                            <label class="float-label">Coupons CODE</label>
-                                        </div>
-                                        <div class="form-group form-default">
-                                            <input type="number" name="min" class="form-control" required="">
-                                            <span class="form-bar"></span>
-                                            <label class="float-label">MIN purchase</label>
-                                        </div>
-                                        <div class="form-group form-default">
-                                            <input type="number" name="rate" class="form-control" required="">
-                                            <span class="form-bar"></span>
-                                            <label class="float-label">Discount rate In percentage</label>
-                                        </div>
-                                        <div class="form-group form-default">
-                                            <input type="number" name="limit" class="form-control" required="">
-                                            <span class="form-bar"></span>
-                                            <label class="float-label">Discount Limit</label>
-                                        </div>
-                                        
-                                    </div>
-                                        
-                                        <button type="submit" class="col-8 rounded py-3 mx-auto my-4 btn-primary  border-0">ADD
-                                            NEW Coupon</button>
-                                    </form>
-                                </div>
-                            </div>
-                            
-                        </div>
+                      
+
+                                
+
                     </div>
                 </div>
             </div>
+        </div>
 
 
-           
-            <!-- Required Jquery -->
-            <script type="text/javascript" src=" {% static 'admin/js/jquery/jquery.min.js' %}"></script>
-            <script type="text/javascript" src=" {% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>
-            <script type="text/javascript" src=" {% static 'admin/js/popper.js/popper.min.js' %}"></script>
-            <script type="text/javascript" src=" {% static 'admin/js/bootstrap/js/bootstrap.min.js' %}"></script>
-            <!-- waves js -->
-            <script src=" {% static 'admin/pages/waves/js/waves.min.js' %}"></script>
-            <!-- jquery slimscroll js -->
-            <script type="text/javascript"
-                src=" {% static 'admin/js/jquery-slimscroll/jquery.slimscroll.js' %} "></script>
-            <!-- modernizr js -->
-            <script type="text/javascript" src=" {% static 'admin/js/SmoothScroll.js' %}"></script>
-            <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
-            <script src=" {% static 'admin/js/pcoded.min.js' %}"></script>
-            <script src=" {% static 'admin/js/vertical-layout.min.js' %} "></script>
-            <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
-            <!-- Custom js -->
-            <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
+
+        <!-- Required Jquery -->
+        <script type="text/javascript" src=" {% static 'admin/js/jquery/jquery.min.js' %}"></script>
+        <script type="text/javascript" src=" {% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>
+        <script type="text/javascript" src=" {% static 'admin/js/popper.js/popper.min.js' %}"></script>
+        <script type="text/javascript" src=" {% static 'admin/js/bootstrap/js/bootstrap.min.js' %}"></script>
+        <!-- waves js -->
+        <script src=" {% static 'admin/pages/waves/js/waves.min.js' %}"></script>
+        <!-- jquery slimscroll js -->
+        <script type="text/javascript" src=" {% static 'admin/js/jquery-slimscroll/jquery.slimscroll.js' %} "></script>
+        <!-- modernizr js -->
+        <script type="text/javascript" src=" {% static 'admin/js/SmoothScroll.js' %}"></script>
+        <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
+        <script src=" {% static 'admin/js/pcoded.min.js' %}"></script>
+        <script src=" {% static 'admin/js/vertical-layout.min.js' %} "></script>
+        <script src=" {% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+        <!-- Custom js -->
+        <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
 
 </body>
 

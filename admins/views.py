@@ -317,6 +317,12 @@ def Offers(request):
         off = categories.objects.filter(offer=True)
         return render(request, 'admin/Offers.html', {'offers': off, 'cat': cat})
 
+@never_cache
+def Offers(request):
+    if request.method == "GET":
+        off = products.objects.filter(Offer=True)
+        return render(request, 'admin/Poffer.html', {'offers': off, })
+
 
 def addoffers(request):
     if request.method == "POST":
@@ -353,8 +359,11 @@ def dlt_offer(request):
         if request.GET.get('off') == 'prd':
             prd = products.objects.get(id=id)
             prd.Offer = False
+            if prd.category.offer == True:
+                prd.Dis= (prd.MRP*prd.category.offer_rate)*100
+            else:
+                prd.Dis = 0
             prd.Disrate = 0
-            prd.Dis = 0
             prd.save()
         elif request.GET.get('off') == 'cat':
             cat = categories.objects.get(id=id)
