@@ -250,6 +250,10 @@
                             <!-- Hover table card start -->
                             <div class="card col-12">
                                 <div class="card-header">
+                                    {% for msg in messages %}
+                                        <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}}
+                                        </h4>
+                                        {% endfor %}
                                     <h3>Available Products</h3>
                                     <span>All the available products are listed here. Click product name for more
                                         details and edit product</span>
@@ -337,7 +341,7 @@
                     
                 </div>
                 <div class="col-12 container row text-center justify-content-center">
-                    <select name="cat" class="form-control border border-primary col-5" >
+                    <select name="cat" class="form-control border border-primary col-5" required>
                         <option >Select Category</option>
                         {% for c in cat %}
                         <option value="{{ c.id }}">{{ c.category_name }}</option>
@@ -378,9 +382,9 @@
 
                                                 <tr>
                                                     <th class=" align-middle h6">{{forloop.counter}}</th>
-                                                    <td class="p-0 m-0 align-middle h3"> <a
-                                                            href="{% url 'product_dtl' p.id %}" class="text-primary">
-                                                            {{p.Product_name }}</a></td>
+                                                    <td class="p-0 m-0 align-middle h3"><a
+                                                            href="{% url 'product_dtl' p.id %}" class="text-primary">{{p.Product_name }}</a>
+                                                        </td>
                                                     <td class="p-0 align-middle "><img src="{{ p.thumbnail.url}}"
                                                             height="100px" width="100px"
                                                             style="object-fit: scale-down;"></td>

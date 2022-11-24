@@ -115,11 +115,14 @@ def login(request):
                 if 'gust_cart' in request.COOKIES:
                     ck = literal_eval(request.COOKIES['gust_cart'])
                     for p in ck:
-                        prd = products.objects.get(id=int(p))
-                        ttl = prd.price * ck[p]
-                        ss = cart.objects.filter(user_id=user, product_id=prd, ).exists()
-                        if not ss:
-                            cart(user_id=user, product_id=prd, count=ck[p], total=ttl, discount=0).save()
+                        try:
+                            prd = products.objects.get(id=int(p))
+                            ttl = prd.price * ck[p]
+                            ss = cart.objects.filter(user_id=user, product_id=prd, ).exists()
+                            if not ss:
+                                cart(user_id=user, product_id=prd, count=ck[p], total=ttl, discount=0).save()
+                        except:
+                            pass
                         res.delete_cookie('gust_cart')
                 return res
             else:

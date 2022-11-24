@@ -63,7 +63,7 @@ def log_out(request):
 def addproduct(request):
     if request.method == "POST":
         if request.POST['name'] and request.POST['mrp'] and request.POST['hilights'] and request.POST['count'] and \
-                request.POST['price'] and request.POST['desc'] and request.FILES['thumb']:
+                request.POST['price'] and request.POST['desc'] and request.FILES['thumb'] and request.POST['cat']:
             prod = products()
             prod.Product_name = request.POST["name"]
             prod.slug = slugify(prod.Product_name)
@@ -74,12 +74,12 @@ def addproduct(request):
             prod.thumbnail = request.FILES['thumb']
             prod.available_stock = request.POST["count"]
             prod.category_id = request.POST["cat"]
-            ex = products.objects.filter(Product_name=prod.Product_name).exists()
+            ex = products.objects.filter(Product_name=request.POST["name"]).exists()
             if ex:
                 messages.error(request, 'Product named :- ' + prod.Product_name + ' already exists.')
-                return redirect('addproduct')
-
-            prod.save()
+                return redirect(request.META.get('HTTP_REFERER'))
+            else:
+                prod.save()
             prd = products.objects.get(Product_name=prod.Product_name)
             if 'pimages' in request.FILES:
                 images = request.FILES.getlist('pimages')
@@ -318,7 +318,7 @@ def Offers(request):
         return render(request, 'admin/Offers.html', {'offers': off, 'cat': cat})
 
 @never_cache
-def Offers(request):
+def POffers(request):
     if request.method == "GET":
         off = products.objects.filter(Offer=True)
         return render(request, 'admin/Poffer.html', {'offers': off, })
