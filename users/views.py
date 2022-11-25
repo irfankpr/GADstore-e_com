@@ -349,16 +349,16 @@ def fil_sort(request):
     q &= Q(Product_name__icontains=key) | Q(products_dyl__icontains=key) | Q(products_desc__icontains=key)
     if sort == "HL":
         prds = products.objects.filter(q).order_by('-price')
-    elif sort == "LH":
+    if sort == "LH":
         prds = products.objects.filter(q).order_by('price')
-    else:
+    if sort != "HL" and sort != "LH":
         prds = products.objects.filter(q).order_by('-price')
 
     if frm == "~" and to == "~":
-        prds=prds
-    elif frm != "~" and to == "~":
+        pass
+    if frm != "~" and to == "~":
         prds = prds.filter(price__gte=int(frm))
-    elif frm != "~" and to != "~":
+    if frm != "~" and to != "~":
         prds = prds.filter(price__gte=int(frm), price__lte=int(to))
 
     return render(request,"Components/filter.html",{"products":prds})
