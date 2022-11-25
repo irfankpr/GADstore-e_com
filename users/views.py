@@ -206,7 +206,7 @@ def shop(request):
                 count = 0
             cat = categories.objects.all().annotate(cat_count=Count('category_name')).order_by('category_name')
             subcat = sub_categories.objects.all().annotate(subcat_count=Count('sub_cat_name')).order_by('sub_cat_name')
-            paging = Paginator(prds, 12)
+            paging = Paginator(prds, 8)
             page = request.GET.get('page')
             paged = paging.get_page(page)
             prd_count = prds.count()
@@ -226,7 +226,7 @@ def shop(request):
             cat = categories.objects.all().annotate(cat_count=Count('category_name')).order_by('category_name')
             subcat = sub_categories.objects.all().annotate(subcat_count=Count('sub_cat_name')).order_by('sub_cat_name')
             prds = products.objects.filter()
-            paging = Paginator(prds, 12)
+            paging = Paginator(prds, 8)
             page = request.GET.get('page')
             paged = paging.get_page(page)
             prd_count = prds.count()
@@ -352,13 +352,16 @@ def fil_sort(request):
     if sort == "LH":
         prds = products.objects.filter(q).order_by('price')
     if sort != "HL" and sort != "LH":
-        prds = products.objects.filter(q).order_by('-price')
+        prds = products.objects.filter(q)
 
     if frm == "~" and to == "~":
-        pass
+        prds=prds
     if frm != "~" and to == "~":
         prds = prds.filter(price__gte=int(frm))
     if frm != "~" and to != "~":
         prds = prds.filter(price__gte=int(frm), price__lte=int(to))
-
-    return render(request,"Components/filter.html",{"products":prds})
+    paging = Paginator(prds, 8)
+    page = request.GET.get('page')
+    paged = paging.get_page(page)
+    prd_count = prds.count()
+    return render(request,"Components/filter.html",{'products': paged,'prd_count': prd_count, 'key': key,"sort":sort,"from":frm,"to":to})

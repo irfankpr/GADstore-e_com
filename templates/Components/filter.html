@@ -1,51 +1,118 @@
 {% load static %}
 {% load mathfilters %}
-{% if products %}
- {% for p in products %}
- <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-     <div class="product-item bg-light mb-4" onclick="window.location = '{% url 'detail' p.id %}'">
-         <div class="product-img  position-relative overflow-hidden">
-             {% if p.Offer %}<a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{p.Disrate|floatformat:"0"}}% OFF</a>
-             {% elif p.category.offer %}
-             <a class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{ p.category.offer_rate|floatformat:"0"}} % OFF</a>
-             {% endif %}
-             <img class="img-fluid w-100" src="{{ p.thumbnail.url}}" alt="">
-             <div class="product-action">
-                 <a class="btn btn-outline-dark btn-square" onclick=" addcart({{p.id}}) " ><i class="fa fa-shopping-cart"></i></a>
-                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                 <a class="btn btn-outline-dark btn-square py-4 px-4" href="">BUY NOW</i></a>
-             </div>
-         </div>
-         <div class="text-center py-4">
-             <span class="h6 d-inline-block text-truncate col">{{ p.Product_name }}</span>
-             <div class="d-flex align-items-center justify-content-around mt-2">
-                 <span class="text-muted font-weight-bolder" style="font-size: small;">MRP: ₹ {{ p.MRP |floatformat:"0"}}/-</span>
-                 {% if p.Offer or category.offer %} 
-                 <h5 class="text-success " >₹ {{p.MRP|sub:p.Dis |floatformat:"0"}}/-</h5>
-             {% else %}
-             <h5 class="text-success " >₹ {{p.price |floatformat:"0"}}/-</h5>
-             {% endif %}
-                 
-         
-             </div>
-             <div class="d-flex align-items-center justify-content-center mb-1">
-                 <small class="fa fa-star text-primary mr-1"></small>
-                 <small class="fa fa-star text-primary mr-1"></small>
-                 <small class="fa fa-star text-primary mr-1"></small>
-                 <small class="fa fa-star text-primary mr-1"></small>
-                 <small class="fa fa-star text-primary mr-1"></small>
-                 <small>(99)</small>
-                
-             </div>
-         </div>
-     </div>
- </div>
- {% endfor %}
- {% else %}
- <div class="col-12 container m-0 p-0 justify-contend-center text-center my-5">
-     <img src="{% static 'images/no_products.jpg' %}" alt="No products found on your search" srcset=""
-         width="30%">
-         <p class="h5 " >Soory no products found by your search</p>
- </div>
 
-{% endif %}
+    <div class="row ml-3 my-0 p-0">
+        <div class="col-12 ">
+            <div class="d-flex align-items-center justify-content-end m-0">
+                <div class="ml-2">
+                    <div class="btn-group ">
+                        <label class="h6" for="sorter">Sort by price:&nbsp;</label>
+                        <select class="bg-warning border-0 h6 text-center rounded" id="sorter"
+                            aria-label=".form-select-sm example" style="outline: none;" onchange="sort()">
+                            <option class="my-2" value="NO">_ _ _</option>
+                            <option class="my-2" value="LH">Low to high</option>
+                            <option class="my-2" value="HL">High to low</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 m-0 p-0 row ">
+            {% if products %}
+            {% for p in products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-4"
+                    onclick="window.location = '{% url 'detail' p.id %}'">
+                    <div class="product-img  position-relative overflow-hidden">
+                        {% if p.Offer %}<a
+                            class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{p.Disrate|floatformat:"0"}}%
+                            OFF</a>
+                        {% elif p.category.offer %}
+                        <a
+                            class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{
+                            p.category.offer_rate|floatformat:"0"}} % OFF</a>
+                        {% endif %}
+                        <img class="img-fluid w-100" src="{{ p.thumbnail.url}}" alt="">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" onclick=" addcart({{p.id}}) "><i
+                                    class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i
+                                    class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square py-4 px-4" href="">BUY NOW</i></a>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <span class="h6 d-inline-block text-truncate col">{{ p.Product_name }}</span>
+                        <div class="d-flex align-items-center justify-content-around mt-2">
+                            <span class="text-muted font-weight-bolder" style="font-size: small;">MRP: ₹ {{
+                                p.MRP |floatformat:"0"}}/-</span>
+                            {% if p.Offer or category.offer %}
+                            <h5 class="text-success ">₹ {{p.MRP|sub:p.Dis |floatformat:"0"}}/-</h5>
+                            {% else %}
+                            <h5 class="text-success ">₹ {{p.price |floatformat:"0"}}/-</h5>
+                            {% endif %}
+
+
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small>(99)</small>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="col-12 container m-0 p-0 justify-contend-center text-center my-5">
+                <img src="{% static 'images/no_products.jpg' %}" alt="No products found on your search"
+                    srcset="" width="30%">
+                <p class="h5 ">Soory no products found by your search</p>
+            </div>
+
+            {% endif %}
+        </div>
+
+    </div>
+
+
+
+
+    <div class="col-12 ">
+        <nav>
+            {% if products.has_other_pages %}
+            <ul class="pagination justify-content-center">
+                {% if products.has_previous %}
+                <li class="page-item rounded h6 p-0 "><a class="page-link text-dark" onclick="page('?page={{ products.previous_page_number }}&key={{key}}&sort={{sort}}&from={{from}}&to={{to}}')"
+                       >Previous</span></a>
+                    {% else %}
+                <li class="page-item rounded h6 p-0 "><a class="page-link text-dark"
+                        disabled>Previous</span></a>
+                    {% endif %}
+                </li>
+                {% for p in products.paginator.page_range %}
+                {% if products.number == p %}
+                <li class="page-item active"><a class="page-link text-dark" onclick="page('?page={{p}}&key={{key}}&sort={{sort}}&from={{from}}&to={{to}}')"
+                        >{{p}}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link text-dark" onclick="page('?page={{p}}&key={{key}}&sort={{sort}}&from={{from}}&to={{to}}')"
+                        >{{p}}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if products.has_next %}
+                <li class="page-item rounded h6 p-0 "><a class="page-link text-dark" onclick="page('?page={{ products.next_page_number }}&key={{key}}&sort={{sort}}&from={{from}}&to={{to}}')"
+                        >Next</a></li>
+                {% else %}
+                <li class="page-item rounded h6 p-0 "><a class="page-link text-dark">Next</a></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </nav>
+    </div>
+
+   
