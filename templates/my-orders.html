@@ -61,7 +61,7 @@
                             <td class=" align-middle text-success h5">₹&nbsp; {{o.Total}} /-</td>
                             <td class=" align-middle h5">{{o.quantity}}</td>
                             <td class=" align-middle h5">{{o.date.date}}</td>
-                            <td rowspan="2" class=" align-middle h5">{{o.payment}} <br>{% if  o.status == 'Delivered' %} <a class="btn btn-secondary" target="_blank" href="{% url 'invoice' o.id %}"><span class="material-symbols-outlined">
+                            <td rowspan="2" class=" align-middle h5">{{o.payment}} <br>{% if  o.status != 'Placed' %} <a class="btn btn-secondary" target="_blank" href="{% url 'invoice' o.id %}"><span class="material-symbols-outlined">
                                 description
                                 </span></a> {% endif %}</td>
                              <td rowspan="2" class="align-middle h5 font-weight-bolder text-info p-0 m-0" >

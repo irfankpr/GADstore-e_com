@@ -313,8 +313,7 @@ def myorders(request):
 @login_required(login_url='/')
 def wallet(request):
     if request.user.is_admin == False:
-        trans = walletTrans.objects.filter(user_id=request.user.id).order_by('-date')
-
+        trans = walletTrans.objects.filter(user=request.user).order_by('-date')
         count = cart.objects.filter(user_id=request.user.id).count()
         return render(request, 'wallet.html', {'count': count, 'trans': trans})
 

@@ -36,21 +36,28 @@ rel="stylesheet"
                 <thead class="table-dark">
                     
                   <tr class="py-2">
-                    <th colspan="2">Invoice NO :#1000{{order.id}}</th>
+                    <td colspan="2">Invoice NO :#1000{{order.id}}</td>
                   </tr class="py-2">
                 </thead>
                 <tbody>
                  <tr class="py-2">
                   <th>Product</th>
-                  <td>{{order.product.product_name}}</td>
+                  <td>{{order.product.Product_name}}</td>
                  </tr class="py-2">
                  <tr class="py-2">
-                  <th>MRP : Rs {{order.product.MRP}} /-</th>
-                  <td>Price : Rs {{order.product.price}} /-</td>
+                  <th>MRP :</th>
+                  <td> Rs {{order.product.MRP}} /-</td>
+                  <tr>
+                  <th>Price : </th>
+                    <td>Rs {{order.product.price}} /-</td>
+                 </tr>
                  </tr class="py-2">
                  <tr class="py-2">
-                  <th>Quantity : Rs {{order.quantity}} /-</th>
-                  <td>Total : Rs {{order.Total}} /-</td>
+                  <th>Quantity :</th>
+                  <td>{{order.quantity}} </td>
+                  <tr>
+                    <th>Total : Rs </th>
+                  <td>Rs{{order.Total}} /-</td>
                  </tr class="py-2">
 
                  <tr class="py-2">
@@ -82,6 +89,15 @@ rel="stylesheet"
                   <th>Payment ID :</th>
                   <td>{{order.payment_id}}</td>
                  </tr class="py-2">
+                 <tr><th></th></tr>
+                 <tr>
+                  <th colspan="2">
+                        <h1 class="text-light bg-info text-center">{{order.status}}</h1>
+                  </th>
+                 </tr>
+                 <tr>
+                  <th></th>
+                 </tr>
                  <tr class="py-2">
                   <th colspan="2"><hr class='hrItem' /></th>
                  </tr class="py-2">

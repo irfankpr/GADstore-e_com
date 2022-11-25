@@ -34,10 +34,11 @@ def chkout(request):
 def place_order(request):
     if not 'add_id' in request.POST:
         return JsonResponse({'placed': False})
-    if request.POST['paym'] == 'COD':
+    if request.POST['paym'] == 'COD' or request.POST['paym'] == 'gadcoin':
         citems = cart.objects.filter(user_id_id=request.user.id)
         add_id = request.POST['add_id']
         add = address.objects.get(id=add_id)
+        method=request.POST['paym']
         for c in citems:
             Dis = 0
             coupdis = None
@@ -60,7 +61,11 @@ def place_order(request):
                     coupon.discount_rate) + "  for minimum purchase  " + str(
                     coupon.minimum) + "  with maxlimit of  " + str(coupon.maxlimit)
             orders(user=c.user_id, product=c.product_id, coupon_applied=coupdis, quantity=c.count, status='Placed',
-                   Total=c.total - Dis, address=ordrADD, payment='COD', discount_price=Dis, Offer_applied=offer).save()
+                   Total=c.total - Dis, address=ordrADD, payment=method, discount_price=Dis, Offer_applied=offer).save()
+            if method == "gadcoin":
+                userprofiles.objects.filter(id=request.user.id).update(wallet=F('wallet')-c.total)
+                walletTrans(user=request.user,quantity=c.total,CrDr="Debited",desc="purchace of : "+c.product_id.Product_name).save()
+
         cart.objects.filter(user_id_id=request.user.id).delete()
         return JsonResponse({'Placed': True})
     elif request.POST['paym'] == 'razorpay':
@@ -132,10 +137,8 @@ def cancel_order(request, id):
     if o.payment != "COD":
         o.status= "Cancelled"
         o.save()
-        usr = userprofiles.objects.get(id=request.user.id)
-        usr.wallet = usr.wallet + o.Total
-        usr.save()
-        walletTrans(user=request.user,quantity=o.Total,desc="Refunded for cancel of : "+o.product.Product_name).save()
+        userprofiles.objects.filter(id=request.user.id).update(wallet=F('wallet') + o.Total)
+        walletTrans(user=request.user,quantity=o.Total,desc="Refunded for cancel of : "+o.product.Product_name,CrDr="Credited").save()
     else:
         o.status = "Cancelled"
         o.save()
