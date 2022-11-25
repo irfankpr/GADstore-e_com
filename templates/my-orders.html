@@ -32,7 +32,17 @@
 
 <body>
     {% include 'Components/topbar.html' %}
-   
+    <div class="container-fluid topper">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30 h6">
+                    <a class="breadcrumb-item text-dark" href="{% url 'home'%}">Home</a>
+                    <a class="breadcrumb-item text-dark" href="{% url 'shop'%}">Shop</a>
+                    <span class="breadcrumb-item active">My-Orders</span>
+                </nav>
+            </div>
+        </div>
+    </div>
     <!-- Cart Start -->
     <div class="container-fluid">
         <div class="row px-xl-5 justify-content-center">
