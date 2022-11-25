@@ -43,6 +43,10 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href=" {% static 'admin/css/style.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+       <!-- google charts -->
+   <script
+   src="https://www.gstatic.com/charts/loader.js">
+   </script>
     
 </head>
 <body>
@@ -354,8 +358,8 @@
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
                                                             <div class="col-8">
-                                                                <h4 class="text-c-blue">500</h4>
-                                                                <h6 class="text-muted m-b-0">Downloads</h6>
+                                                                <h4 class="text-c-blue">{{R12|floatformat:"2"}}</h4>
+                                                                <h6 class="text-muted m-b-0"></h6>
                                                             </div>
                                                             <div class="col-4 text-right">
                                                                 <i class="fa fa-hand-o-down f-28"></i>
@@ -365,7 +369,7 @@
                                                     <div class="card-footer bg-c-blue">
                                                         <div class="row align-items-center">
                                                             <div class="col-9">
-                                                                <p class="text-white m-b-0">% change</p>
+                                                                <p class="text-white m-b-0">Last 12 moths revenue</p>
                                                             </div>
                                                             <div class="col-3 text-right">
                                                                 <i class="fa fa-line-chart text-white f-16"></i>
@@ -563,32 +567,41 @@ new Chart("myChart", {
                                                     </div>
                                                    
                                                 </div>
-                                                <div class="card quater-card">
-                                                    <div class="card-block">
-                                                        <h6 class="text-muted m-b-15">This Quarter</h6>
-                                                        <h4>$3,9452.50</h4>
-                                                        <p class="text-muted">$3,9452.50</p>
-                                                        <h5>87</h5>
-                                                        <p class="text-muted">Online Revenue<span
-                                                                class="f-right">80%</span></p>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-c-blue" style="width: 80%">
-                                                            </div>
-                                                        </div>
-                                                        <h5 class="m-t-15">68</h5>
-                                                        <p class="text-muted">Offline Revenue<span
-                                                                class="f-right">50%</span></p>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-c-green" style="width: 50%">
-                                                            </div>
-                                                        </div>
+                                                <div class="card quater-card p-0 m-0">
+                                                    <div class="card-block m-0 p-0 row">
+                                                    <span class=" h6 btn btn-primary col-12 p-0 m-0">Last 12 months revenue</span>
+                                                        <div id="12rev" class="col-12 p-0 m-0" style="width:100%; max-width:600px; height:500px;"></div>
+                                                        <script>
+                                                            google.charts.load('current',{packages:['corechart']});
+                                                            google.charts.setOnLoadCallback(drawChart);
+                                                            
+                                                            function drawChart() {
+                                                            // Set Data
+                                                            var data = google.visualization.arrayToDataTable([
+                                                              ['Month', 'Sales'],
+                                                              {% for r in rev12 %}
+                                                              [getMonthName( {{r.date__date__month}} ),{{r.rev|floatformat:"0"}}],
+                                                              {% endfor %}
+                                                              
+                                                            ]);
+                                                            // Set Options
+                                                            var options = {
+                                                              legend: 'none'
+                                                            };
+                                                            // Draw
+                                                            var chart = new google.visualization.LineChart(document.getElementById('12rev'));
+                                                            chart.draw(data, options);
+                                                            }
+                                                            </script>
+                                                            
+                                                           
                                                     </div>
                                                 </div>
                                             </div>
                                             <!--  sale analytics end -->
 
                                             <!--  project and team member start -->
-                                            <div class="col-xl-8 col-md-12">
+                                            <div class="col-xl-8 col-md-12 mt-5">
                                                 <div class="card table-card">
                                                     <div class="card-header">
                                                         <h5>Products having low stock</h5>
@@ -662,7 +675,7 @@ new Chart("myChart", {
         </div>
     </div>
     </div>
-   
+
     <!-- Required Jquery -->
     <script type="text/javascript" src="{% static 'admin/js/jquery/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>

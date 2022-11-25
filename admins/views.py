@@ -177,9 +177,16 @@ def adminhome(request):
             orders=Count('id')).order_by('-date__date')[:6]
 
         Top = orders.objects.filter(date__range=(today - datetime.timedelta(days=30), today)).annotate(prd=Max('Total'))
+
+        rev12 = orders.objects.all().values('date__date__month').annotate(
+            rev=Sum('Total'),).order_by('date__date__month')[:12]
+        R12=0
+        for r in rev12:
+            R12 = R12 + r.get("rev")
+
         return render(request, 'admin/admin-dashbord.html',
                       {'admins': admins, 'products': p, 'dates': dates, 'returns': returns, 'sales': sales,
-                       'today': today.date,
+                       'today': today.date,"rev12":rev12,"R12":R12,
                        'todayords': todayords, 'months': months, 'last30': last30, 'Top': Top})
     else:
         return redirect('admin')
