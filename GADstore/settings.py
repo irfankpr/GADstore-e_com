@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'GADstore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gadstore',
+        'NAME': 'gadtore',
         'USER': 'gadstore',
         'PASSWORD': 'GAD123',
         'HOST': 'localhost',
