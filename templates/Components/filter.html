@@ -10,8 +10,8 @@
                         <select class="bg-warning border-0 h6 text-center rounded" id="sorter"
                             aria-label=".form-select-sm example" style="outline: none;" onchange="sort()">
                             <option class="my-2" value="NO">_ _ _</option>
-                            <option class="my-2" value="LH">Low to high</option>
-                            <option class="my-2" value="HL">High to low</option>
+                            <option class="my-2" value="LH" {% if sort == "LH" %}selected{% endif %}>Low to high</option>
+                            <option class="my-2" value="HL" {% if sort == "HL" %}selected{% endif %}>High to low</option>
 
                         </select>
                     </div>

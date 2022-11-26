@@ -68,11 +68,12 @@ def place_order(request):
 
         cart.objects.filter(user_id_id=request.user.id).delete()
         return JsonResponse({'Placed': True})
-    elif request.POST['paym'] == 'razorpay':
+    elif request.POST['paym'] == 'razorpay' or request.POST['paym'] == 'paypal':
         citems = cart.objects.filter(user_id_id=request.user.id)
         add_id = request.POST['add_id']
         payment_id = request.POST['payment_id']
         add = address.objects.get(id=add_id)
+        method = request.POST['paym']
         for c in citems:
             Dis = 0
             coupdis = None
@@ -95,7 +96,7 @@ def place_order(request):
                     coupon.discount_rate) + "  for minimum purchase  " + str(
                     coupon.minimum) + "  with maxlimit of  " + str(coupon.maxlimit)
             orders(user=c.user_id, product=c.product_id, coupon_applied=coupdis, quantity=c.count, status='Placed',
-                   Total=c.total - Dis, address=ordrADD, payment='Razorpay', payment_id=payment_id, discount_price=Dis,
+                   Total=c.total - Dis, address=ordrADD, payment=method, payment_id=payment_id, discount_price=Dis,
                    Offer_applied=offer).save()
 
             products.objects.filter(id=c.product_id_id).update(available_stock=F('available_stock') - c.count)

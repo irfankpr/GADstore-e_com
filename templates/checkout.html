@@ -151,8 +151,8 @@
                             <div class="form-group">
                                 <div class="custom-control custom-radio">
                                     <input value="paypal" type="radio" class="custom-control-input"
-                                        onclick="pmd('#ppl')" name="payment" id="paypal">
-                                    <label class="custom-control-label" for="paypal">Paypal</label>
+                                        onclick="pmd('#ppl')" name="payment" id="pplid">
+                                    <label class="custom-control-label" for="pplid">Paypal</label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -171,7 +171,7 @@
                             </div>
                             <div class="form-group mb-4">
                                 <div class="custom-control custom-radio">
-                                    <input value="gadcoin" type="radio" class="custom-control-input" onclick="pmd('#gadcoin')"
+                                    <input value="gadcoin" type="radio" class="custom-control-input" onclick="pmd('#GADcoin')"
                                         name="payment" id="gadcoin" {% if ttl > request.user.wallet %}disabled{% endif %}>
                                     <label class="custom-control-label " for="gadcoin">GADcoins</label>
                                 </div>
@@ -197,8 +197,8 @@
                                         <div class="modal-body h6">
                                             Are you sure to continue with <span class="h5  mx-3 text-info">COD</span>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
+                                        <div class="modal-footer d-flex justify-content-around">
+                                            <button type="button" class="btn btn-danger"
                                                 data-dismiss="modal">Cancel</button>
                                             <button type="button" onclick="placeorder()"
                                                 class="btn btn-primary">Continue</button>
@@ -208,7 +208,7 @@
                             </div>
 
                             <!-- Modal for gadcoin -->
-                            <div class="modal fade" id="cod" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="GADcoin" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -221,8 +221,8 @@
                                         <div class="modal-body h6">
                                             Are you sure to continue with <span class="h5  mx-3 text-info">gadcoins</span>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
+                                        <div class="modal-footer d-flex justify-content-around">
+                                            <button type="button" class="btn btn-danger"
                                                 data-dismiss="modal">Cancel</button>
                                             <button type="button" onclick="placeorder()"
                                                 class="btn btn-primary">Continue</button>
@@ -249,8 +249,8 @@
                                             Are you sure to continue with <span
                                                 class="h5  mx-3 text-info">Razorpay</span>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
+                                        <div class="modal-footer d-flex justify-content-around">
+                                            <button type="button" class="btn btn-danger"
                                                 data-dismiss="modal">Cancel</button>
                                             <button id="rzp-button1" class="btn btn-warning ro">Pay</button>
                                         </div>
@@ -274,10 +274,10 @@
                                         <div class="modal-body">
                                             Are you sure to continue with <span class="h5  mx-3 text-info">PayPal</span>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        <div class="modal-footer d-flex justify-content-around">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cancel</button>
+                                            <div id="paypal-button-container"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -307,6 +307,72 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+    <!-- paypal script starts -->
+    <script>
+        paypal.Buttons({
+            // styling btns
+            style: {
+                layout:  'horizontal',
+                color:   'gold',
+                shape:   'rect',
+                label:   'paypal',
+              },
+          // Sets up the transaction when a payment button is clicked
+          createOrder: (data, actions) => {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: '{{ttl}}' // Can also reference a variable or function
+                }
+              }]
+            });
+          },
+          
+          
+          // Finalize the transaction after payer approval
+          onApprove: (data, actions) => {
+            return actions.order.capture().then(function(orderData) {
+              // Successful capture! For dev/demo purposes:
+              console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+              const transaction = orderData.purchase_units[0].payments.captures[0];
+              $.ajax( {
+                type: "POST",
+                url: "{% url 'place-order' %}",
+                data: {
+                    coupon :  $("#ccode").val(),
+                    paym: $("input[type='radio'][name='payment']:checked").val(),
+                    add_id: $("input[type='radio'][name='address']:checked").val(),
+                    payment_id : transaction.id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    dataType: "json",
+                },
+                success: (response) => {
+                    if (response.Placed) {
+                        swal("Order placed", "will be deliveried soon", "success").then(function () { window.location="{% url 'my-orders' %}" })
+                    }else if (response.invalidCoupon) {
+                        swal("Invalid Coupon", "Check applied coupon", "error");
+                    }else if (response.minimum) {
+                        swal("Invalid Coupon", "Coupon needs minimum puechase of : "+minimum, "error");
+                    } else {
+                        swal("Payment failed", "Try again.").then( function(){window.location.reload()} )
+                        
+                    }
+                }
+            
+            
+            })
+              
+            });
+          },
+          
+          
+        }).render('#paypal-button-container');
+      </script>
+
+  <!-- paypal script starts -->
+
     <script>
         function pmd(m) {
             v = $("input[type='radio'][name='payment']:checked").val();
