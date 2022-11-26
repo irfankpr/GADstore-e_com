@@ -326,10 +326,17 @@
                     <span class="form-bar"></span>
                     <label class="float-label">Current Stockes</label>
                 </div>
+                <div id="" class="" data-cropzee="cropzee-input"></div>
+                            
+                <div style="display:flex">
+                    <div id="screen1" class="imggmi image-container col-6 mx-auto" ></div> <br>
+                  </div>
+                  <button type="button" class=" btn btn-outline-dark mx-2 text-center mx-auto" hidden id="crop-1">Crop</button>
                 <div class="form-group form-default d-flex mx-0 my-5 px-0 py-3 row">
                     <h6 class="form-bar m-0 p-0 col-4">Add Thumnail images :</h6>
                     <input type="file" id="thumb" name="thumb" class="col-7"
-                        placeholder="Add image" required="" oninput="is_image_thum()" accept="image/x-png,image/jpg,image/jpeg">
+                        placeholder="Add image" required oninput="is_image_thum()" accept="image/x-png,image/jpg,image/jpeg">
+                        <img src="" id="image1" alt="" class="imggmi mx-auto" style="height:100px">
                 </div>
                 <div class="form-group form-default d-flex mx-0 my-5 px-0 py-3 row">
                     <div class="col d-flex">
@@ -485,12 +492,18 @@
             <!-- Custom js -->
             <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
             <!-- swal -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.css"  />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.js"></script>
             <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
             <script>
+                const imagebox1 = document.getElementById('screen1')
+                const crop_btn1 = document.getElementById('crop-1')
+                const input1 = document.getElementById('thumb')
+
                 function is_image_thum(){
                     var img = document.getElementById('thumb')
                     if(!(/\.(jpe?g|tiff?|png)$/i).test(img.value)){
@@ -498,9 +511,54 @@
                         alertify.set('notifier','position', 'top-right');
                         alertify.error('<h3>Invalid file type</h3> <br> <h5>Use : jpg, jpeg or png </h5>');
                         img.value="";
-                    }
+                    } else {
+                        document.getElementById('image1').src = URL.createObjectURL(event.target.files[0])
+                        
+                      }
         
                 }
+
+                input1.addEventListener('change', () => {
+                    const img_data1 = input1.files[0]
+                    const url1 = URL.createObjectURL(img_data1)
+                    imagebox1.innerHTML = `<img src="${url1}" id="img1" style="width:100%;">`
+                    const img1 = document.getElementById('img1')
+                    document.getElementById('screen1').style.display = 'block'
+                
+                    document.getElementById('crop-1').style.display = 'block'
+                    document.getElementById('image1').style.display = 'block'
+                      
+                    crop_btn1.removeAttribute("hidden")
+                        
+          
+                    const cropper1 = new Cropper(img1, {
+                      autoCropArea: 1,
+                      viewMode: 1,
+                      scalable: false,
+                      zoomable: false,
+                      movable: false,
+                      minCropBoxWidth: 50,
+                      minCropBoxHeight: 50,
+                     
+                    })
+                
+                    crop_btn1.addEventListener('click', () => {
+                      
+                      
+                      cropper1.getCroppedCanvas().toBlob((blob) => {
+                        let fileInputElement1 = document.getElementById('thumb');
+                        let file1 = new File([blob], img_data1.name, { type: "image/*", lastModified: new Date().getTime() });
+                        let container1 = new DataTransfer();
+                        container1.items.add(file1);
+                        fileInputElement1.files = container1.files;
+                        document.getElementById('image1').src = URL.createObjectURL(fileInputElement1.files[0])
+                        document.getElementById('screen1').style.display = 'none'
+                        document.getElementById('crop-1').style.display = 'none'
+                        
+                      })
+                    })
+                
+                  })
 
                 function is_image_mul(){
                     var mul = document.getElementById('pimages')
