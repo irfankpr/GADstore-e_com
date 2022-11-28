@@ -45,8 +45,7 @@
                     <div class="text-center py-4">
                         <span class="h6 d-inline-block text-truncate col">{{ p.Product_name }}</span>
                         <div class="d-flex align-items-center justify-content-around mt-2">
-                            <span class="text-muted font-weight-bolder" style="font-size: small;">MRP: ₹ {{
-                                p.MRP |floatformat:"0"}}/-</span>
+                            <span class="text-muted font-weight-bolder" style="font-size: small;">MRP: ₹ {{p.MRP |floatformat:"0"}}/-</span>
                             {% if p.Offer or category.offer %}
                             <h5 class="text-success ">₹ {{p.MRP|sub:p.Dis |floatformat:"0"}}/-</h5>
                             {% else %}

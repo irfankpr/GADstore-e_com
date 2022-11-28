@@ -29,8 +29,10 @@ urlpatterns = [
     path('admin/addoffer', views.addoffers, name="addoffer"),
     path('admin/add-product-offer', views.addPoffers, name="add-product-offer"),
     path('admin/dlt-offer', views.dlt_offer, name="dlt-offer"),
-    path('admin/down-exel', views.download, name="down-exel"),
-    path('admin/report', views.report, name="report"),
+    path('admin/down-rep', views.download, name="down-exel"),
+    path('admin/report', views.analytics, name="report"),
     path('admin/down-rep', views.down_report, name="down-rep"),
+    path('admin/analytics', views.report, name="analytics"),
+    path('admin/y_m_report', views.report_table, name="y_m_report"),
 
 ]

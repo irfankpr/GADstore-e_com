@@ -3,14 +3,8 @@
 {% load static %}
 
 <head>
-    <title>Mega Able bootstrap admin template by codedthemes </title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Meta -->
+    <title>Admin pannel</title>
+   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -27,7 +21,7 @@
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/bootstrap/css/bootstrap.min.css' %}">
     <!-- waves.css -->
-    <link rel="stylesheet" href="{% static 'admin/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href=" {% static 'admin/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'admin/icon/themify-icons/themify-icons.css' %}">
     <!-- Font Awesome -->
@@ -133,7 +127,11 @@
                                 </a>
                                 <ul class="show-notification profile-notification p-2">
                                    
-                                   
+                                    <li class="waves-effect waves-light  mb-3">
+                                        <a href="user-profile.html">
+                                            <i class="ti-user mx-3 mb-4"></i> Profile
+                                        </a>
+                                    </li>
                                    
                                     <li class="waves-effect waves-light mb-3">
                                         <a href="{% url 'admin-logout'  %}">
@@ -153,8 +151,8 @@
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
 
-                           
-                            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Options</div>
+                            
+                            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Layout</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="{% url 'adminhome' %}" class="waves-effect waves-dark">
@@ -184,7 +182,7 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="active">
+                                <li class="">
                                     <a href="{% url 'allorders' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Orders</span>
@@ -206,7 +204,7 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="">
+                                <li class="active">
                                     <a href="{% url 'report' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Sales report</span>
@@ -252,88 +250,84 @@
                             </h5>
                             <!-- Hover table card start -->
                             <div class="card col-12">
-                                <div class="card-header">
-                                    <h3>Orders</h3>
-                                    <span>manage all orders here</span>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                                            <li><i class="fa fa-window-maximize full-card"></i></li>
-                                            <li><i class="fa fa-minus minimize-card"></i></li>
-                                            <li><i class="fa fa-refresh reload-card"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                
+                                
                                 <div class="mobile-search waves-effect waves-light d-flex m-0 p-0">
-                                    <div class="header-search col-9 ">
-                                        <div class="main-search morphsearch-search col-7">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search products">
-                                                <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                              
+                                    
+                                                    </div>
                                     {% for msg in messages %}
                                 <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}} </h4>
                                 {% endfor %}
                                 </div>
-                                
-                                <div class="card-block ">
+                                <form class="d-flex justify-content-center col-12 my-5 " action="{% url 'down-rep' %}" target="_blank" onsubmit="return rep()" >
+                                  
+                                        <span class="text-muted align-middle h6 mx-2">By year :</span>
+                                        <select name="year"  class="col-2 p-1 btn btn-outline-dark" id="year" oninput="yearf()">
+                                            <option value=""></option>
+                                            {% for d in year %}
+                                            <option >{{d}}</option>
+                                            {% endfor %}
+
+
+                                        </select>
+                                        <span class="text-muted mx-2 align-middle h6">By Month :</span>
+                                        <input class="col-2 p-1 btn btn-outline-dark" id="month" name="month" oninput="monthf()" max="{% now 'Y-m' %}" type="month">
+                                        
+                                        <div class="btn-group p-0 mx-3"
+                                                        data-toggle="buttons">
+
+                                                        <label class="btn btn-outline-success active">
+                                                            <input type="radio" name="type" checked
+                                                                id="option2" value="XLS"
+                                                                autocomplete="off">XLS
+                                                        </label>
+
+                                                        <label class="btn btn-outline-danger ">
+                                                            <input type="radio" name="type" id="option3"
+                                                                value="PDF" autocomplete="off">PDF
+                                                        </label>
+                                                       
+                                                    </div>
+                                    <button type="submit"
+                                    class="font-weight-bolder  mx-4 btn btn-outline-success py-1"><span
+                                        class="material-symbols-outlined">
+                                        download_for_offline
+                                    </span></button>
+                                </form>
+                                <div class="card-block col-12">
                                     <div class="table-responsive">
-                                        <table class="table border-dark border  align-middle h6" >
+                                        <table class="table border-dark border  align-middle h6" id="reptable">
                                             <thead class="thead-dark bg-dark text-center text-light">
                                                 <tr>
-                                                    <th style="width: 50px;">No.</th>
-                                                    <th>Product</th>
-                                                    <th></th>
-                                                    <th>Quantity</th>
-                                                    <th class="text-success">Amound</th>
-                                                    <th>date</th>
-                                                    <th>payment</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody >
-                                                {% for o in orders %}
-                                               
-                                                <tr>
-                                                    <th style="width: 50px;" class=" align-middle  h6" >{{forloop.counter}}</th>
-                                                    <td class="p-0 m-0 align-middle col-3"> <a href=""  class="text-primary">{{o.product.Product_name}}</a></td>
-                                                    <td class="p-0 align-middle "><img src="{{ o.product.thumbnail.url}}" height="100px" width="100px"
-                                                        style="object-fit: scale-down;"></td>
-                                                        <td class=" align-middle h6 text-center" >{{o.quantity}} </td>
-                                                    <td class=" align-middle text-success h6">{{ o.Total }}</td>
-                                                    <td class=" align-middle  h6">{{o.date.date }}</td>
-                                                    <td class=" align-middle h6 " >{{ o.payment }}</td>
-                                                    <td class=" align-middle h6 "> 
-                                                        <select name="status" id="status{{forloop.counter}}" class="border-0 h6 col" onchange="statusup('#status{{forloop.counter}}')" style="opacity: 1;" >
-                                                            <option value="{{o.id}}" selected >{{o.status}}</option>
-                                                           {% if o.status == 'Placed' %}
-                                                           <option value="{{o.id}}" >Cancelled</option> 
-                                                           <option value="{{o.id}}" >Shipped</option> 
-                                                           {% elif o.status == 'Shipped' %}
-                                                           <option value="{{o.id}}" >Out for delivery</option> 
-                                                           {% elif o.status == 'Out for delivery' %}
-                                                           <option value="{{o.id}}" >Delivered</option> 
-                                                           {% elif o.status == 'Returned' %}
-                                                           <option value="{{o.id}}" >Return confirmed</option> 
-                                                           <option value="{{o.id}}" >Return Rejected</option> 
-                                                           {% elif o.status == 'Return Rejected' %}
-                                                           <option value="{{o.id}}" >Return confirmed</option> 
-                                                           {% elif o.status == 'Return confirmed' %}
-                                                           <option value="{{o.id}}" >Picking up Today</option> 
-                                                           {% elif o.status == 'Picking up Today' %}
-                                                           <option value="{{o.id}}" >Refund initiated</option> 
-                                                           {% elif o.status == 'Refund initiated' %}
-                                                           <option value="{{o.id}}" >Refunded</option> 
-                                                           {% endif %}
-                                                            
-                                                         </select>                            
-                                                     </td>
-                                                </tr>
-                                                {% endfor %}
-
+                                                    <th >no</th>
+                                                    <th >Product</th>
+                                                    <th class="text-center">coupon</th>
+                                                    <th class="text-center">Offer</th>
+                                                    <th >MRP</th>
+                                                    <th >Price</th>
+                                                    <th >Discount</th>
+                                                    <th >Quantity</th>
+                                                    <th >Date</th>
+                                                    <th >Tottal</th>
+                                                    <th >Status</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for o in orders %}
+                                                  <tr >
+                                                    <th scope="row">{{forloop.counter}}</th>
+                                                    <td class="text-primary">{{ o.product.Product_name }}</td>
+                                                    <td class="text-secondary">{{o.coupon_applied}}</td>
+                                                    <td class="text-secondary">{{o.Offer_applied}}</td>
+                                                    <td class="text-primary font-weight-bolder bg-white">₹ {{o.product.MRP}} /-</td>
+                                                    <td class="text-primary font-weight-bolder bg-white">₹ {{o.product.price}} /-</td>
+                                                    <td class="text-center">{{o.product.Dis|floatformat:"0"}}</td>
+                                                    <td class="text-center">{{o.quantity}}</td>
+                                                    <td>{{o.date}}</td>
+                                                    <td>{{o.Total}}</td>
+                                                    <td class="font-weight-bolder text-info">{{o.status}}</td>
+                                                  </tr>
+                                                  {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -373,17 +367,17 @@
             </div>
            
 
-            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
              <!-- Required Jquery -->
              <script type="text/javascript" src="{% static 'admin/js/jquery/jquery.min.js' %}"></script>
-             <script type="text/javascript" src="{% static 'admin/js/jquery-ui/jquery-ui.min.js' %}"></script>
+             <script type="text/javascript" src="{% static 'admin/js/jquery-ui/jquery-ui.min.js' %} "></script>
              <script type="text/javascript" src="{% static 'admin/js/popper.js/popper.min.js' %}"></script>
              <script type="text/javascript" src="{% static 'admin/js/bootstrap/js/bootstrap.min.js' %}"></script>
              <!-- waves js -->
              <script src=" {% static 'admin/pages/waves/js/waves.min.js' %}"></script>
              <!-- jquery slimscroll js -->
              <script type="text/javascript"
-                 src=" {% static 'admin/js/jquery-slimscroll/jquery.slimscroll.js' %} "></script>
+                 src="{% static 'admin/js/jquery-slimscroll/jquery.slimscroll.js' %} "></script>
              <!-- modernizr js -->
              <script type="text/javascript" src=" {% static 'admin/js/SmoothScroll.js' %}"></script>
              <script src="{% static 'admin/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
@@ -393,53 +387,45 @@
              <!-- Custom js -->
              <script type="text/javascript" src=" {% static 'admin/js/script.js' %}"></script>
              <!-- ................................ -->
-             <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js" integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-             <script>
-                 function statusup(sl) {
-                     swal({
-                         title: "Update order status ?",
-                         
-                         icon: "info",
-                         buttons: true,
-                         dangerMode: true,
-                       })
-                       .then((willDelete) => {
-                         if (willDelete) {
- 
-                             $.ajax({
-                                 type: "POST",
-                                 url: "{% url 'order-up' %}",
-                                 data: {
-                                     status :  $(sl).children("option:selected").text(),
-                                     order:$(sl).children("option:selected").val(),
-                                     csrfmiddlewaretoken: '{{ csrf_token }}',
-                                     dataType: "json",
-                                 },
-                                 success: (response) => {
-                                     if (response.ordered) {
-                                        ord=$(sl).children("option:selected").val(),
-                                        url="{% url 'order_select' %}"+"?ord="+ord
-                                        $(sl).load(url);
-                                        
-                                     } 
-                                     
-                                 }
-                             });
-                           
-                         } else {
-                            ord=$(sl).children("option:selected").val(),
-                            url="{% url 'order_select' %}"+"?ord="+ord
-                            $(sl).load(url);
-                           }
-                       });
-         
-                     
-                     return false; 
+            <!-- JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+            <script>
+                function yearf(){
+                    document.getElementById("month").value=""
+                    url = "{% url 'y_m_report' %}"+"?type=year&year="+document.getElementById("year").value
+                    $('#reptable').load(url);
+                }
+                function monthf(){
+                    document.getElementById("year").value=""
+                    url = "{% url 'y_m_report' %}"+"?type=month&month="+document.getElementById("month").value
+                    $('#reptable').load(url);
                     
-                     
-                 }
-                
-             </script>
+                }
+
+                function rep(){
+                    y=document.getElementById("year").value
+                    m=document.getElementById("month").value
+                    if (y==""&& m==""){
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.error('Select month or year');
+                        return false;
+                    }else{
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.success('Downloading sales report ...');
+                        return true;
+                    }
+                }
+            </script>
+             
 </body>
 
 </html>

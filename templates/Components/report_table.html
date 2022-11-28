@@ -1,0 +1,33 @@
+
+    <thead class="thead-dark bg-dark text-center text-light">
+        <tr>
+            <th >no</th>
+            <th >Product</th>
+            <th class="text-center">coupon</th>
+            <th class="text-center">Offer</th>
+            <th >MRP</th>
+            <th >Price</th>
+            <th >Discount</th>
+            <th >Quantity</th>
+            <th >Date</th>
+            <th >Tottal</th>
+            <th >Status</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for o in orders %}
+          <tr >
+            <th scope="row">{{forloop.counter}}</th>
+            <td class="text-primary">{{ o.product.Product_name }}</td>
+            <td class="text-secondary">{{o.coupon_applied}}</td>
+            <td class="text-secondary">{{o.Offer_applied}}</td>
+            <td class="text-primary font-weight-bolder bg-white">₹ {{o.product.MRP}} /-</td>
+            <td class="text-primary font-weight-bolder bg-white">₹ {{o.product.price}} /-</td>
+            <td class="text-center">{{o.product.Dis|floatformat:"0"}}</td>
+            <td class="text-center">{{o.quantity}}</td>
+            <td>{{o.date}}</td>
+            <td>{{o.Total}}</td>
+            <td class="font-weight-bolder text-info">{{o.status}}</td>
+          </tr>
+          {% endfor %}
+    </tbody>

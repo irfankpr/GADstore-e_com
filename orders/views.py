@@ -124,6 +124,7 @@ def order_up(request):
             usr = userprofiles.objects.get(id=request.user.id)
             usr.wallet = usr.wallet + o.Total
             usr.save()
+            products.obects.filter(id=o.product_id).update(available_stock=F('available_stock') + o.quantity)
             walletTrans(user=request.user, quantity=o.Total,
                         desc="Refunded for return of : " + o.product.Product_name).save()
 

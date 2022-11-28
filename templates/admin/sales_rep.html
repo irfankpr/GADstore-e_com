@@ -51,7 +51,7 @@ rel="stylesheet"
                 <tbody>
                     {% for o in orders %}
                   <tr>
-                    <th scope="row">{{foorloop.counter}}</th>
+                    <th scope="row">{{forloop.counter}}</th>
                     <td>{{ o.product.Product_name }}</td>
                     <td>{{o.coupon_applied}}</td>
                     <td>{{o.Offer_applied}}</td>

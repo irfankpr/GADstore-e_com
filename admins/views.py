@@ -1,3 +1,4 @@
+import calendar
 import datetime
 import xlwt
 from django.contrib import messages
@@ -417,18 +418,38 @@ def download_excel_data(request):
             ws.col(col_num).width = 6000  # at 0 row 0 column
 
         font_style = xlwt.XFStyle()
-        too = request.GET['tDate']
-        frm = request.GET['fDate']
+        month = request.GET['month']
+        year = request.GET['year']
+        if year == "":
+            m = month.split("-")[1]
+            y = month.split("-")[0]
+            rows = orders.objects.filter(date__date__year=y, date__date__month=m).order_by('date')
+        elif month == "":
+            rows = orders.objects.filter(date__date__year=year).order_by('date')
 
-        rows = orders.objects.filter(date__range=(frm, too)).order_by('date')
         for o in rows:
             row_num += 1
             ws.write(row_num, 0, row_num, font_style)
-            ws.write(row_num, 1, o.product.Product_name, font_style)
-            ws.write(row_num, 2, o.product.MRP, font_style)
-            ws.write(row_num, 3, o.product.price, font_style)
-            ws.write(row_num, 4, int(o.product.Dis), font_style)
-            ws.write(row_num, 5, o.product.price - int(o.product.Dis), font_style)
+            try:
+                ws.write(row_num, 1, o.product.Product_name, font_style)
+            except:
+                ws.write(row_num, 1, "deleted product", font_style)
+            try:
+                ws.write(row_num, 2, o.product.MRP, font_style)
+            except:
+                ws.write(row_num, 2, "---", font_style)
+            try:
+                ws.write(row_num, 3, o.product.price, font_style)
+            except:
+                ws.write(row_num, 3, "---", font_style)
+            try:
+                ws.write(row_num, 4, int(o.product.Dis), font_style)
+            except:
+                ws.write(row_num, 4, "---", font_style)
+            try:
+                ws.write(row_num, 5, o.product.price - int(o.product.Dis), font_style)
+            except:
+                ws.write(row_num, 5, "---", font_style)
             ws.write(row_num, 6, o.quantity, font_style)
             ws.write(row_num, 7, o.Total, font_style)
             ws.write(row_num, 8, o.payment, font_style)
@@ -456,18 +477,29 @@ def download_excel_data(request):
 
 
 def GeneratePdf(request):
-    too = request.GET['tDate']
-    frm = request.GET['fDate']
-    ord = orders.objects.filter(date__range=(frm, too)).order_by('date')
-    prdc = orders.objects.filter(date__range=(frm, too)).values('product_id').annotate(
-        sales=Sum('Total', filter=Q(status='Delivered'))).order_by(
-        'date__date')
+    month = request.GET['month']
+    year = request.GET['year']
+    if year=="":
+        m=month.split("-")[1]
+        y=month.split("-")[0]
+        range = year+" - "+ calendar.month_name[int(m)]
+        ord = orders.objects.filter(date__date__year=y,date__date__month=m).order_by('date')
+        prdc = orders.objects.filter(date__date__year=y,date__date__month=m).annotate(
+            sales=Sum('Total', filter=Q(status='Delivered'))).order_by(
+            'date__date')
+    elif month=="":
+        range="year "+str(year)
+        ord = orders.objects.filter(date__date__year=year).order_by('date')
+        prdc = orders.objects.filter(date__date__year=year).values('product_id').annotate(
+            sales=Sum('Total', filter=Q(status='Delivered'))).order_by(
+            'date__date')
+
 
     template = get_template('admin/sales_rep.html')
     data = {
         'today': datetime.date.today(),
         'orders': ord,
-        'range': str(frm) + " - " + str(too),
+        'range': range,
         'prdc': prdc,
     }
     html = template.render(data)
@@ -523,3 +555,31 @@ def down_report(request):
     t = request.GET["to"]
     print(type)
     return JsonResponse({'Placed': True})
+
+
+@never_cache
+def analytics(request):
+    e = datetime.date.today().year
+    s = 2020
+    years=[]
+    for y in range(s, e + 1):
+        years.append(y)
+    data = orders.objects.filter(date__date__month=datetime.date.today().month).order_by("date__date")
+
+    return render(request,"admin/analytics.html",{"year":years,"orders":data})
+@never_cache
+def report_table(request):
+    if request.GET["type"]=="month":
+        val = request.GET["month"]
+        month = val.split("-", 1)[1]
+        print(month)
+        year = val.split("-",1)[0]
+        print(year)
+        data = orders.objects.filter(date__date__year=year,date__date__month=month).order_by("date__date")
+
+    if request.GET["type"]=="year":
+        year = request.GET["year"]
+        data = orders.objects.filter(date__date__year=year).order_by("date__date")
+        print(year)
+    print(data)
+    return render(request,'Components/report_table.html',{"orders":data})

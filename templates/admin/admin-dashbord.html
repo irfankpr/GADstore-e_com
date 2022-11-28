@@ -229,6 +229,13 @@
                                     </a>
                                 </li>
                                 <li class="">
+                                    <a href="{% url 'analytics' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">analytics</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
                                     <a href="{% url 'report' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Sales report</span>
@@ -261,9 +268,6 @@
                                 
                             </ul>
                            
-                            
-
-                            
                            
                         </div>
                     </nav>
@@ -443,34 +447,7 @@
                                                      
                     
                                                     </div>
-                                                    <form action="{% url 'down-exel' %}" class="d-flex justify-content-center col-12 my-5" target="_blank">
-                                                    <div class="col-12 container-fluid row justify-content-center">
-                                                        <span class="text-muted align-middle h6">From :</span>
-                                                        <input class="col-2 mx-3 p-1 btn btn-outline-dark" id="fDate" name="fDate" type="date" required>
-                                                        <span class="text-muted mx-2 align-middle h6">To :</span>
-                                                        <input class="col-2 p-1 btn btn-outline-dark" id="tooDate" name="tDate" max="{{today|date:'Y-m-d'}}" type="date" required >
-                                                        <div class="btn-group p-0 mx-3"
-                                                                        data-toggle="buttons">
-
-                                                                        <label class="btn btn-outline-success active">
-                                                                            <input type="radio" name="type" checked
-                                                                                id="option2" value="XLS"
-                                                                                autocomplete="off">XLS
-                                                                        </label>
-
-                                                                        <label class="btn btn-outline-danger ">
-                                                                            <input type="radio" name="type" id="option3"
-                                                                                value="PDF" autocomplete="off">PDF
-                                                                        </label>
-                                                                       
-                                                                    </div>
-                                                    </div>
-                                                    <button type="submit"
-                                                    class="font-weight-bolder  mx-4 btn btn-outline-success py-1"><span
-                                                        class="material-symbols-outlined">
-                                                        download_for_offline
-                                                    </span></button>
-                                                </form>
+                                                    
                                                 <div class="card-block container row col-12 m-0 p-0  align-middle" >
                                                     <div class="card-header">
                                                         <h5>Last 30 days sales Analytics</h5>
