@@ -346,7 +346,7 @@ def fil_sort(request):
     to = request.GET['to']
     sort = request.GET['sort']
     q = Q()
-    q &= Q(Product_name__icontains=key) | Q(products_dyl__icontains=key) | Q(products_desc__icontains=key)
+    q &=  Q(Product_name__icontains=key) | Q(products_dyl__icontains=key) | Q(products_desc__icontains=key) | Q(category__category_name__icontains=key)
     if sort == "HL":
         prds = products.objects.filter(q).order_by('-price')
     if sort == "LH":
