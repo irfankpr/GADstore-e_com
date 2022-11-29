@@ -112,7 +112,7 @@
                                     <div class="modal-dialog" role="document">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLabel">Return {{o.product.Product_name}}</h5>
+                                          <h5 class="modal-title" id="exampleModalLabel">Cancel - {{o.product.Product_name}}</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                           </button>
@@ -121,7 +121,7 @@
                                           <form>
                                             <div class="form-group">
                                               <label for="message-text" class="col-form-label font-weight-light">Provide an reason:</label>
-                                              <textarea oninput="msg('cancel{{forloop.counter}}','cancelbtn{{forloop.counter}}')" class="form-control border border-warning" id="cancel{{forloop.counter}}"></textarea>
+                                              <textarea oninput="msg('ctxt{{forloop.counter}}','cancelbtn{{forloop.counter}}')" class="form-control border border-warning" id="ctxt{{forloop.counter}}"></textarea>
                                             </div>
                                           </form>
                                         </div>
