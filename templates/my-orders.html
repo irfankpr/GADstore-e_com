@@ -90,7 +90,7 @@
                                         <div class="modal-body">
                                           <form>
                                             <div class="form-group">
-                                              <label for="message-text" class="col-form-label font-weight-light">Provide an reson:</label>
+                                              <label for="message-text" class="col-form-label font-weight-light">Provide an reason:</label>
                                               <textarea oninput="msg('msg{{forloop.counter}}','msgbtn{{forloop.counter}}')" class="form-control border border-warning" id="msg{{forloop.counter}}"></textarea>
                                             </div>
                                           </form>
@@ -108,25 +108,30 @@
                                 {% if  o.status == 'Placed' or  o.status == 'Shipped' and  o.status != 'Out for delivery' %}
                                 <a class="btn btn-outline-danger rounded h5 " data-toggle="modal" data-target="#cancel{{forloop.counter}}">Cancel</a>
                                 <!-- Modal -->
-<div class="modal fade" id="cancel{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Request Cancel</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            {{o.product.Product_name}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <a  href="{% url 'cancel-order' o.id %}" type="button" class="btn btn-danger">Cancel</a>
-        </div>
-      </div>
-    </div>
-  </div>
+                                <div class="modal fade" id="cancel{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Return {{o.product.Product_name}}</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form>
+                                            <div class="form-group">
+                                              <label for="message-text" class="col-form-label font-weight-light">Provide an reason:</label>
+                                              <textarea oninput="msg('cancel{{forloop.counter}}','cancelbtn{{forloop.counter}}')" class="form-control border border-warning" id="cancel{{forloop.counter}}"></textarea>
+                                            </div>
+                                          </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary border border-dark" data-dismiss="modal">Close</button>
+                                          <button class="btn btn-danger" id="cancelbtn{{forloop.counter}}" onclick="window.location.replace('{% url 'cancel-order' o.id %}')" disabled>Cancel Order</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 {% endif %}
                                 {% endif %}
                             </td>
