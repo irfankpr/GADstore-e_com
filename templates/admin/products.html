@@ -301,7 +301,7 @@
           </button>
         </div>
         <div class="modal-body p-5 border border-primary">
-            <form class="form-material text-center" method="POST" action="addproduct" enctype='multipart/form-data'>
+            <form class="form-material text-center" method="POST" action="addproduct" onsubmit="catg()" enctype='multipart/form-data'>
                 {% csrf_token %}
                 <div class="form-group form-default mb-5">
                     <input type="text" name="name" class="form-control" required="">
@@ -355,8 +355,8 @@
                     
                 </div>
                 <div class="col-12 container row text-center justify-content-center">
-                    <select name="cat" class="form-control border border-primary col-5" required>
-                        <option >Select Category</option>
+                    <select name="cat" class="form-control border border-primary col-5" id="cat_select" required>
+                        <option>Select Category</option>
                         {% for c in cat %}
                         <option value="{{ c.id }}">{{ c.category_name }}</option>
                         {% endfor %}
@@ -579,6 +579,14 @@
                     }
                    
 
+                }
+                function catg(){
+                    var cat = document.getElementById("cat_select").value
+                    if (cat == "Select Category"){
+                        event.preventDefault()
+                        alertify.set('notifier','position', 'top-right');
+                        alertify.error('<h3>Select Category</h5>');
+                    }
                 }
             </script>
             <style>
