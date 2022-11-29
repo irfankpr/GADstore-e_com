@@ -344,7 +344,7 @@ def addoffers(request):
         cat.save()
         products.objects.filter(category_id=id).update(Dis=((F('MRP') * rate) / 100))
         messages.error(request, 'New offer added')
-        return redirect('Offers')
+        return redirect('cat-Offers')
 
 
 def addPoffers(request):
