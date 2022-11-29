@@ -357,7 +357,7 @@ def addPoffers(request):
         prd.Dis = int((prd.MRP * offer) / 100)
         prd.save()
         messages.error(request, 'New offer added')
-        return redirect(request.META.get('HTTP_REFERER'))
+        return redirect('prd-Offers')
 
 
 def dlt_offer(request):
