@@ -293,6 +293,8 @@ def landing(request):
         count = 0
     new = products.objects.all().order_by('-added_date')[:12]
     cat = categories.objects.all().annotate(cat_count=Count('category_name')).order_by('category_name')
+    for c in cat:
+        c.prds = products.objects.filter(category=c.id).count()
     subcat = sub_categories.objects.all().annotate(subcat_count=Count('sub_cat_name')).order_by('sub_cat_name')
     rndm = products.objects.all().order_by('?')[:8]
     return render(request, 'gadstore.html', {'cat': cat, 'new': new, 'subcat': subcat, 'count': count, "sug":rndm})
