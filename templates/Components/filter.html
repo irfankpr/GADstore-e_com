@@ -30,8 +30,7 @@
                             OFF</a>
                         {% elif p.category.offer %}
                         <a
-                            class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{
-                            p.category.offer_rate|floatformat:"0"}} % OFF</a>
+                            class="bg-danger position-absolute text-light bolder py-1 px-2 border border-light rounded m-3 h6">{{p.category.offer_rate|floatformat:"0"}} % OFF</a>
                         {% endif %}
                         <img class="img-fluid w-100" src="{{ p.thumbnail.url}}" alt="">
                         <div class="product-action">
