@@ -16,8 +16,8 @@ class otpgen():
     phone = 0
 
     def send_otp(self,phone):
-        account_ssid = 'ACe6367b4e0523f007dac124700c291ac2'
-        auth_token = '95c04ad92f865b6c827ac56327f1523f'
+        account_ssid = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+        auth_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
         target_number = '+91' + phone
         print(phone)
         twilio_number = '+19035679739'
