@@ -144,8 +144,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'profiles.userprofiles'
 
 
-RAZOR_PAY_KEY_ID = 'rzp_test_PhZWg0KKgRh6je'
-KEY_SECRETE = '75NGiMTB9h3M6AtKP0Iybc4v'
+RAZOR_PAY_KEY_ID = 'xxxxxxxxxxxxxxxxxxxxxxxx'
+KEY_SECRETE = 'xxxxxxxxxxxxxxxxxxxxxxxx'
 
 
 CSRF_TRUSTED_ORIGINS = ['https://gadstore.ga']
